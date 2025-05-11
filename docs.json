@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Tonga National Portal",
         "groups": [
           {
             "group": "Get Started",
@@ -35,21 +35,25 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "Tonga Citizen Portal",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Get Started",
             "pages": [
-              "api-reference/introduction"
+              "index",
+              "quickstart",
+              "development"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Essentials",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/settings",
+              "essentials/navigation",
+              "essentials/reusable-snippets"
             ]
           }
         ]
