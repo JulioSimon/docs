@@ -1,0 +1,1735 @@
+---
+title: 'Module Functionalities'
+description: 'Detailed breakdown of specific modules available in both the Admin and App panels'
+icon: 'cubes'
+---
+
+This section provides a detailed breakdown of the specific modules available in both the Admin and App panels of the Citizen Portal.
+
+## Admin Panel Modules
+
+The Admin Panel provides government staff with comprehensive tools to manage various aspects of government operations.
+
+### Entity Management
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Entity Management module allows super administrators to create and manage government ministries and departments within the system.
+    </Info>
+    
+    - Create and configure government entities (ministries, departments)
+    - Manage entity information, contact details, and branding
+    - Assign users to entities for proper access control
+    - Maintain a centralized directory of all government organizations
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Entity Creation" icon="plus">
+        Set up new government entities with comprehensive information
+      </Card>
+      <Card title="Entity Configuration" icon="gear">
+        Customize settings for each entity including contact details
+      </Card>
+      <Card title="User Assignment" icon="users">
+        Associate staff users with specific entities for proper access control
+      </Card>
+      <Card title="Entity Branding" icon="image">
+        Upload logos and set entity-specific styling for consistent visual identity
+      </Card>
+      <Card title="Entity Directory" icon="folder-tree">
+        Maintain a searchable list of all government entities
+      </Card>
+      <Card title="Role-Based Access" icon="lock">
+        Restrict entity management to super administrators only
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Entities are managed through the `EntityResource` class which extends Filament's `Resource` class
+    - Entity data is stored in the `entities` table with relationships to users
+    - Super administrators can see and manage all entities, while regular administrators can only see entities they are assigned to
+    - Entity logos are managed through Spatie Media Library with a dedicated 'logos' collection
+    - The system enforces proper access control through the `getEloquentQuery` method which filters entities based on user permissions
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Creating a New Entity">
+        - Navigate to Entities in the Portal Management group
+        - Click "New Entity"
+        - Fill in the required information:
+          - Name (required): Official name of the entity
+          - Contact information:
+            - Email: Official contact email
+            - Phone: Main contact number
+            - Website: Official website URL
+          - Address: Physical location of the entity
+        - Upload entity logo (recommended size: square format, minimum 200x200px)
+        - Click "Create" to save the new entity
+      </Step>
+      <Step title="Viewing Entity Details">
+        - From the entities list, click on an entity name or the "View" button
+        - The entity detail page shows:
+          - Logo and basic information in a split-view layout
+          - Contact details including email, phone, website, and address
+          - Number of assigned users
+      </Step>
+      <Step title="Editing an Entity">
+        - From the entity list or detail view, click the "Edit" button
+        - Update any information as needed
+        - Click "Save" to apply changes
+      </Step>
+      <Step title="Managing Entity Users">
+        - Navigate to the Users section in the Shield group
+        - Use the Entity filter to view users assigned to a specific entity
+        - Add or remove users as needed
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Note>
+  **Access Control Notes**
+  
+  - Only users with the `super_admin` role can create and manage all entities
+  - Regular administrators can only view and manage entities they are assigned to
+  - Entity assignments determine which data users can access throughout the system
+</Note>
+
+### User Management
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The User Management module allows administrators to create and manage user accounts, assign roles and permissions, and control access to different parts of the system.
+    </Info>
+    
+    - Create and manage user accounts for government staff
+    - Assign roles and permissions to users based on job responsibilities
+    - Associate users with specific government entities
+    - Ensure proper access control throughout the system
+    - Monitor user activity and access for security and compliance
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="User Creation" icon="user-plus">
+        Create new user accounts with appropriate roles and entity assignments
+      </Card>
+      <Card title="Role Assignment" icon="user-tag">
+        Assign predefined roles to users (e.g., admin, manager, staff)
+      </Card>
+      <Card title="Entity Association" icon="building-user">
+        Connect users to specific government entities they work for
+      </Card>
+      <Card title="Permission Management" icon="key">
+        Fine-tune user permissions through role assignments
+      </Card>
+      <Card title="Access Control" icon="shield-halved">
+        Restrict user access based on roles and entity assignments
+      </Card>
+      <Card title="User Directory" icon="address-book">
+        Maintain a searchable list of all system users
+      </Card>
+      <Card title="Security Enforcement" icon="lock">
+        Prevent regular administrators from creating super admin accounts
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Users are managed through the `UserResource` class which extends Filament's `Resource` class
+    - User data is stored in the `users` table with relationships to roles and entities
+    - The system uses a role-based access control system with entity-based scoping
+    - Super administrators can see and manage all users, while regular administrators can only manage users within their entities
+    - The system prevents non-super-admin users from creating or managing super admin accounts
+    - Entity assignments create a many-to-many relationship between users and entities
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Creating a New User">
+        - Navigate to Users in the Shield group
+        - Click "New User"
+        - Fill in the required information:
+          - Name (required): Full name of the user
+          - Email (required): Work email address (used for login)
+          - Password (required): Initial password (user should change after first login)
+          - Role (required): Select appropriate role from dropdown
+          - Entity (required): Select the government entity this user belongs to
+        - Click "Create" to save the new user
+      </Step>
+      <Step title="Managing User Roles">
+        - Navigate to the user's edit page
+        - In the main form or the Roles relation manager, update the user's role
+        - Note: Non-super-admin users cannot assign the super_admin role
+        - Click "Save" to update the user's roles
+      </Step>
+      <Step title="Assigning Users to Entities">
+        - Navigate to the user's edit page
+        - In the main form or the Entities relation manager, select the appropriate entity
+        - Users can be assigned to multiple entities if needed
+        - Click "Save" to update the user's entity assignments
+      </Step>
+      <Step title="Filtering and Finding Users">
+        - Use the search box to find users by name or email
+        - Use the entity filter to view users from a specific entity
+        - Sort by columns to organize the user list
+        - Toggle column visibility to customize the view
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Note>
+  **Access Control Notes**
+  
+  - Only super administrators can see and manage all users in the system
+  - Regular administrators can only manage users within their assigned entities
+  - Regular administrators cannot create or manage super admin accounts
+  - User permissions are primarily determined by their assigned role
+  - Entity assignments further restrict what data users can access
+</Note>
+### Ticket Management
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Ticket Management module provides a comprehensive system for handling citizen inquiries, support requests, and internal tasks through a structured ticketing system.
+    </Info>
+    
+    - Process and respond to citizen support tickets and inquiries
+    - Track ticket status from creation through resolution
+    - Assign tickets to appropriate staff members based on expertise
+    - Categorize and prioritize tickets for efficient handling
+    - Maintain complete history of all communications and actions
+    - Provide analytics on ticket volume, resolution time, and staff performance
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Ticket Dashboard" icon="gauge">
+        Overview of all tickets with status indicators and key metrics
+      </Card>
+      <Card title="Ticket Assignment" icon="user-check">
+        Assign tickets to specific staff members for handling
+      </Card>
+      <Card title="Category Management" icon="folder-tree">
+        Organize tickets by predefined categories
+      </Card>
+      <Card title="Priority Levels" icon="arrow-up-wide-short">
+        Set and adjust ticket priorities based on urgency
+      </Card>
+      <Card title="Status Tracking" icon="list-check">
+        Monitor ticket progress through various statuses
+      </Card>
+      <Card title="Department Routing" icon="sitemap">
+        Direct tickets to appropriate departments for specialized handling
+      </Card>
+      <Card title="Communication System" icon="comments">
+        Internal notes and citizen-facing responses
+      </Card>
+      <Card title="Timeline" icon="clock-rotate-left">
+        Complete chronological history of ticket activities and updates
+      </Card>
+      <Card title="Rich Text Editing" icon="pen-to-square">
+        Format ticket content with basic formatting options
+      </Card>
+      <Card title="Ticket Code" icon="hashtag">
+        Unique identifier for each ticket for easy reference
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Tickets are managed through the `TicketResource` class which extends Filament's `Resource` class
+    - The system uses a top navigation layout for ticket management with multiple sub-pages
+    - Tickets have relationships to priorities, statuses, departments, categories, and responsible users
+    - The system includes a TicketsOverview widget for analytics and quick status view
+    - Ticket comments and timeline entries are stored in separate related tables
+    - Each ticket is assigned a unique ticket code for reference
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Creating a New Ticket">
+        - Navigate to Tickets in the Ticket Management group
+        - Click "New Ticket"
+        - Fill in the required information:
+          - Subject (required): Brief description of the issue
+          - Priority (required): Select appropriate urgency level
+          - Content (required): Detailed description of the issue or request
+        - Click "Create" to generate the new ticket
+        - The system automatically assigns a unique ticket code
+      </Step>
+      <Step title="Processing a Ticket">
+        - From the tickets list, click on a ticket to manage it
+        - Review the ticket details and citizen information
+        - Assign the ticket to a staff member using the assignment dropdown
+        - Set appropriate category, priority, and department
+        - Update the status as you work on the ticket
+        - Use the "Manage" action to access the full ticket management interface
+      </Step>
+      <Step title="Responding to a Ticket">
+        - Navigate to the ticket's manage page
+        - Scroll to the Comments section
+        - Type your response in the comment field
+        - Use the rich text editor to format your response if needed
+        - Select "Visible to Citizen" if the comment should be shared with the citizen
+        - Click "Post Comment" to send the response
+        - Update the ticket status if needed
+      </Step>
+      <Step title="Viewing Ticket History">
+        - Navigate to the ticket's logs page
+        - Review the complete timeline of all actions taken on the ticket
+        - See who made each change and when it occurred
+        - Track the full history from creation to resolution
+      </Step>
+      <Step title="Using the Tickets Dashboard">
+        - View the TicketsOverview widget for key metrics
+        - See tickets by status, priority, and department
+        - Identify bottlenecks or areas needing attention
+        - Use this information for resource allocation and performance monitoring
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Ticket**: A record of a citizen inquiry, request, or internal task
+    - **Ticket Code**: Unique identifier assigned to each ticket
+    - **Priority**: Urgency level of the ticket (e.g., Low, Medium, High, Critical)
+    - **Status**: Current state of the ticket in its lifecycle (e.g., New, In Progress, Resolved)
+    - **Department**: Organizational unit responsible for handling the ticket
+    - **Category**: Type or subject matter of the ticket
+    - **Timeline**: Chronological record of all actions taken on a ticket
+  </Accordion>
+</AccordionGroup>
+
+### Appointment Management
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Appointment Management module provides a comprehensive system for scheduling, tracking, and managing meetings between citizens and government staff.
+    </Info>
+    
+    - Schedule and coordinate appointments between citizens and government staff
+    - Manage appointment services, availability, and resources
+    - Track appointment status throughout its lifecycle
+    - Coordinate meeting locations for in-person appointments
+    - Provide a calendar view for efficient scheduling
+    - Maintain complete history of appointment communications and status changes
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Appointment Calendar" icon="calendar">
+        Visual calendar interface showing all scheduled appointments
+      </Card>
+      <Card title="Service Configuration" icon="gear">
+        Define available appointment services and their parameters
+      </Card>
+      <Card title="Time Slot Management" icon="clock">
+        Set and manage available time slots for appointments
+      </Card>
+      <Card title="Appointment Types" icon="layer-group">
+        Configure both in-person and virtual appointment options
+      </Card>
+      <Card title="Status Tracking" icon="list-check">
+        Monitor appointment status (scheduled, completed, cancelled, etc.)
+      </Card>
+      <Card title="Staff Assignment" icon="user-check">
+        Assign appointments to specific staff members
+      </Card>
+      <Card title="Appointment Code" icon="hashtag">
+        Unique identifier for each appointment for easy reference
+      </Card>
+      <Card title="Duration Management" icon="hourglass-half">
+        Set and track appointment duration
+      </Card>
+      <Card title="Location Coordination" icon="location-dot">
+        Specify meeting places for in-person appointments
+      </Card>
+      <Card title="Appointment Timeline" icon="clock-rotate-left">
+        Track complete history of appointment changes and communications
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Appointments are managed through the `AppointmentResource` class which extends Filament's `Resource` class
+    - The system uses a top navigation layout for appointment management with multiple sub-pages
+    - Appointments have relationships to services, responsible staff members, and status records
+    - The system includes an AppointmentsOverview widget for analytics and calendar views
+    - Appointment status is tracked using the AppointmentStatus enum
+    - Each appointment is assigned a unique code for reference
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Viewing Appointments">
+        - Navigate to Appointments in the Appointment Management group
+        - View the list of all appointments with key information:
+          - Appointment code
+          - Service type
+          - Assigned staff member
+          - Status
+          - Scheduled time and duration
+        - Use filters to narrow down appointments by status or service type
+      </Step>
+      <Step title="Managing an Appointment">
+        - Click on an appointment or use the "Manage" action button
+        - View complete appointment details
+        - Update status as needed (e.g., confirm, complete, cancel)
+        - Reassign to different staff if necessary
+        - Add comments or notes about the appointment
+        - View the appointment timeline for complete history
+      </Step>
+      <Step title="Using the Appointment Calendar">
+        - Access the calendar view to see appointments visually organized by date and time
+        - Identify scheduling conflicts or available time slots
+        - Click on calendar events to view or manage specific appointments
+        - Use different calendar views (day, week, month) as needed
+      </Step>
+      <Step title="Viewing Appointment History">
+        - Navigate to the appointment's logs page
+        - Review the complete timeline of all actions and status changes
+        - See who made each change and when it occurred
+        - Track the full history from scheduling to completion
+      </Step>
+      <Step title="Creating a New Appointment">
+        - Navigate to Appointments in the Appointment Management group
+        - Click "Add Appointment"
+        - Select the service type
+        - Choose date and time
+        - Assign to staff member if needed
+        - Add any special instructions or notes
+        - Set the initial status
+        - Click "Create" to schedule the appointment
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Appointment**: A scheduled meeting between a citizen and government staff
+    - **Appointment Code**: Unique identifier assigned to each appointment
+    - **Service**: Type of appointment or consultation being offered
+    - **Status**: Current state of the appointment (e.g., Scheduled, Completed, Cancelled)
+    - **Duration**: Length of time allocated for the appointment
+    - **Responsible Staff**: Government employee assigned to conduct the appointment
+    - **Timeline**: Chronological record of all actions taken regarding an appointment
+  </Accordion>
+</AccordionGroup>
+### Document Library
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Document Library module provides a centralized system for storing, categorizing, and managing official documents with proper access controls and metadata.
+    </Info>
+    
+    - Store and categorize official government documents
+    - Control document access based on domain and category
+    - Provide a searchable repository for quick document retrieval
+    - Track document metadata including type, size, and category
+    - Enable secure viewing of documents with proper access controls
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Document Upload" icon="file-arrow-up">
+        Add new documents to the library with proper categorization
+      </Card>
+      <Card title="Category Management" icon="folder-tree">
+        Organize documents by predefined categories
+      </Card>
+      <Card title="Domain Classification" icon="layer-group">
+        Classify documents by domain (e.g., Public, Internal, Restricted)
+      </Card>
+      <Card title="Metadata Tracking" icon="tags">
+        Store and display document type, size, and other attributes
+      </Card>
+      <Card title="Search Functionality" icon="magnifying-glass">
+        Find documents by name, type, or category
+      </Card>
+      <Card title="Secure Viewing" icon="eye">
+        View documents with appropriate access controls
+      </Card>
+      <Card title="File Type Support" icon="file-lines">
+        Handle various document formats (PDF, Word, etc.)
+      </Card>
+      <Card title="Filtering Options" icon="filter">
+        Filter documents by category or domain
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Documents are managed through the `DocumentResource` class which extends Filament's `Resource` class
+    - Documents are stored using Spatie Media Library with appropriate disk configuration
+    - Document domains are defined using the DocumentDomain enum
+    - Documents are organized into categories through a relationship to the documentCategory model
+    - The system preserves original filenames and maintains file metadata
+    - Document visibility is controlled through the domain setting and disk visibility
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Uploading a New Document">
+        - Navigate to Documents in the Document Library group
+        - Click "New Document"
+        - Fill in the required information:
+          - Select a document category from the dropdown (required)
+          - Choose the appropriate domain (determines access level)
+          - Upload the document file using the file uploader
+        - Click "Create" to add the document to the library
+      </Step>
+      <Step title="Browsing Documents">
+        - View the list of all documents with key information:
+          - Document name
+          - File type (MIME type)
+          - File size
+          - Domain classification (as a badge)
+          - Category (as a badge)
+        - Use filters to narrow down documents by category or domain
+        - Use the search function to find specific documents
+      </Step>
+      <Step title="Viewing a Document">
+        - Click the "View" action button next to a document
+        - The document will open in a new tab or download based on the file type
+        - The system ensures proper access control before displaying the document
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Document**: An official file stored in the document library
+    - **Category**: Classification grouping similar documents together
+    - **Domain**: Access level classification (e.g., Public, Internal, Restricted)
+    - **MIME Type**: Technical identifier of the file format (e.g., application/pdf)
+    - **File Size**: Storage space occupied by the document, typically in KB or MB
+  </Accordion>
+</AccordionGroup>
+
+### Vacancy Management
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Vacancy Management module provides a comprehensive system for creating, publishing, and managing job vacancies across government entities, as well as tracking applications.
+    </Info>
+    
+    - Publish and manage job vacancies for government positions
+    - Organize vacancies by division and salary band
+    - Track application status and candidate information
+    - Facilitate the hiring workflow from posting to selection
+    - Provide detailed job descriptions and application instructions
+    - Feature important vacancies for increased visibility
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Vacancy Creation" icon="file-circle-plus">
+        Post new job openings with comprehensive information
+      </Card>
+      <Card title="Division Organization" icon="sitemap">
+        Categorize vacancies by government division
+      </Card>
+      <Card title="Salary Band Management" icon="money-bill-wave">
+        Define and display salary ranges for positions
+      </Card>
+      <Card title="Application Tracking" icon="clipboard-list">
+        Monitor number and status of applications
+      </Card>
+      <Card title="Status Management" icon="list-check">
+        Update vacancy status (Draft, Published, Closed, etc.)
+      </Card>
+      <Card title="Rich Text Descriptions" icon="pen-to-square">
+        Format job descriptions and instructions with rich text
+      </Card>
+      <Card title="Document Attachments" icon="paperclip">
+        Add supporting documents to vacancy listings
+      </Card>
+      <Card title="Featured Positions" icon="star">
+        Highlight important vacancies with featured flag
+      </Card>
+      <Card title="Deadline Management" icon="calendar-days">
+        Set and display application deadlines
+      </Card>
+      <Card title="Filtering Options" icon="filter">
+        Filter vacancies by status, division, or salary band
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Vacancies are managed through the `VacancyResource` class which extends Filament's `Resource` class
+    - The system uses a top navigation layout for vacancy management with multiple sub-pages
+    - Vacancy status is tracked using the VacancyStatus enum
+    - Vacancies have relationships to divisions and salary bands
+    - Rich text editors are configured with appropriate formatting options
+    - Attachments are stored using Spatie Media Library in the 'vacancies' collection
+    - The system tracks application counts through a relationship to applications
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Creating a New Vacancy">
+        - Navigate to Vacancies in the Vacancies Management group
+        - Click "New Vacancy"
+        - Fill in the required information:
+          - Title (required): Position title
+          - Reports To: Supervisor or reporting relationship
+          - Location: Work location
+          - Status: Current status (typically starts as Draft)
+          - Deadline: Application closing date and time
+          - Division (required): Department or organizational unit
+          - Salary Band (required): Applicable salary range
+          - Description: Detailed job description with responsibilities
+          - Instructions: Application submission guidelines
+        - Upload any supporting documents or attachments
+        - Toggle "Featured" if this is a priority position
+        - Click "Create" to save the vacancy
+      </Step>
+      <Step title="Managing Vacancies">
+        - View the list of all vacancies with key information:
+          - Title
+          - Division
+          - Salary Band (with tooltip showing actual salary range)
+          - Status
+          - Number of applications received
+        - Use filters to narrow down vacancies by status, division, or salary band
+        - Click on a vacancy to view or edit its details
+      </Step>
+      <Step title="Viewing Vacancy Details">
+        - Click on a vacancy title to view its complete details
+        - Review all information including description and instructions
+        - See attached documents and download as needed
+        - Check application statistics
+        - Use sub-navigation to access different aspects of the vacancy
+      </Step>
+      <Step title="Managing Applications">
+        - Navigate to the Applications sub-page for a specific vacancy
+        - View all applications received for this position
+        - Track application status and progress
+        - Review candidate information and submitted documents
+        - Update application status as candidates move through the hiring process
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Vacancy**: An open job position within a government entity
+    - **Division**: Department or organizational unit where the position exists
+    - **Salary Band**: Predefined salary range category (e.g., Band 1, Band 2)
+    - **Status**: Current state of the vacancy (Draft, Published, Closed, etc.)
+    - **Featured**: Flag indicating a high-priority or highlighted position
+    - **Deadline**: Closing date and time for applications
+    - **Application**: A candidate's submission for consideration for a vacancy
+  </Accordion>
+</AccordionGroup>
+
+### E-Services Management
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The E-Services Management module allows administrators to create, configure, and manage electronic government forms and services that citizens can access online.
+    </Info>
+    
+    - Create and configure electronic government service forms
+    - Manage form status, access type, and payment requirements
+    - Track form submissions and processing status
+    - Provide citizens with self-service access to government forms
+    - Collect structured data through standardized forms
+    - Enable online payment for fee-based government services
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Form Creation" icon="file-circle-plus">
+        Create custom forms with unique identifiers
+      </Card>
+      <Card title="Access Control" icon="lock">
+        Set form visibility as public, private, or both
+      </Card>
+      <Card title="Payment Configuration" icon="credit-card">
+        Enable payment requirements for fee-based services
+      </Card>
+      <Card title="Status Management" icon="toggle-on">
+        Control form availability through status settings
+      </Card>
+      <Card title="Submission Tracking" icon="clipboard-check">
+        Monitor number of submissions for each form
+      </Card>
+      <Card title="Entity Association" icon="building">
+        Track which government entity created each form
+      </Card>
+      <Card title="Form Identification" icon="id-card">
+        Assign unique form IDs for reference
+      </Card>
+      <Card title="Filtering Options" icon="filter">
+        Filter forms by status, access type, or payment requirement
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - E-Services forms are managed through the `GovernmentFormResource` class which extends Filament's `Resource` class
+    - Forms have configurable access types (Public, Private, Both)
+    - Payment requirements can be toggled and configured with amount and currency
+    - Form status options include Published, Draft, and Archived
+    - The system tracks submission counts through a relationship to submissions
+    - Each form is assigned a unique form ID for reference
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Creating a New E-Service Form">
+        - Navigate to E-Services Forms in the Government E-Services group
+        - Click "New Form"
+        - Fill in the required information:
+          - Form ID (required): Unique identifier for the form
+          - Title (required): Name of the form or service
+          - Description: Detailed explanation of the form's purpose
+          - Status (required): Current state (Published, Draft, Archived)
+          - Payment Required: Toggle if payment is needed
+          - Payment Amount: Fee amount (if payment required)
+          - Payment Currency: Currency code (if payment required)
+          - Access Type (required): Who can access the form (Public, Private, Both)
+        - Click "Create" to save the new form
+      </Step>
+      <Step title="Managing E-Service Forms">
+        - View the list of all forms with key information:
+          - Form ID (as a badge)
+          - Creating entity
+          - Number of submissions received
+          - Title
+          - Status (color-coded badge)
+          - Access type
+          - Payment requirement
+          - Payment amount and currency
+          - Last update time
+        - Use filters to narrow down forms by status, access type, or payment requirement
+        - Click on a form to view or edit its details
+      </Step>
+      <Step title="Viewing Form Details">
+        - Click the "View" action button next to a form
+        - Review complete form configuration and settings
+        - Check submission statistics
+        - View form structure and fields
+      </Step>
+      <Step title="Managing Form Submissions">
+        - Access the submissions related to a specific form
+        - View submission details and provided information
+        - Update submission status as processing progresses
+        - Communicate with citizens about their submissions
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **E-Service Form**: An electronic form providing access to a government service
+    - **Form ID**: Unique identifier assigned to each form
+    - **Access Type**: Who can access the form (Public, Private, Both)
+    - **Status**: Current state of the form (Published, Draft, Archived)
+    - **Payment Required**: Whether the service requires payment
+    - **Submission**: A completed form submitted by a citizen
+    - **Entity**: Government department that created and manages the form
+  </Accordion>
+</AccordionGroup>
+## App Panel Modules
+
+The App Panel provides citizens with user-friendly access to government services and information.
+
+### Dashboard
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Dashboard module provides citizens with an overview of their interactions with government services.
+    </Info>
+    
+    - Provide a personalized overview of government services
+    - Display status updates for active service requests
+    - Highlight important announcements and deadlines
+    - Offer quick access to frequently used services
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Service Summary" icon="clipboard-list">
+        Overview of active service requests
+      </Card>
+      <Card title="Notification Center" icon="bell">
+        Important updates and alerts
+      </Card>
+      <Card title="Quick Actions" icon="bolt">
+        Shortcuts to common tasks
+      </Card>
+      <Card title="Recent Activity" icon="clock-rotate-left">
+        Latest interactions with government services
+      </Card>
+      <Card title="Upcoming Appointments" icon="calendar-check">
+        Reminders for scheduled meetings
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Accessing the Dashboard">
+        - Log in to the App Panel
+        - The dashboard is displayed as the home page
+        - View service summaries and notifications
+        - Use quick action buttons to access common tasks
+      </Step>
+      <Step title="Managing Notifications">
+        - Click on the notification bell icon in the top navigation bar
+        - View all notifications in the dropdown menu
+        - Click on a notification to view details or take action
+        - Mark notifications as read or delete them
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+### Ticketing System
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Ticketing System module provides citizens with a structured way to submit, track, and manage service requests and inquiries to government entities.
+    </Info>
+    
+    - Submit requests and inquiries to specific government entities
+    - Track ticket status and progress through resolution
+    - Communicate directly with government staff about requests
+    - Access complete history of past service requests
+    - Organize requests by department and category for efficient handling
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Ticket Creation" icon="file-circle-plus">
+        Submit new service requests with detailed information
+      </Card>
+      <Card title="Entity Selection" icon="building">
+        Direct requests to specific government entities
+      </Card>
+      <Card title="Department & Category Selection" icon="sitemap">
+        Route requests to appropriate departments and categories
+      </Card>
+      <Card title="Rich Text Formatting" icon="pen-to-square">
+        Format request descriptions with basic text formatting
+      </Card>
+      <Card title="Status Tracking" icon="list-check">
+        Monitor request progress with color-coded status indicators
+      </Card>
+      <Card title="Communication Thread" icon="comments">
+        Exchange messages with government staff in a structured conversation
+      </Card>
+      <Card title="Timeline View" icon="clock-rotate-left">
+        Access chronological history of all ticket activities
+      </Card>
+      <Card title="Ticket Code" icon="hashtag">
+        Unique identifier for easy reference and tracking
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Tickets are managed through the `TicketResource` class in the App panel
+    - The system uses a top navigation layout for ticket management with multiple sub-pages
+    - Tickets are filtered to show only those belonging to the currently authenticated user
+    - Tickets have relationships to entities, departments, categories, and status records
+    - Each ticket is assigned a unique ticket code for reference
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Submitting a New Ticket">
+        - Navigate to Tickets in the main navigation
+        - Click "New Ticket"
+        - Fill in the required information:
+          - Subject (required): Brief description of your request
+          - Entity (required): Select the government entity to handle your request
+          - Department: Choose the appropriate department (available after selecting entity)
+          - Category: Select the relevant category (available after selecting entity)
+          - Content (required): Detailed description of your request using the rich text editor
+        - Click "Submit" to create the ticket
+        - The system automatically assigns a unique ticket code
+      </Step>
+      <Step title="Viewing Your Tickets">
+        - Navigate to Tickets in the main navigation
+        - View the list of all your tickets with key information:
+          - Subject and ticket code
+          - Status (color-coded badge)
+          - Assigned staff member (if any)
+          - Entity and department
+          - Creation date
+        - Use filters to narrow down tickets by status or entity
+        - Click on a ticket to view its details
+      </Step>
+      <Step title="Managing a Ticket">
+        - Click on a ticket to access the management interface
+        - View complete ticket details and current status
+        - Read responses from government staff
+        - Add comments or provide additional information
+        - Track the complete timeline of ticket activities
+        - Receive notifications when there are updates to your ticket
+      </Step>
+      <Step title="Viewing Ticket History">
+        - Navigate to the ticket's logs page
+        - Review the complete timeline of all actions taken on the ticket
+        - See who made each change and when it occurred
+        - Track the full history from creation to resolution
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Ticket**: A record of a service request or inquiry submitted to a government entity
+    - **Ticket Code**: Unique identifier assigned to each ticket for easy reference
+    - **Entity**: Government ministry or department that will handle the ticket
+    - **Department**: Specific division within an entity responsible for the ticket
+    - **Category**: Type or subject matter of the ticket
+    - **Status**: Current state of the ticket in its lifecycle (e.g., New, In Progress, Resolved)
+  </Accordion>
+</AccordionGroup>
+
+### Appointment Booking
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Appointment Booking module provides citizens with a comprehensive system for scheduling, tracking, and managing meetings with government officials and services.
+    </Info>
+    
+    - Schedule appointments with specific government departments and services
+    - Select from available time slots based on service availability
+    - Track appointment status throughout its lifecycle
+    - Manage upcoming and past appointments in one place
+    - Communicate with staff about appointment details
+    - Access complete history of all appointment activities
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Service Selection" icon="list-check">
+        Choose from available government services
+      </Card>
+      <Card title="Time Slot Booking" icon="calendar-days">
+        Select convenient appointment times from available slots
+      </Card>
+      <Card title="Appointment Type" icon="layer-group">
+        Choose between in-person and virtual meetings
+      </Card>
+      <Card title="Appointment Code" icon="hashtag">
+        Unique identifier for easy reference and tracking
+      </Card>
+      <Card title="Status Tracking" icon="list-check">
+        Monitor appointment status with color-coded indicators
+      </Card>
+      <Card title="Staff Assignment" icon="user-check">
+        See which government official is assigned to your appointment
+      </Card>
+      <Card title="Duration Display" icon="hourglass-half">
+        View the scheduled duration of your appointment
+      </Card>
+      <Card title="Rescheduling" icon="calendar-plus">
+        Change or cancel appointments if needed
+      </Card>
+      <Card title="Timeline View" icon="clock-rotate-left">
+        Access chronological history of all appointment activities
+      </Card>
+      <Card title="Filtering Options" icon="filter">
+        Filter appointments by status or service type
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Appointments are managed through the `AppointmentResource` class in the App panel
+    - The system uses a top navigation layout for appointment management with multiple sub-pages
+    - Appointments are filtered to show only those belonging to the currently authenticated user
+    - Appointments have relationships to services, responsible staff members, and status records
+    - Appointment status is tracked using the AppointmentStatus enum
+    - Each appointment is assigned a unique code for reference
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Viewing Your Appointments">
+        - Navigate to Appointments in the main navigation
+        - View the list of all your appointments with key information:
+          - Appointment code
+          - Service type
+          - Assigned staff member
+          - Status
+          - Scheduled time and duration
+        - Use filters to narrow down appointments by status or service type
+        - Click on an appointment to view its details
+      </Step>
+      <Step title="Booking a New Appointment">
+        - Navigate to Appointments in the main navigation
+        - Click "Add Appointment"
+        - Select the government service you need
+        - Choose from available date and time slots
+        - Select appointment type (in-person or virtual)
+        - Provide any required additional information
+        - Click "Book" to confirm the appointment
+        - Receive a confirmation with your appointment code
+      </Step>
+      <Step title="Managing an Appointment">
+        - Click on an appointment to access the management interface
+        - View complete appointment details:
+          - Service information
+          - Scheduled time and duration
+          - Assigned staff member
+          - Location or virtual meeting details
+          - Current status
+        - Add comments or questions about the appointment
+        - Use the "Reschedule" or "Cancel" buttons if needed
+        - View the timeline of all appointment activities
+      </Step>
+      <Step title="Viewing Appointment History">
+        - Navigate to the appointment's logs page
+        - Review the complete timeline of all actions and status changes
+        - See who made each change and when it occurred
+        - Track the full history from scheduling to completion
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Appointment**: A scheduled meeting between a citizen and government staff
+    - **Appointment Code**: Unique identifier assigned to each appointment
+    - **Service**: Type of appointment or consultation being offered
+    - **Status**: Current state of the appointment (e.g., Scheduled, Completed, Cancelled)
+    - **Duration**: Length of time allocated for the appointment
+    - **Responsible Staff**: Government employee assigned to conduct the appointment
+  </Accordion>
+</AccordionGroup>
+### Vacancies System
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The Vacancies System module provides citizens with a comprehensive platform to browse, view, and apply for government job openings across various entities and divisions.
+    </Info>
+    
+    - Browse available government job openings from all entities
+    - View detailed information about each vacancy
+    - Filter vacancies by entity, division, and salary band
+    - Submit job applications with required documents
+    - Track application status and progress
+    - Communicate with hiring managers throughout the recruitment process
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Vacancy Listings" icon="list-ul">
+        Browse published job openings with key details
+      </Card>
+      <Card title="Entity & Division Filtering" icon="filter">
+        Filter vacancies by government entity and division
+      </Card>
+      <Card title="Salary Information" icon="money-bill-wave">
+        View salary bands with tooltip showing actual salary ranges
+      </Card>
+      <Card title="Deadline Tracking" icon="calendar-days">
+        See application deadlines for each vacancy
+      </Card>
+      <Card title="Detailed Job Descriptions" icon="file-lines">
+        Access comprehensive information about each position
+      </Card>
+      <Card title="Application Submission" icon="paper-plane">
+        Submit job applications directly through the platform
+      </Card>
+      <Card title="Status Tracking" icon="list-check">
+        Monitor the progress of your applications
+      </Card>
+      <Card title="Document Management" icon="file-arrow-up">
+        Upload and manage application documents
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - Vacancies are managed through the `VacancyResource` class in the App panel
+    - The system uses a top navigation layout for vacancy management with multiple sub-pages
+    - Only published vacancies are displayed to citizens (filtered by VacancyStatus::Published)
+    - Vacancies have relationships to entities, divisions, and salary bands
+    - Salary information is displayed using the Number formatter for consistent currency presentation
+    - The system provides direct links to the application submission process
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Browsing Job Vacancies">
+        - Navigate to Vacancies in the main navigation
+        - View the list of all published vacancies with key information:
+          - Job title
+          - Entity (government department)
+          - Division
+          - Salary band (with tooltip showing actual salary range)
+          - Application deadline
+        - Use filters to narrow down vacancies by:
+          - Entity (government department)
+          - Division
+          - Salary band
+        - Click on a vacancy to view detailed information
+      </Step>
+      <Step title="Viewing Vacancy Details">
+        - Click on a vacancy title or the "View" button
+        - Review complete vacancy information:
+          - Job title and reference code
+          - Entity and division
+          - Salary range
+          - Job description and responsibilities
+          - Required qualifications and experience
+          - Application deadline and process
+          - Any attached documents or additional information
+        - Use the sub-navigation to access different aspects of the vacancy
+      </Step>
+      <Step title="Applying for a Vacancy">
+        - From the vacancy details page, click "Submit Application"
+        - Fill in the required personal and professional information
+        - Upload your resume, cover letter, and other required documents
+        - Review your application for completeness
+        - Click "Submit Application" to complete the process
+        - Receive a confirmation with your application reference number
+      </Step>
+      <Step title="Tracking Your Applications">
+        - Navigate to My Applications in the Vacancies section
+        - View the status of all your applications
+        - Click on an application to view details
+        - Check for messages or requests from hiring managers
+        - Respond to interview invitations or requests for additional information
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **Vacancy**: An open job position within a government entity
+    - **Entity**: Government ministry or department offering the position
+    - **Division**: Specific department or unit where the position is located
+    - **Salary Band**: Predefined salary range category (e.g., Band 1, Band 2)
+    - **Deadline**: Closing date and time for applications
+    - **Application**: Your submission for consideration for a vacancy
+  </Accordion>
+</AccordionGroup>
+
+### E-Services
+
+<Tabs>
+  <Tab title="Purpose">
+    <Info>
+      The E-Services module provides citizens with access to electronic government forms and services, allowing for convenient online submission and processing of various government applications.
+    </Info>
+    
+    - Access standardized electronic government forms
+    - Submit applications for various government services
+    - Make payments for fee-based government services
+    - Track the status of submitted applications
+    - Access information about available government services
+    - Receive updates on application processing
+  </Tab>
+  <Tab title="Features">
+    <CardGroup cols={2}>
+      <Card title="Form Catalog" icon="list-ul">
+        Browse available government e-forms
+      </Card>
+      <Card title="Form Details" icon="circle-info">
+        View comprehensive information about each form
+      </Card>
+      <Card title="Payment Information" icon="credit-card">
+        See fee requirements and payment options
+      </Card>
+      <Card title="Form Submission" icon="paper-plane">
+        Complete and submit electronic forms online
+      </Card>
+      <Card title="Payment Processing" icon="money-bill-transfer">
+        Pay for services requiring fees
+      </Card>
+      <Card title="Status Tracking" icon="list-check">
+        Monitor application progress
+      </Card>
+      <Card title="Secure Access" icon="lock">
+        Access forms based on their public/private status
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Details">
+    - E-Services forms are managed through the `GovernmentFormResource` class in the App panel
+    - Only published forms are displayed to citizens (filtered by 'Published' status)
+    - Forms have clear labeling and descriptions for easy understanding
+    - Payment information is clearly displayed with amount and currency
+    - The system provides a streamlined view focused on citizen needs
+  </Tab>
+  <Tab title="Usage Instructions">
+    <Steps>
+      <Step title="Browsing Available Forms">
+        - Navigate to E-Services Forms in the E-Services navigation group
+        - View the list of all available forms with key information:
+          - Form ID
+          - Title
+          - Brief description
+          - Status
+          - Fee information (if payment is required)
+        - Click on a form to view its details
+      </Step>
+      <Step title="Viewing Form Details">
+        - Click on a form title or the "View" button
+        - Review complete form information:
+          - Form ID and title
+          - Detailed description
+          - Required information and documents
+          - Fee details (if payment is required)
+          - Submission instructions
+          - Processing timeframe
+        - Decide whether to proceed with the application
+      </Step>
+      <Step title="Submitting a Form">
+        - From the form details page, click "Apply" or "Start Application"
+        - Fill in the required information in the electronic form
+        - Upload any required supporting documents
+        - Review your submission for accuracy and completeness
+        - If payment is required, proceed to the payment screen
+        - Complete the payment process if applicable
+        - Click "Submit" to complete the application
+        - Receive a confirmation with your reference number
+      </Step>
+      <Step title="Tracking Your Submissions">
+        - Navigate to My Submissions in the E-Services section
+        - View the status of all your form submissions
+        - Click on a submission to view details
+        - Check for messages or requests for additional information
+        - Receive notifications when the status changes
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<AccordionGroup>
+  <Accordion title="Key Terminology">
+    - **E-Service Form**: An electronic form providing access to a government service
+    - **Form ID**: Unique identifier assigned to each form
+    - **Fee**: Payment required for certain government services
+    - **Status**: Current state of the form (Published forms are available to citizens)
+    - **Submission**: A completed form submitted by a citizen
+  </Accordion>
+</AccordionGroup>
+## Data Flow Between Modules
+
+The Citizen Portal features a sophisticated integration system that enables seamless data flow between modules, ensuring a cohesive user experience and efficient administrative processes. This section explains how information moves between the Admin and App panels, and how different modules interact with each other.
+
+### Citizen Ticket Request Lifecycle
+
+<Steps>
+  <Step title="Submission">
+    - Citizen submits a ticket service request through the App Panel's Ticketing System
+    - System creates a new Ticket record with a unique ticket code
+    - Initial status is set to "New"
+  </Step>
+  <Step title="Routing">
+    - Request is automatically routed to the appropriate entity and department
+    - Routing is based on the entity and department selected by the citizen
+    - System applies business rules to determine priority based on category
+  </Step>
+  <Step title="Assignment">
+    - Staff member is assigned to handle the request
+    - Assignment can be manual or automatic based on workload balancing
+    - Assigned staff receives notification of new ticket
+  </Step>
+  <Step title="Processing">
+    - Staff processes the request through the Admin Panel
+    - Status updates are recorded in the ticket timeline
+    - Each status change triggers notifications to the citizen
+  </Step>
+  <Step title="Communication">
+    - Staff and citizen exchange messages through the ticket interface
+    - All communications are stored in the ticket timeline
+    - Rich text formatting enables clear communication
+  </Step>
+  <Step title="Resolution">
+    - Request is resolved and marked as completed
+    - Final status update is recorded
+    - Resolution details are documented
+  </Step>
+</Steps>
+
+<Tabs>
+  <Tab title="Technical Details">
+    - Tickets are linked to entities, departments, categories, and statuses through database relationships
+    - The `TicketResource` class in both Admin and App panels provides different views of the same data
+    - The Admin panel filters tickets by assigned staff and entity permissions
+    - The App panel filters tickets by the authenticated user's ID
+    - Timeline entries are stored in a separate table with polymorphic relationships
+    
+      ```mermaid
+      sequenceDiagram
+          participant Citizen
+          participant AppPanel as App Panel
+          participant Database
+          participant AdminPanel as Admin Panel
+          participant Staff
+          
+          Citizen->>AppPanel: Submit ticket request
+          AppPanel->>Database: Create ticket record
+          Note over Database: Status: New
+          Database->>AdminPanel: Route to entity/department
+          AdminPanel->>Staff: Notify of new ticket
+          Staff->>AdminPanel: Assign to staff member
+          AdminPanel->>Database: Update assignment
+          Database->>AppPanel: Update ticket status
+          AppPanel->>Citizen: Notify of assignment
+          
+          Staff->>AdminPanel: Process ticket
+          AdminPanel->>Database: Update status
+          Database->>AppPanel: Reflect status change
+          AppPanel->>Citizen: Notify of status update
+          
+          Citizen->>AppPanel: Add comment/response
+          AppPanel->>Database: Store communication
+          Database->>AdminPanel: Display to staff
+          Staff->>AdminPanel: Add response
+          AdminPanel->>Database: Store communication
+          Database->>AppPanel: Display to citizen
+          
+          Staff->>AdminPanel: Mark as resolved
+          AdminPanel->>Database: Update status to Resolved
+          Database->>AppPanel: Update ticket status
+          AppPanel->>Citizen: Notify of resolution
+      ```
+  </Tab>
+</Tabs>
+
+### Appointment Management Workflow
+
+<Steps>
+  <Step title="Service Configuration">
+    - Staff configures available appointment services through the Admin Panel
+    - Services include time slots, duration, and capacity settings
+    - Configuration data is stored in the AppointmentService model
+  </Step>
+  <Step title="Booking">
+    - Citizen books an appointment for a specific service through the App Panel
+    - System checks availability based on service configuration
+    - New Appointment record is created with a unique appointment code
+  </Step>
+  <Step title="Confirmation">
+    - Staff member is assigned to handle the appointment and confirms
+    - The system sends notification to the citizen
+    - Confirmation includes appointment details and instructions
+  </Step>
+  <Step title="Preparation">
+    - Staff prepares for the appointment using details in the Admin Panel
+    - Relevant documents and information are gathered
+    - Staff can view their appointment schedule
+  </Step>
+  <Step title="Check-in">
+    - Citizen checks in for the appointment
+    - Status is updated to "In Progress" by the staff member
+  </Step>
+  <Step title="Fulfillment">
+    - Appointment takes place
+    - Staff can add notes during the appointment through the comments system
+    - Status is updated to "Completed"
+  </Step>
+</Steps>
+
+<Tabs>
+  <Tab title="Technical Details">
+    - The `AppointmentServiceResource` manages service configuration with complex time slot settings
+    - The `AppointmentResource` in both Admin and App panels provides different views of the same data
+    - The Admin panel shows all appointments with filtering options
+    - The App panel shows only the authenticated user's appointments
+    - Appointment status is managed through the AppointmentStatus enum
+    
+      ```mermaid
+      flowchart TD
+          subgraph "Admin Panel"
+              A[Staff] --> B[Configure Services]
+              B --> C[Set Time Slots]
+              B --> D[Set Duration]
+              B --> E[Set Capacity]
+              F[Staff] --> G[Confirm Appointment]
+              F --> H[Prepare for Appointment]
+              F --> I[Update Status]
+              F --> J[Record Notes]
+          end
+          
+          subgraph "Database"
+              K[(AppointmentService)]
+              L[(Appointment)]
+              M[(Timeline)]
+          end
+          
+          subgraph "App Panel"
+              N[Citizen] --> O[Browse Services]
+              N --> P[Select Time Slot]
+              N --> Q[Book Appointment]
+              N --> R[Check-in]
+              N --> S[View Status]
+          end
+          
+          B --> K
+          C --> K
+          D --> K
+          E --> K
+          
+          K --> O
+          K --> P
+          
+          Q --> L
+          G --> L
+          I --> L
+          R --> L
+          
+          L --> S
+          L --> H
+          
+          J --> M
+          I --> M
+          G --> M
+          
+          classDef adminClass fill:#f9f,stroke:#333,stroke-width:2px
+          classDef dbClass fill:#bbf,stroke:#333,stroke-width:2px
+          classDef appClass fill:#dfd,stroke:#333,stroke-width:2px
+          
+          class A,B,C,D,E,F,G,H,I,J adminClass
+          class K,L,M dbClass
+          class N,O,P,Q,R,S appClass
+      ```
+
+  </Tab>
+</Tabs>
+
+### Vacancy and Application Process
+
+<Steps>
+  <Step title="Posting">
+    - Staff creates and publishes job vacancies in the Admin Panel
+    - Vacancy details include title, description, requirements, and deadline
+    - Status is set to "Published" when ready for public viewing
+  </Step>
+  <Step title="Discovery">
+    - Citizens browse and find relevant job openings in the App Panel
+    - Search and filter options help citizens find suitable positions
+    - Only published vacancies are visible to citizens
+  </Step>
+  <Step title="Application">
+    - Citizens submit job applications with required documents
+    - Application form captures personal and professional information
+    - Supporting documents are uploaded and stored securely
+  </Step>
+  <Step title="Screening">
+    - Staff reviews and screens applications in the Admin Panel
+    - Applications are evaluated against job requirements
+    - Status updated are recorded and notified to the citizen
+  </Step>
+  <Step title="Selection">
+    - Promising candidates are shortlisted
+    - Status is updated to "Shortlisted" to reflect selection progress
+    - Candidates can track their status in the App Panel
+  </Step>
+  <Step title="Decision">
+    - Hiring decisions are made and communicated
+    - Status is updated to "Accepted" or "Rejected"
+    - Notifications are sent to candidates
+  </Step>
+</Steps>
+
+<Tabs>
+  <Tab title="Technical Details">
+    - The `VacancyResource` class manages vacancies in both Admin and App panels
+    - The Admin panel shows all vacancies with full management capabilities
+    - The App panel filters vacancies by VacancyStatus::Published
+    - Applications are managed through the VacancyApplicationResource
+    - The Admin panel tracks applications with detailed status management
+    - The App panel shows only the authenticated user's applications
+    
+      ```mermaid
+      graph TD
+          subgraph "Admin Panel"
+              A[HR Staff] --> B[Create Vacancy]
+              B --> C[Set Requirements]
+              B --> D[Set Deadline]
+              B --> E[Publish Vacancy]
+              F[HR Staff] --> G[Screen Applications]
+              F --> H[Shortlist Candidates]
+              F --> I[Make Hiring Decision]
+          end
+          
+          subgraph "Database"
+              J[(Vacancy)]
+              K[(VacancyApplication)]
+              L[(ApplicationStatus)]
+              M[(ApplicationDocuments)]
+          end
+          
+          subgraph "App Panel"
+              N[Citizen] --> O[Browse Vacancies]
+              N --> P[View Details]
+              N --> Q[Submit Application]
+              N --> R[Upload Documents]
+              N --> S[Track Status]
+          end
+          
+          B --> J
+          C --> J
+          D --> J
+          E --> J
+          
+          J --> O
+          J --> P
+          
+          Q --> K
+          R --> M
+          M --> K
+          
+          G --> L
+          H --> L
+          I --> L
+          
+          L --> S
+          K --> G
+          
+          classDef adminClass fill:#f9f,stroke:#333,stroke-width:2px
+          classDef dbClass fill:#bbf,stroke:#333,stroke-width:2px
+          classDef appClass fill:#dfd,stroke:#333,stroke-width:2px
+          
+          class A,B,C,D,E,F,G,H,I adminClass
+          class J,K,L,M dbClass
+          class N,O,P,Q,R,S appClass
+      ```
+  </Tab>
+</Tabs>
+
+### E-Services Integration
+
+<Warning>
+  **Work in progress**: This section is a work in progress.
+</Warning>
+
+<Steps>
+  <Step title="Form Creation">
+    - Staff creates and configures e-service forms
+    - Forms include fields, instructions, and payment requirements
+    - Access levels determine form visibility
+  </Step>
+  <Step title="Publication">
+    - Forms are published and made available to citizens
+    - Only forms with "Published" status are visible in the App Panel
+    - Citizens can browse available services
+  </Step>
+  <Step title="Submission">
+    - Citizens complete and submit forms
+    - Required information and documents are provided
+    - Payments are processed if required
+  </Step>
+  <Step title="Processing">
+    - Staff reviews and processes submissions in the Admin Panel
+    - Status updates are recorded and visible to citizens
+    - Additional information may be requested if needed
+  </Step>
+</Steps>
+
+<Tabs>
+  <Tab title="Technical Details">
+    - The `GovernmentFormResource` class manages forms in both Admin and App panels
+    - The Admin panel provides full form management capabilities
+    - The App panel filters forms by "Published" status
+    - Form submissions are tracked through the GovernmentFormSubmissionResource
+    - Payment processing is integrated for fee-based services
+    - Status tracking provides visibility throughout the process
+    
+      ```mermaid
+      flowchart TD
+          subgraph "Admin Panel"
+              A[Admin Staff] --> B[Create Form]
+              B --> C[Configure Fields]
+              B --> D[Set Payment Requirements]
+              B --> E[Set Access Levels]
+              B --> F[Publish Form]
+              G[Admin Staff] --> H[Process Submissions]
+              H --> I[Review Information]
+              H --> J[Verify Payment]
+              H --> K[Update Status]
+              H --> L[Deliver Service]
+          end
+          
+          subgraph "Database"
+              M[(GovernmentForm)]
+              N[(FormSubmission)]
+              O[(PaymentRecord)]
+              P[(SubmissionStatus)]
+          end
+          
+          subgraph "App Panel"
+              Q[Citizen] --> R[Browse Forms]
+              Q --> S[View Form Details]
+              Q --> T[Complete Form]
+              Q --> U[Upload Documents]
+              Q --> V[Make Payment]
+              Q --> W[Track Status]
+          end
+          
+          B --> M
+          C --> M
+          D --> M
+          E --> M
+          F --> M
+          
+          M --> R
+          M --> S
+          
+          T --> N
+          U --> N
+          V --> O
+          O --> N
+          
+          H --> P
+          I --> P
+          J --> P
+          K --> P
+          
+          P --> W
+          N --> H
+          
+          classDef adminClass fill:#f9f,stroke:#333,stroke-width:2px
+          classDef dbClass fill:#bbf,stroke:#333,stroke-width:2px
+          classDef appClass fill:#dfd,stroke:#333,stroke-width:2px
+          
+          class A,B,C,D,E,F,G,H,I,J,K,L adminClass
+          class M,N,O,P dbClass
+          class Q,R,S,T,U,V,W appClass
+      ```
+  </Tab>
+</Tabs>
+
+### Key Integration Points and Data Relationships
+
+<Tabs>
+  <Tab title="Overview">
+    The system's modules are interconnected through several key integration points:
+
+    <CardGroup cols={2}>
+      <Card title="Entity-Based Integration" icon="building">
+        - Entities serve as organizational units that connect users, services, and data
+        - Entity relationships enable proper data scoping and access control
+        - Users are associated with entities, determining what they can see and do
+      </Card>
+      <Card title="User-Based Integration" icon="user">
+        - User accounts link activities across modules
+        - User roles determine access levels and permissions
+        - User actions are tracked for accountability
+      </Card>
+      <Card title="Notification System" icon="bell">
+        - Status changes trigger notifications across modules
+        - Notifications keep both staff and citizens informed
+        - Notification preferences can be configured
+      </Card>
+      <Card title="Document Management" icon="file-lines">
+        - Documents can be attached to records in any module
+        - Document access is controlled based on record access
+        - Document versioning maintains history
+      </Card>
+      <Card title="Audit Logging" icon="list-check">
+        - All significant actions are logged across modules
+        - Logs provide accountability and traceability
+        - Audit trails help troubleshoot issues
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Technical Implementation">
+    - Laravel's Eloquent relationships enable efficient data associations
+    - Polymorphic relationships allow flexible connections between models
+    - Event listeners trigger actions when data changes
+    - Middleware enforces access control consistently
+    - Tenant scoping ensures data isolation where appropriate
+    
+    ```mermaid
+      flowchart TD
+          Entity --- User
+          User --- Entity
+          User --- Ticket
+          Entity --- Ticket
+          Ticket --- TicketComment
+          Ticket --- TicketTimeline
+          Ticket --- TicketStatus
+          Ticket --- TicketPriority
+          Ticket --- TicketCategory
+          Ticket --- TicketDepartment
+          Ticket --- AssignedUser[User]
+          
+          Entity --- AppointmentService
+          AppointmentService --- Appointment
+          Appointment --- CitizenUser[User]
+          Appointment --- StaffUser[User]
+          Appointment --- AppointmentTimeline
+          
+          Entity --- Vacancy
+          Vacancy --- VacancyDivision
+          Vacancy --- VacancySalaryBand
+          Vacancy --- VacancyApplication
+          VacancyApplication --- ApplicantUser[User]
+          VacancyApplication --- VacancyApplicationTimeline
+          
+          Entity --- GovernmentForm
+          GovernmentForm --- GovernmentFormSubmission
+          GovernmentFormSubmission --- SubmitterUser[User]
+          
+          User --- Document
+          Document --- DocumentCategory
+          
+          subgraph CoreEntities["Core Entities"]
+              Entity
+              User
+          end
+          
+          subgraph TicketSystem["Ticket System"]
+              Ticket
+              TicketComment
+              TicketTimeline
+              TicketStatus
+              TicketPriority
+              TicketCategory
+              TicketDepartment
+          end
+          
+          subgraph AppointmentSystem["Appointment System"]
+              AppointmentService
+              Appointment
+              AppointmentTimeline
+          end
+          
+          subgraph VacancySystem["Vacancy System"]
+              Vacancy
+              VacancyDivision
+              VacancySalaryBand
+              VacancyApplication
+              VacancyApplicationTimeline
+          end
+          
+          subgraph EServicesSystem["E-Services System"]
+              GovernmentForm
+              GovernmentFormSubmission
+          end
+          
+          subgraph DocumentSystem["Document System"]
+              Document
+              DocumentCategory
+          end
+          
+          classDef entityClass fill:#f9f,stroke:#333,stroke-width:2px
+          classDef userClass fill:#bbf,stroke:#333,stroke-width:2px
+          classDef ticketClass fill:#dfd,stroke:#333,stroke-width:2px
+          classDef appointmentClass fill:#fdd,stroke:#333,stroke-width:2px
+          classDef vacancyClass fill:#dff,stroke:#333,stroke-width:2px
+          classDef formClass fill:#ffd,stroke:#333,stroke-width:2px
+          classDef documentClass fill:#dfb,stroke:#333,stroke-width:2px
+          
+          class Entity entityClass
+          class User,AssignedUser,CitizenUser,StaffUser,ApplicantUser,SubmitterUser userClass
+          class Ticket,TicketComment,TicketTimeline,TicketStatus,TicketPriority,TicketCategory,TicketDepartment ticketClass
+          class AppointmentService,Appointment,AppointmentTimeline appointmentClass
+          class Vacancy,VacancyDivision,VacancySalaryBand,VacancyApplication,VacancyApplicationTimeline vacancyClass
+          class GovernmentForm,GovernmentFormSubmission formClass
+          class Document,DocumentCategory documentClass
+      ```
+    
+    <Note>
+      This integrated approach ensures that data flows seamlessly between the Admin and App panels, providing a unified experience for both government staff and citizens while maintaining appropriate access controls and data security. The system's architecture supports scalability, allowing new modules to be added while maintaining consistent data flow patterns.
+    </Note>
+  </Tab>
+</Tabs>

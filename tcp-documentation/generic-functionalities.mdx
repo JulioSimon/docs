@@ -1,0 +1,755 @@
+---
+title: 'Generic Functionalities'
+description: 'Common features available across both the Admin and App panels of the Citizen Portal'
+icon: 'puzzle-piece'
+---
+
+This section covers the common functionalities available across both the Admin and App panels of the Citizen Portal. These are the core features that provide a consistent experience for all users, whether they are government staff or citizens.
+
+<Note>
+**For Non-Technical Readers**: This documentation includes both plain language explanations and technical details. You can focus on the general descriptions and examples without needing to understand the code snippets, which are primarily intended for IT staff and developers.
+</Note>
+
+## Authentication System
+
+### Definition
+
+Authentication is the process of verifying the identity of users who access the system. Think of it as the digital equivalent of checking someone's ID card before allowing them into a secure building. The Citizen Portal uses a robust authentication system to ensure that only authorized individuals can access sensitive information and functionality.
+
+### Login Process
+
+The login process is the series of steps users must complete to gain access to the system. This process is designed to be secure while remaining user-friendly.
+
+<Tabs>
+  <Tab title="For Government Staff (Admin Panel)">
+    <Steps>
+      <Step title="Access Login Page">
+        Staff navigate to the Admin Panel login page at `/admin/login`
+        - This is typically accessed via a bookmark or by entering the URL directly in a web browser
+        - Example URL: https://portal.gov.to/admin/login
+      </Step>
+      <Step title="Credential Entry">
+        Staff enter their official government email address and password
+        - Passwords must meet security requirements (minimum 8 characters, including uppercase, lowercase, numbers, and special characters)
+        - Example: Email: john.smith@finance.gov.tg, Password: [secure password]
+      </Step>
+      <Step title="Entity Selection">
+        After successful authentication, staff select which government entity (ministry/department) they want to work with
+        - Staff members assigned to multiple entities must explicitly choose which one they are currently working with
+        - This ensures proper data isolation between different government departments
+      </Step>
+      <Step title="Multi-Factor Authentication (Optional)">
+        If enabled by the system administrator, staff must provide a second factor of authentication
+        - This adds an extra layer of security for sensitive government operations
+        - Options include:
+          - Time-based One-Time Password (TOTP) via authenticator apps like Google Authenticator
+          - Email verification codes sent to the staff member's registered email
+      </Step>
+    </Steps>
+
+    {/* Screenshot Suggestion: Add a screenshot of the Admin Panel login page showing the email/password fields and the "Sign in via ID Hub" button. Caption: "Admin Panel login page with options for standard login or ID Hub authentication." */}
+  </Tab>
+  <Tab title="For Citizens (App Panel)">
+    <Steps>
+      <Step title="Access Login Page">
+        Citizens navigate to the App Panel login page at `/login`
+        - This is the main entry point for citizens accessing government services
+        - Example URL: https://portal.gov.to/login
+      </Step>
+      <Step title="Credential Entry">
+        Citizens enter their registered email address and password
+        - Citizens must have previously registered for an account
+        - Example: Email: citizen@example.com, Password: [secure password]
+      </Step>
+      <Step title="Multi-Factor Authentication (Optional)">
+        If enabled, citizens must provide a second factor of authentication
+        - This provides additional security for sensitive personal information
+        - Same options as for government staff (TOTP or email verification)
+      </Step>
+    </Steps>
+
+    {/* Screenshot Suggestion: Add a screenshot of the App Panel login page with annotations pointing to key elements. Caption: "Citizen login page showing email/password fields and the option to register for a new account." */}
+  </Tab>
+</Tabs>
+
+### Authentication Methods
+
+The platform supports multiple authentication methods to accommodate different security requirements and user preferences.
+
+<Tabs>
+  <Tab title="Standard Email/Password Authentication">
+    This is the default authentication method using Laravel's built-in authentication system.
+
+    <AccordionGroup>
+      <Accordion title="How It Works">
+        1. Users create an account with their email address and a secure password
+        2. The system securely stores the password in an encrypted format (not the actual password itself)
+        3. When logging in, users enter their email and password
+        4. The system verifies the credentials against the stored information
+        5. If correct, access is granted; if incorrect, access is denied
+      </Accordion>
+      <Accordion title="Technical Implementation">
+        The platform uses Laravel's authentication system with bcrypt password hashing and additional security measures:
+
+        - Passwords are hashed using bcrypt with a work factor of 12
+        - Failed login attempts are rate-limited to prevent brute force attacks
+        - Password reset functionality includes secure, time-limited tokens
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+  <Tab title="ID Hub Integration (Keycloak/OAuth Authentication)">
+    <Warning>
+      **IMPORTANT DISCLAIMER**: The Keycloak integration is currently under development and may not be fully functional in all environments. Some features may be limited or unavailable until the integration is complete.
+    </Warning>
+
+    The platform can integrate with external identity providers through Laravel Socialite, specifically with the government's central identity system (ID Hub) powered by Keycloak.
+
+    <AccordionGroup>
+      <Accordion title="Definition">
+        Keycloak is a centralized authentication system that allows users to log in once and access multiple government systems without having to log in again for each system. Think of it as a single key that opens multiple doors, rather than needing a different key for each door.
+      </Accordion>
+      <Accordion title="Benefits for Users">
+        - **Single Sign-On (SSO)**: Log in once to access multiple government services
+        - **Simplified Authentication**: No need to remember different passwords for different systems
+        - **Enhanced Security**: Centralized security policies and monitoring
+        - **Streamlined User Experience**: Seamless transition between different government platforms
+      </Accordion>
+      <Accordion title="Technical Implementation">
+        The platform uses Laravel Socialite to integrate with Keycloak:
+
+        ```php
+        FilamentSocialitePlugin::make()
+            ->providers([
+                Provider::make('keycloak')
+                    ->label('Sign in via ID Hub')
+                    ->color(Color::hex('#2f2a6b'))
+                    ->outlined(false)
+                    ->stateless(false)
+                    ->scopes(['roles'])
+                    ->with([]),
+            ])
+        ```
+
+        This configuration allows the platform to authenticate users through the government's ID Hub system, retrieving their identity and role information.
+      </Accordion>
+      <Accordion title="Real-World Example">
+        A citizen, Michael, needs to access multiple government services. Instead of creating separate accounts for each service, he registers once with the central ID Hub. When visiting the Citizen Portal, he clicks "Sign in via ID Hub," which redirects him to the central login page. After authenticating there, he's automatically redirected back to the portal with access granted, without having to enter separate credentials.
+      </Accordion>
+    </AccordionGroup>
+
+    {/* Screenshot Suggestion: Add a screenshot showing the login page with the "Sign in via ID Hub" button highlighted. Caption: "The ID Hub authentication option allows users to log in using their centralized government account credentials." */}
+  </Tab>
+</Tabs>
+
+### Logout Process
+
+The logout process is how users securely end their session when they've finished using the system.
+
+#### For Both Admin and App Panels
+
+<Steps>
+  <Step title="Access Logout Option">
+    - Click on the user menu in the top-right corner of the screen
+    - The user menu displays the user's name and avatar
+  </Step>
+  <Step title="Select Logout">
+    - Click the "Log out" option from the dropdown menu
+    - This immediately terminates the user's session
+  </Step>
+  <Step title="Session Termination">
+    - The system invalidates the user's authentication token
+    - All cached user data is cleared from the browser
+    - The user is redirected to the login page
+  </Step>
+</Steps>
+
+<Note>
+  **Security Importance**: Properly logging out is crucial, especially on shared computers, as it prevents unauthorized access to the user's account. The system also includes automatic session timeout after a period of inactivity for additional security.
+</Note>
+
+{/* Screenshot Suggestion: Add a screenshot of the user menu dropdown with the logout option highlighted. Caption: "User menu showing the logout option that securely ends the user's session." */}
+
+## User Profile Management
+
+User profile management allows users to view and update their personal information, security settings, and preferences. Both government staff and citizens can manage their profiles, though some options may differ between the Admin and App panels.
+
+### Profile Information
+
+<Tabs>
+  <Tab title="For Government Staff (Admin Panel)">
+    Staff members can view and update their profile information, which includes:
+
+    <AccordionGroup>
+      <Accordion title="Personal Details">
+        - Name (as it appears throughout the system)
+        - Email address (used for login and notifications)
+        - Contact information (phone number, office location)
+        - Profile picture (displayed in the user menu and on communications)
+      </Accordion>
+      <Accordion title="Password Management">
+        - Change password (requires current password verification)
+        - Password must meet government security standards
+        - Password history prevents reuse of recent passwords
+      </Accordion>
+      <Accordion title="Two-Factor Authentication">
+        - Enable/disable 2FA for additional account security
+        - Set up authenticator app by scanning QR code
+        - Generate and securely store backup codes for emergency access
+        - View devices where 2FA is currently enabled
+      </Accordion>
+      <Accordion title="Session Management">
+        - View all active sessions across different devices
+        - Terminate specific sessions if suspicious activity is detected
+        - See last active time and location for each session
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+  <Tab title="For Citizens (App Panel)">
+    Citizens have similar profile management capabilities, with some differences:
+
+    <AccordionGroup>
+      <Accordion title="Personal Details">
+        - Name
+        - Email address
+        - Contact information (phone number, physical address)
+        - Profile picture (optional)
+        - Additional identification information may be required for certain services
+      </Accordion>
+      <Accordion title="Password Management">
+        - Same functionality as Admin Panel
+        - May have different password complexity requirements
+      </Accordion>
+      <Accordion title="Two-Factor Authentication">
+        - Optional but recommended for citizens
+        - Same setup process as Admin Panel
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+</Tabs>
+
+{/* Screenshot Suggestion: Add a split-screen comparison showing the profile page for both Admin and App panels, with annotations highlighting the differences. Caption: "Comparison of profile management screens for government staff (left) and citizens (right)." */}
+
+### Profile Navigation
+
+The process to access profile settings is similar in both panels:
+
+<Steps>
+  <Step title="Access User Menu">
+    - Click on the user avatar in the top-right corner of any page
+    - This displays a dropdown menu with various options
+  </Step>
+  <Step title="Select Profile">
+    - Click on the user's name option in the dropdown menu
+    - This navigates to the profile management page
+  </Step>
+</Steps>
+
+{/* Screenshot Suggestion: Add a screenshot showing the user menu dropdown with the Profile option highlighted, and arrows indicating the navigation flow. Caption: "Accessing profile settings through the user menu in the top-right corner." */}
+
+### Profile Customization
+
+The profile page is implemented using FilamentBreezy, a plugin for FilamentPHP that provides user profile management functionality:
+
+```php
+BreezyCore::make()
+    ->myProfile()
+    ->enableTwoFactorAuthentication()
+    ->customMyProfilePage(UserProfile::class)
+```
+
+This configuration:
+- Enables the "My Profile" feature
+- Activates Two-Factor Authentication functionality
+- Uses a custom profile page class (`UserProfile`) for additional customization
+
+The `UserProfile` class extends FilamentBreezy's base profile page and can be customized to add government-specific fields or functionality. This allows for extending the profile system without modifying the core code, making updates easier to manage.
+
+## Navigation and Interface Overview
+
+The Citizen Portal features an intuitive navigation system tailored to the specific needs of each user type. The navigation structure is designed to provide easy access to frequently used functions while maintaining a clean, uncluttered interface.
+
+<Tabs>
+  <Tab title="Admin Panel Navigation (For Government Staff)">
+    The Admin Panel uses a sidebar navigation structure organized into logical groups based on administrative functions. This approach provides a comprehensive overview of all available features while allowing staff to quickly access specific areas.
+
+    <AccordionGroup>
+      <Accordion title="Navigation Structure">
+        The sidebar is organized into functional groups:
+
+        ```php
+        ->navigationGroups([
+            __('navigation.groups.appointment_management'),
+            __('navigation.groups.ticket_management'),
+            __('navigation.groups.vacancies_management'),
+            __('navigation.groups.government_e_services'),
+            __('navigation.groups.document_library'),
+            __('navigation.groups.portal_management'),
+        ])
+        ```
+
+        **What This Means:**
+        The sidebar menu is divided into sections like:
+        - Appointment Management
+        - Ticket Management
+        - Vacancies Management
+        - Government E-Services
+        - Document Library
+        - Portal Management
+
+        Each section contains related tools and features, making it easier to find specific functionality.
+      </Accordion>
+      <Accordion title="Key Navigation Elements">
+        The Admin Panel includes several navigation elements designed to help staff efficiently navigate the system:
+
+        <CardGroup cols={2}>
+          <Card title="Sidebar" icon="bars">
+            - Primary navigation menu with collapsible groups
+            - Can be collapsed to provide more screen space for content
+            - Visually indicates the current section with highlighting
+            - Provides quick access to all system functions
+          </Card>
+          <Card title="Breadcrumbs" icon="arrow-right">
+            - Show the current location in the application hierarchy
+            - Provide one-click navigation to parent sections
+            - Example: Portal Management > Users > Edit User
+            - Help staff understand their current context within the system
+          </Card>
+          <Card title="Quick Actions" icon="bolt">
+            - Contextual buttons for common actions relevant to the current page
+            - Typically appear in the top-right of content areas
+            - Examples: "Create New", "Export", "Filter", "Refresh"
+            - Provide shortcuts to frequently used functions
+          </Card>
+          <Card title="User Menu" icon="user">
+            - Access to profile settings and logout
+            - Displays user name and avatar
+            - May include quick links to frequently used personal tools
+          </Card>
+          <Card title="Notifications" icon="bell">
+            - Real-time system notifications
+            - Indicated by a bell icon with a counter for unread notifications
+            - Provides alerts about system events, user actions, and updates
+          </Card>
+        </CardGroup>
+      </Accordion>
+    </AccordionGroup>
+
+    {/* Screenshot Suggestion: Add a screenshot of the Admin Panel sidebar showing the expanded navigation groups and highlighting the hierarchical structure. Caption: "Admin Panel sidebar navigation showing the main functional groups that organize administrative tools." */}
+  </Tab>
+  <Tab title="App Panel Navigation (For Citizens)">
+    The App Panel uses a top navigation bar with dropdown menus, providing a more user-friendly experience that resembles common consumer websites. This approach maximizes screen space for content while maintaining easy access to all features.
+
+    <AccordionGroup>
+      <Accordion title="Navigation Structure">
+        The top navigation uses dropdown menus for categories:
+
+        ```php
+        ->topNavigation()
+        ->navigationGroups([
+            NavigationGroup::make()
+                ->label(fn (): string => __('navigation.groups.vacancies'))
+                ->icon('heroicon-o-briefcase')
+                ->collapsed(),
+            NavigationGroup::make()
+                ->label(fn (): string => __('E-Services'))
+                ->icon('heroicon-o-document-text')
+                ->collapsed(),
+        ])
+        ```
+
+        **What This Means:**
+        The top navigation bar includes dropdown menus for different service categories, such as:
+        - Vacancies (with a briefcase icon)
+        - E-Services (with a document icon)
+        - And other service categories
+
+        Each dropdown contains related services and tools that citizens can access.
+      </Accordion>
+      <Accordion title="Key Navigation Elements">
+        The App Panel includes several navigation elements designed for an intuitive citizen experience:
+
+        <CardGroup cols={2}>
+          <Card title="Top Bar" icon="arrow-up">
+            - Primary navigation with dropdown menus
+            - Always visible for easy access to all sections
+            - Includes search functionality and user menu
+            - Provides consistent navigation across all pages
+          </Card>
+          <Card title="Dashboard Widgets" icon="gauge">
+            - Quick access to common functions
+            - Personalized based on citizen's recent activity and pending requests
+            - Visual indicators for status updates and notifications
+            - Example widgets: "My Appointments", "Active Requests", "Document Status"
+          </Card>
+          <Card title="Service Cards" icon="grip">
+            - Visual navigation to key services
+            - Large, clickable cards with icons and descriptions
+            - Organized by category or popularity
+            - Provide an intuitive way to discover available services
+          </Card>
+          <Card title="User Menu" icon="user">
+            - Access to profile settings and logout
+            - Displays user name and avatar
+            - Includes quick links to personal data and settings
+          </Card>
+          <Card title="Notifications" icon="bell">
+            - Real-time updates on service requests
+            - Indicated by a bell icon with a counter for unread notifications
+            - Provides alerts about application status, appointments, and deadlines
+          </Card>
+        </CardGroup>
+      </Accordion>
+    </AccordionGroup>
+
+    {/* Screenshot Suggestion: Add a screenshot of the App Panel top navigation bar showing a dropdown menu expanded. Caption: "Citizen App Panel top navigation showing dropdown menus that provide access to different government services." */}
+  </Tab>
+</Tabs>
+
+### Responsive Design
+
+Both the Admin and App panels implement responsive design principles, ensuring that the system is usable on devices of all sizes, from desktop computers to mobile phones.
+
+<AccordionGroup>
+  <Accordion title="Mobile-First Approach">
+    - The interface is designed for mobile devices first, then enhanced for larger screens
+    - Ensures usability on smartphones and tablets
+    - Critical for field staff and citizens accessing services on mobile devices
+  </Accordion>
+  <Accordion title="Adaptive Layouts">
+    - Page layouts automatically adjust to different screen sizes
+    - Tables transform into cards on small screens
+    - Multi-column layouts become single-column on mobile
+    - Content priority shifts to ensure important information is visible first
+  </Accordion>
+  <Accordion title="Touch-Friendly Controls">
+    - Larger tap targets on touch devices
+    - Swipe gestures for common actions
+    - Reduced reliance on hover states
+    - Optimized input fields for touch keyboards
+  </Accordion>
+  <Accordion title="Collapsible Elements">
+    - Menus and panels can be hidden on smaller screens
+    - Sidebar collapses to icons or hamburger menu
+    - Expandable sections to conserve space
+    - "Show more" options for detailed content
+  </Accordion>
+</AccordionGroup>
+
+{/* Screenshot Suggestion: Add a series of three screenshots showing the same page on desktop, tablet, and mobile devices to demonstrate how the responsive design adapts. Caption: "Responsive design demonstration showing how the interface adapts to different screen sizes while maintaining functionality." */}
+
+## Common Features Across Panels
+
+Several features are available in both the Admin and App panels, providing a consistent user experience regardless of whether the user is government staff or a citizen.
+
+### Notification System
+
+The platform implements a comprehensive notification system that keeps users informed about important events, updates, and actions relevant to them.
+
+<Tabs>
+  <Tab title="How it works">
+    The notification system works like a digital assistant that proactively informs users about important events:
+
+    <Steps>
+      <Step title="Notification Generation">
+        - The system automatically generates notifications when specific events occur
+        - Examples: status changes, approaching deadlines, new assignments, system announcements
+        - Notifications include a title, description, icon, and sometimes action buttons
+      </Step>
+      <Step title="Delivery Channels">
+        Notifications are delivered through multiple channels:
+        - **In-App Notifications**: Appear in the notification center accessible from the top bar
+        - **Email Notifications**: Sent to the user's registered email address
+        - **Database Storage**: Saved for future reference even after being read
+      </Step>
+      <Step title="Notification Management">
+        Users can:
+        - Mark notifications as read
+        - Delete notifications
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Technical Implementation">
+    The notification system is implemented using a combination of Laravel's notification system and FilamentPHP's notification components:
+
+    ```php
+    public function addNotification(string $title, string $operation, string $icon, Action $action): void
+    {
+        // Send it to DB with actions
+        Notification::make()
+            ->title($title)
+            ->body($operation)
+            ->icon($icon)
+            ->actions([$action])
+            ->sendToDatabase($this);
+
+        // Send it to the user email
+        Mail::to($this->email)->send(new \App\Mail\Notification($this, $operation, $action->getUrl()));
+
+        // Send it to UI
+        Notification::make()
+            ->title($title)
+            ->body($operation)
+            ->icon($icon)
+            ->send();
+    }
+    ```
+
+    This code:
+    - Creates a notification with a title, body text, and icon
+    - Stores the notification in the database for persistence
+    - Sends an email version of the notification
+    - Displays the notification in the user interface
+
+    The notification system can be extended to support additional channels such as SMS or mobile push notifications by implementing additional notification channels in Laravel.
+  </Tab>
+</Tabs>
+
+{/* Screenshot Suggestion: Add a screenshot of the notification center showing various types of notifications with different icons and action buttons. Caption: "Notification center showing various types of system notifications with action buttons for direct response." */}
+
+### Search Functionality
+
+Both panels include powerful search capabilities that help users quickly find the information they need.
+
+<Warning>
+  **Under development**: The global search functionality is implemented but not activated as there are still some resources under development. It will be activated soon.
+</Warning>
+
+<AccordionGroup>
+  <Accordion title="Global Search">
+    - Accessible from the top bar in both panels
+    - Searches across all accessible resources
+    - Results grouped by resource type (tickets, appointments, documents, etc.)
+    - Keyboard shortcut: Press "/" to focus the search box
+    - Provides quick navigation to specific items
+  </Accordion>
+  <Accordion title="Resource-Specific Search">
+    - Available within each resource list view
+    - Filters and searches within the current resource type
+    - Includes advanced filtering options
+    - Allows for precise data retrieval
+    - Can be saved as a preset for future use
+  </Accordion>
+  <Accordion title="Advanced Filters">
+    - Combine multiple criteria for precise results
+    - Filter by date ranges, status, categories, and other attributes
+    - Create complex queries using AND/OR logic
+    - Save frequently used filters as presets
+    - Export filtered results to various formats
+  </Accordion>
+</AccordionGroup>
+
+{/* Screenshot Suggestion: Add a screenshot of the advanced search interface with filters applied and results displayed. Caption: "Advanced search interface showing multiple filters applied to narrow down results to specific criteria." */}
+
+### Audit Logging
+
+The platform maintains comprehensive audit logs of user actions, providing accountability and a trail for troubleshooting and security investigations.
+
+<Tabs>
+  <Tab title="Definition">
+    <Info>
+      Audit logging is like a detailed digital record book that automatically records who did what and when within the system. Think of it as security cameras for digital actions - they don't interfere with normal operations but provide a complete record that can be reviewed if needed.
+    </Info>
+  </Tab>
+  <Tab title="Audit Log Features">
+    <CardGroup cols={2}>
+      <Card title="User Tracking" icon="user">
+        - Records which user performed each action
+        - Includes user ID, name, and role
+        - Tracks both staff and citizen actions
+        - Links actions to specific user sessions
+      </Card>
+      <Card title="Action Details" icon="list-check">
+        - What was changed and when
+        - Records both the previous and new values
+        - Timestamps with millisecond precision
+        - Categorizes actions by type (create, update, delete, view)
+      </Card>
+      <Card title="IP Logging" icon="network-wired">
+        - Origin of the request
+        - Helps identify suspicious access patterns
+        - Useful for security investigations
+        - Can help distinguish between user devices
+      </Card>
+      <Card title="Access Logs" icon="key">
+        - Authentication attempts (successful and failed)
+        - Session information (start, end, duration)
+        - Resource access attempts
+        - Permission checks and authorization decisions
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Importance of Audit Logging">
+    Audit logging serves several critical purposes:
+    - **Accountability**: Establishes who performed specific actions
+    - **Compliance**: Meets regulatory requirements for record-keeping
+    - **Security**: Helps detect and investigate suspicious activities
+    - **Troubleshooting**: Aids in diagnosing issues by showing the sequence of events
+    - **Recovery**: Provides information needed to restore data if necessary
+
+    <Note>
+      **Example:**
+      A citizen reports that their personal information was incorrectly updated. The system administrator checks the audit logs and sees exactly when the change was made, which staff member made it, what specific fields were changed, and what the previous values were. This allows them to quickly correct the issue and implement additional verification steps to prevent similar errors in the future.
+    </Note>
+  </Tab>
+</Tabs>
+
+{/* Screenshot Suggestion: Add a screenshot of the audit log interface showing a timeline of actions with user details and action specifics. Caption: "Audit log showing a chronological record of system actions with details about who performed each action and what changes were made." */}
+
+## Permission and Role Management
+
+The platform implements a sophisticated permission and role system that controls what actions different users can perform within the system. This ensures that users only have access to the functions and data appropriate for their responsibilities.
+
+### Definition
+
+<CardGroup cols={2}>
+  <Card title="Roles" icon="user-tag">
+    Think of roles as job titles that come with specific responsibilities. Just as a "Manager" in an office has different responsibilities than a "Clerk," roles in the system (like "Administrator" or "Staff") come with different levels of access.
+  </Card>
+  <Card title="Permissions" icon="key">
+    These are specific actions that a user is allowed to perform, such as "view tickets" or "approve applications." Permissions are like keys to different doors in a building - each key (permission) allows access to specific rooms (features).
+  </Card>
+</CardGroup>
+
+### Role Hierarchy
+
+The system defines several key roles with increasing levels of access:
+
+<AccordionGroup>
+  <Accordion title="panel_user">
+    - Basic citizen access to the App panel
+    - Can access personal information and services
+    - Can submit requests and applications
+    - Cannot access administrative functions
+    - Example: A citizen using the portal to apply for a business license
+  </Accordion>
+  <Accordion title="staff">
+    - Government staff with access to assigned entity resources
+    - Can process citizen requests within their department
+    - Limited to specific functions related to their job
+    - Cannot modify system settings or access other entities
+    - Example: A clerk processing permit applications in the Ministry of Commerce
+  </Accordion>
+  <Accordion title="administrator">
+    - Entity administrators with full control over their entity
+    - Can manage staff accounts within their entity
+    - Can configure entity-specific settings
+    - Cannot access or modify other entities
+    - Example: The IT manager for the Ministry of Health who manages all system users within that ministry
+  </Accordion>
+  <Accordion title="super_admin">
+    - System administrators with global access
+    - Can manage all entities, users, and settings
+    - Has access to system configuration and monitoring
+    - Responsible for platform maintenance and security
+    - Example: The central IT administrator who manages the entire government portal
+  </Accordion>
+</AccordionGroup>
+
+{/* Screenshot Suggestion: Add a screenshot of the role management interface showing the hierarchy of roles and their associated permissions. Caption: "Role management interface showing the different system roles and their associated permission levels." */}
+
+### Permission Structure
+
+Permissions are organized by resource and action, providing fine-grained control over what users can do:
+
+<Tabs>
+  <Tab title="Resource-Based Permissions">
+    - Permissions for specific resources (e.g., tickets, appointments)
+    - Controls access to different types of data
+    - Examples: "tickets", "appointments", "documents", "users"
+    - Ensures data is only accessible to appropriate users
+  </Tab>
+  <Tab title="Action-Based Permissions">
+    - Create, read, update, delete operations
+    - Controls what actions users can perform on resources
+    - Examples: "create", "view", "edit", "delete"
+    - Allows for different levels of access to the same resource
+  </Tab>
+  <Tab title="Special Permissions">
+    - Administrative functions and system settings
+    - Controls access to configuration and management features
+    - Examples: "manage_settings", "assign_roles", "view_audit_logs"
+    - Restricted to administrative roles
+  </Tab>
+</Tabs>
+
+<Note>
+  **Permission Naming Convention:**
+  Permissions follow a consistent naming pattern: `action_resource`
+  
+  Examples:
+  - `view_tickets`: Ability to see ticket information
+  - `create_appointments`: Ability to create new appointments
+  - `update_documents`: Ability to modify document information
+  - `delete_vacancies`: Ability to remove job vacancy listings
+  - `manage_users`: Comprehensive control over user accounts
+</Note>
+
+### Permission Assignment
+
+<Info>
+  **Role-Based Assignment**: 
+  - Users inherit permissions from their assigned roles
+  - Most common method of permission assignment
+  - Simplifies user management by grouping permissions
+  - Example: Assigning the "staff" role automatically grants all staff-level permissions
+</Info>
+
+{/* Screenshot Suggestion: Add a screenshot of the permission assignment interface showing both role-based and direct permission assignment options. Caption: "Permission assignment interface showing how permissions can be granted through roles or assigned directly to specific users." */}
+
+### Access Control Implementation
+
+The platform enforces access control at multiple levels to ensure comprehensive security:
+
+```php
+// Panel access control
+public function canAccessPanel(Panel $panel): bool
+{
+    if ($panel->getId() === 'admin'){
+        if(!$this->hasAnyRole(['super_admin', 'administrator', 'staff'])){
+            return false;
+        }
+        
+        if (!$this->entities()->exists()) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// Resource policy example
+public function viewAny(User $user): bool
+{
+    return $user->can('view_any_ticket');
+}
+
+public function view(User $user, Ticket $ticket): bool
+{
+    // Check if user owns the ticket or has permission to view any ticket
+    return $user->id === $ticket->user_id || 
+           $user->can('view_ticket');
+}
+```
+
+<Note>
+  **What This Means:**
+  The system checks permissions at multiple points:
+  1. When accessing a panel (Admin or App)
+  2. When accessing a list of resources (e.g., all tickets)
+  3. When accessing a specific resource (e.g., a particular ticket)
+  4. When attempting to perform actions (create, edit, delete)
+
+  This multi-layered approach ensures that users can only access data and functions appropriate to their role and entity assignments, maintaining security and data privacy.
+</Note>
+
+<Tip>
+  **Technical Details:**
+  The permission system is implemented using Spatie's Laravel Permission package integrated with FilamentShield, which provides:
+  - Database tables for roles, permissions, and their relationships
+  - Caching for performance optimization
+  - Helper methods for permission checks
+  - Integration with Laravel's authorization system
+  - A user interface for managing roles and permissions
+
+  This implementation allows for flexible permission management while maintaining high performance and security.
+</Tip>

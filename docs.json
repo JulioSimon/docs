@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Tonga Portals Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,45 +11,39 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Tonga National Portal",
+        "tab": "National Portal",
         "groups": [
           {
             "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "index"
             ]
           },
           {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
+            "group": "Documentation",
+            "pages": []
           }
         ]
       },
       {
-        "tab": "Tonga Citizen Portal",
+        "tab": "Citizen Portal",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Get Started",
             "pages": [
-              "api-reference/introduction"
+              "tcp-documentation/index"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Documentation",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "tcp-documentation/introduction",
+              "tcp-documentation/platform-structure",
+              "tcp-documentation/generic-functionalities",
+              "tcp-documentation/module-functionalities",
+              "tcp-documentation/security",
+              "tcp-documentation/deployment",
+              "tcp-documentation/maintenance"
             ]
           }
         ]
@@ -58,27 +52,15 @@
     "global": {}
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/logo.png",
+    "dark": "/logo/logo.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "National Portal",
+      "href": "https://www.gov.to"
     }
   },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  }
+  "footer": {}
 }

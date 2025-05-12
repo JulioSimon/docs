@@ -1,0 +1,1071 @@
+---
+title: "Maintenance"
+description: "Comprehensive guidance on maintaining the Government Administration Portal"
+icon: 'wrench'
+---
+
+This section provides comprehensive guidance on maintaining the Government Administration Portal, including update procedures, backup strategies, troubleshooting common issues, monitoring recommendations, and long-term maintenance best practices.
+
+## Update Procedures
+
+Keeping the platform updated is essential for security, performance, and functionality. This section outlines the procedures for different types of updates.
+
+### System Requirements
+
+The Government Administration Portal requires the following system specifications:
+
+  <table className="min-w-full">
+    <thead>
+      <tr>
+        <th className="border px-4 py-2 bg-slate-100 dark:bg-slate-800">Component</th>
+        <th className="border px-4 py-2 bg-slate-100 dark:bg-slate-800">Requirement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border px-4 py-2">PHP</td>
+        <td className="border px-4 py-2">8.3+</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">Laravel</td>
+        <td className="border px-4 py-2">11.x</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">FilamentPHP</td>
+        <td className="border px-4 py-2">3.x</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">Livewire</td>
+        <td className="border px-4 py-2">3.x</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">Node.js</td>
+        <td className="border px-4 py-2">20.0+</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">MariaDB</td>
+        <td className="border px-4 py-2">10.5+ or MySQL 8.0+</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">Redis</td>
+        <td className="border px-4 py-2">6.0+</td>
+      </tr>
+      <tr>
+        <td className="border px-4 py-2">Operating System</td>
+        <td className="border px-4 py-2">Ubuntu 24.04 LTS</td>
+      </tr>
+    </tbody>
+  </table>
+
+These requirements align with the deployment specifications and should be maintained during all updates to ensure system compatibility and optimal performance.
+
+### Minor Updates
+
+Minor updates include bug fixes, security patches, and small feature enhancements. These updates should be applied regularly to maintain system integrity.
+
+#### Preparation
+
+<Steps>
+  <Step title="Review Update Notes">
+    - Check the changelog for any breaking changes
+    - Identify any database migrations that will be run
+    - Note any configuration changes required
+  </Step>
+  
+  <Step title="Create a Backup">
+    - Back up the database
+    - Back up the application files
+    - Store backups in a secure location
+  </Step>
+  
+  <Step title="Schedule Maintenance Window">
+    - Notify users of planned maintenance
+    - Choose a low-traffic period for the update
+    - Prepare maintenance mode message
+  </Step>
+</Steps>
+
+#### Update Process
+
+<Steps>
+  <Step title="Enable Maintenance Mode">
+    <CodeGroup>
+      ```bash
+      cd /var/www/tongacp
+      php artisan down --message="The system is being updated. Please check back in 30 minutes."
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Pull Latest Code">
+    <CodeGroup>
+      ```bash
+      git fetch origin
+      git checkout main
+      git pull origin main
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Update Dependencies">
+    <CodeGroup>
+      ```bash
+      composer install --no-dev --optimize-autoloader
+      # Ensure Node.js 20.0+ is being used
+      node -v
+      npm ci
+      npm run build
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Run Migrations">
+    <CodeGroup>
+      ```bash
+      php artisan migrate --force
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Clear and Rebuild Cache">
+    <CodeGroup>
+      ```bash
+      php artisan optimize:clear
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Update Permissions">
+    <CodeGroup>
+      ```bash
+      sudo chown -R www-data:www-data /var/www/tongacp
+      sudo chmod -R 755 /var/www/tongacp
+      sudo chmod -R 775 /var/www/tongacp/storage /var/www/tongacp/bootstrap/cache
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Restart Services">
+    <CodeGroup>
+      ```bash
+      sudo systemctl restart php8.3-fpm
+      sudo supervisorctl restart "tongacp-worker:*"
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Disable Maintenance Mode">
+    <CodeGroup>
+      ```bash
+      php artisan up
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Verify Update">
+    - Check application version: `php artisan about`
+    - Test key functionality
+    - Monitor logs for errors: `tail -f storage/logs/laravel.log`
+  </Step>
+</Steps>
+
+### Major Updates
+
+Major updates involve significant changes to the platform, such as upgrading to a new Laravel 11.x or FilamentPHP 3.x version. These updates require more careful planning and testing.
+
+#### Preparation
+
+<Steps>
+  <Step title="Create a Test Environment">
+    - Clone the production environment to a staging server
+    - Ensure staging environment mirrors production
+  </Step>
+  
+  <Step title="Comprehensive Backup">
+    - Full database backup
+    - Complete application backup
+    - Configuration files backup
+    - Store backups in multiple secure locations
+  </Step>
+  
+  <Step title="Review Update Requirements">
+    - Check for PHP version requirements (minimum PHP 8.3+)
+    - Identify dependency changes
+    - Note breaking changes and required code modifications
+    - Plan for extended maintenance window
+  </Step>
+</Steps>
+#### Update Process
+
+<Steps>
+  <Step title="Test in Staging Environment">
+    - Apply the update to the staging environment first
+    - Follow the update steps documented for the specific version
+    - Test all critical functionality
+    - Document any issues and their solutions
+  </Step>
+  
+  <Step title="Update Production Environment">
+    - Schedule extended maintenance window
+    - Notify users well in advance
+    - Enable maintenance mode
+    - Follow the same update steps as tested in staging
+    - Apply any additional fixes identified during staging testing
+  </Step>
+  
+  <Step title="Post-Update Verification">
+    - Comprehensive testing of all modules
+    - Monitor system performance
+    - Check logs for errors
+    - Verify all integrations are functioning
+  </Step>
+  
+  <Step title="Rollback Plan">
+    <Info>
+      If critical issues are encountered:
+      - Restore from backup
+      - Revert to previous code version
+      - Notify users of rollback and timeline for retry
+    </Info>
+  </Step>
+</Steps>
+
+### Plugin and Extension Updates
+
+The platform uses various plugins and extensions that may require separate update procedures.
+
+<Steps>
+  <Step title="Identify Plugin Updates">
+    - Check for updates to FilamentPHP plugins
+    - Review plugin changelogs for breaking changes
+    - Prioritize security-related updates
+  </Step>
+  
+  <Step title="Update Process">
+    - Update one plugin at a time
+    - Test functionality after each update
+    - Document any configuration changes
+  </Step>
+  
+  <Step title="Custom Plugin Compatibility">
+    - For custom-developed plugins, ensure compatibility with core updates
+    - Update custom plugins as needed
+    - Test integration points thoroughly
+  </Step>
+</Steps>
+
+## Backup Strategies
+
+A robust backup strategy is essential for data security and disaster recovery.
+
+### Database Backups
+
+<Steps>
+  <Step title="Automated Daily Backups">
+    <CodeGroup>
+      ```bash
+      #!/bin/bash
+      TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+      BACKUP_DIR="/var/backups/tongacp/database"
+      mkdir -p $BACKUP_DIR
+      
+      # Database backup
+      mariadb-dump -u tongacp_user -p'secure_password' tongacp | gzip > $BACKUP_DIR/tongacp_db_$TIMESTAMP.sql.gz
+      
+      # Rotate backups (keep last 30 days)
+      find $BACKUP_DIR -type f -name "tongacp_db_*.sql.gz" -mtime +30 -delete
+      
+      # Copy to offsite storage
+      rsync -avz $BACKUP_DIR/tongacp_db_$TIMESTAMP.sql.gz backup-server:/backups/tongacp/database/
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Backup Before Updates">
+    Always create a manual backup before applying updates:
+    <CodeGroup>
+      ```bash
+      php artisan db:backup --filename=pre_update_$(date +"%Y%m%d%H%M%S").sql
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Backup Verification">
+    Regularly test database restore process:
+    <CodeGroup>
+      ```bash
+      # Create test database
+      mariadb -e "CREATE DATABASE tongacp_test;"
+      
+      # Restore backup to test database
+      gunzip < /var/backups/tongacp/database/tongacp_db_20250501120000.sql.gz | mariadb tongacp_test
+      
+      # Verify data integrity
+      mariadb -e "SELECT COUNT(*) FROM users;" tongacp_test
+      ```
+    </CodeGroup>
+  </Step>
+</Steps>
+
+### File Backups
+
+<Steps>
+  <Step title="Automated File Backups">
+    <CodeGroup>
+      ```bash
+      #!/bin/bash
+      TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+      BACKUP_DIR="/var/backups/tongacp/files"
+      mkdir -p $BACKUP_DIR
+      
+      # Files backup (excluding vendor, node_modules, etc.)
+      tar -czf $BACKUP_DIR/tongacp_files_$TIMESTAMP.tar.gz \
+          --exclude="vendor" \
+          --exclude="node_modules" \
+          --exclude="storage/logs" \
+          --exclude="storage/framework/cache" \
+          -C /var/www tongacp
+      
+      # Rotate backups (keep last 7 days)
+      find $BACKUP_DIR -type f -name "tongacp_files_*.tar.gz" -mtime +7 -delete
+      
+      # Copy to offsite storage
+      rsync -avz $BACKUP_DIR/tongacp_files_$TIMESTAMP.tar.gz backup-server:/backups/tongacp/files/
+      ```
+    </CodeGroup>
+  </Step>
+  
+  <Step title="Media Files Backup">
+    <CodeGroup>
+      ```bash
+      #!/bin/bash
+      TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+      BACKUP_DIR="/var/backups/tongacp/media"
+      mkdir -p $BACKUP_DIR
+      
+      # Media files backup
+      tar -czf $BACKUP_DIR/tongacp_media_$TIMESTAMP.tar.gz -C /var/www/tongacp/storage/app .
+      
+      # Rotate backups (keep last 14 days)
+      find $BACKUP_DIR -type f -name "tongacp_media_*.tar.gz" -mtime +14 -delete
+      
+      # Copy to offsite storage
+      rsync -avz $BACKUP_DIR/tongacp_media_$TIMESTAMP.tar.gz backup-server:/backups/tongacp/media/
+      ```
+    </CodeGroup>
+  </Step>
+</Steps>
+
+### Backup Storage and Retention
+
+<CardGroup cols={3}>
+  <Card title="Local Storage" icon="hard-drive">
+    - Store backups on a separate disk from the application
+    - Implement appropriate permissions to prevent unauthorized access
+    - Monitor available storage space
+  </Card>
+  
+  <Card title="Offsite Storage" icon="cloud">
+    - Replicate backups to a remote server or cloud storage
+    - Encrypt backups before transferring to offsite storage
+    - Verify successful transfer of backups
+  </Card>
+  
+  <Card title="Retention Policy" icon="calendar">
+    - Daily backups: Retain for 30 days
+    - Weekly backups: Retain for 3 months
+    - Monthly backups: Retain for 1 year
+    - Pre-update backups: Retain until next major update is confirmed stable
+  </Card>
+</CardGroup>
+
+### Disaster Recovery Plan
+
+<Steps>
+  <Step title="Document Recovery Procedures">
+    - Step-by-step instructions for database restoration
+    - File recovery procedures
+    - Service restart sequence
+    - Contact information for key personnel
+  </Step>
+  
+  <Step title="Regular Recovery Testing">
+    - Conduct quarterly recovery drills
+    - Test restoration to a separate environment
+    - Verify application functionality after recovery
+    - Document recovery time and any issues encountered
+  </Step>
+  
+  <Step title="High Availability Considerations">
+    - For critical deployments, implement database replication
+    - Consider standby application servers
+    - Automate failover procedures where possible
+  </Step>
+</Steps>
+## Troubleshooting Common Issues
+
+This section provides guidance on diagnosing and resolving common issues that may arise during operation of the Government Administration Portal.
+
+### Database Connection Issues
+
+<Accordion title="Symptoms">
+  - "Could not connect to database" errors
+  - Slow page loads followed by database errors
+  - Intermittent database connection failures
+</Accordion>
+
+<Accordion title="Diagnosis">
+  <CodeGroup>
+    ```bash
+    # Check database service status
+    sudo systemctl status mariadb
+    
+    # Check database connection from command line
+    mariadb -u tongacp_user -p -h localhost tongacp -e "SELECT 1"
+    
+    # Check database connection settings in .env
+    cat .env | grep DB_
+    ```
+  </CodeGroup>
+</Accordion>
+
+<Accordion title="Solutions">
+  - Restart database service: `sudo systemctl restart mariadb`
+  - Verify database credentials in `.env` file
+  - Check database server load and resources
+  - Increase database connection timeout in `config/database.php`
+  - Check for database connection leaks in custom code
+</Accordion>
+
+### Performance Degradation
+
+<Accordion title="Symptoms">
+  - Slow page loads
+  - Timeout errors
+  - High server resource usage
+</Accordion>
+
+<Accordion title="Diagnosis">
+  <CodeGroup>
+    ```bash
+    # Check server load
+    top
+    
+    # Check PHP-FPM status
+    sudo systemctl status php8.3-fpm
+    
+    # Check for slow queries
+    sudo tail -f /var/log/mariadb/slow-query.log
+    
+    # Check application logs
+    tail -f storage/logs/laravel.log
+    ```
+  </CodeGroup>
+</Accordion>
+
+<Accordion title="Solutions">
+  - Identify and optimize slow database queries
+  - Implement or adjust caching strategies
+  - Check for memory leaks in custom code
+  - Optimize PHP configuration (memory_limit, max_execution_time)
+  - Scale server resources if necessary
+  - Implement database query caching
+</Accordion>
+
+### File Upload Issues
+
+<Accordion title="Symptoms">
+  - File upload failures
+  - "Maximum file size exceeded" errors
+  - Incomplete file uploads
+</Accordion>
+
+<Accordion title="Diagnosis">
+  <CodeGroup>
+    ```bash
+    # Check PHP upload settings
+    php8.3 -i | grep upload
+    
+    # Check storage directory permissions
+    ls -la storage/app/public
+    
+    # Check available disk space
+    df -h
+    ```
+  </CodeGroup>
+</Accordion>
+
+<Accordion title="Solutions">
+  - Adjust PHP settings in `php.ini`:
+    ```
+    upload_max_filesize = 20M
+    post_max_size = 20M
+    max_execution_time = 300
+    ```
+  - Correct storage directory permissions:
+    ```bash
+    sudo chown -R www-data:www-data storage
+    sudo chmod -R 775 storage
+    ```
+  - Free up disk space or expand storage
+  - Check and adjust Nginx client_max_body_size
+  </Accordion>
+### Authentication Problems
+
+<Accordion title="Symptoms">
+  - Users unable to log in
+  - Session expiration issues
+  - "Unauthenticated" errors after login
+</Accordion>
+
+<Accordion title="Diagnosis">
+  <CodeGroup>
+    ```bash
+    # Check session configuration
+    cat config/session.php
+    
+    # Check for cookie issues
+    cat .env | grep SESSION
+    
+    # Check for failed login attempts
+    tail -f storage/logs/laravel.log | grep auth
+    ```
+  </CodeGroup>
+</Accordion>
+
+<Accordion title="Solutions">
+  - Clear session data: `php artisan session:clear`
+  - Verify session driver configuration
+  - Check for cookie domain/path issues
+  - Ensure secure and HTTP-only flags are set for cookies
+  - Verify that session storage is properly configured
+</Accordion>
+
+### Queue Processing Issues
+
+<Accordion title="Symptoms">
+  - Background jobs not processing
+  - Email notifications not being sent
+  - Queue backlog growing
+</Accordion>
+
+<Accordion title="Diagnosis">
+  <CodeGroup>
+    ```bash
+    # Check Supervisor status
+    sudo supervisorctl status
+    
+    # Check specific queue worker status
+    sudo supervisorctl status "tongacp-worker:*"
+    
+    # Check Supervisor logs
+    sudo tail -f /var/log/supervisor/supervisord.log
+    
+    # Check worker-specific logs
+    sudo tail -f /var/www/tongacp/storage/logs/worker.log
+    
+    # Check queue backlog
+    php artisan queue:size
+    
+    # Check failed jobs
+    php artisan queue:failed
+    ```
+  </CodeGroup>
+</Accordion>
+
+<Accordion title="Solutions">
+  - Restart queue workers: `sudo supervisorctl restart "tongacp-worker:*"`
+  - Restart individual worker: `sudo supervisorctl restart "tongacp-worker:tongacp-worker_00"`
+  - Restart Supervisor service: `sudo systemctl restart supervisor`
+  - Increase number of queue workers by editing `/etc/supervisor/conf.d/tongacp-worker.conf` and changing the `numprocs` value
+  - Check for errors in failed jobs
+  - Verify Redis connection for queue driver
+  - Retry failed jobs: `php artisan queue:retry all`
+  - Update Supervisor configuration after changes: `sudo supervisorctl reread && sudo supervisorctl update`
+</Accordion>
+
+### Common Error Codes and Solutions
+
+  <table>
+    <thead>
+      <tr>
+        <th>Error Code</th>
+        <th>Description</th>
+        <th>Possible Solutions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>500</td>
+        <td>Internal Server Error</td>
+        <td>Check logs for detailed error messages, fix application code issues</td>
+      </tr>
+      <tr>
+        <td>503</td>
+        <td>Service Unavailable</td>
+        <td>Check if application is in maintenance mode, verify server resources</td>
+      </tr>
+      <tr>
+        <td>404</td>
+        <td>Not Found</td>
+        <td>Check routes configuration, verify URL paths</td>
+      </tr>
+      <tr>
+        <td>403</td>
+        <td>Forbidden</td>
+        <td>Check user permissions, verify policy implementation</td>
+      </tr>
+      <tr>
+        <td>419</td>
+        <td>Page Expired</td>
+        <td>CSRF token expired, refresh the page or check session configuration</td>
+      </tr>
+      <tr>
+        <td>429</td>
+        <td>Too Many Requests</td>
+        <td>Rate limiting triggered, adjust throttling settings or optimize client requests</td>
+      </tr>
+    </tbody>
+  </table>
+
+## Monitoring Recommendations
+
+Effective monitoring is essential for maintaining system health and quickly identifying issues.
+
+### Server Monitoring
+
+<Tabs>
+  <Tab title="Resource Monitoring">
+    - CPU usage
+    - Memory usage
+    - Disk space and I/O
+    - Network traffic
+    
+    Recommended tools:
+    - Prometheus with Node Exporter
+    - Grafana for visualization
+    - Netdata for real-time monitoring
+    
+    Example Prometheus configuration:
+    ```yaml
+    global:
+      scrape_interval: 15s
+    
+    scrape_configs:
+      - job_name: 'node'
+        static_configs:
+          - targets: ['localhost:9100']
+    ```
+  </Tab>
+  
+  <Tab title="Service Monitoring">
+    - Web server status
+    - PHP-FPM status
+    - Database server status
+    - Redis status
+    - Queue worker status
+    
+    Example Nginx status configuration:
+    ```nginx
+    location /nginx_status {
+        stub_status on;
+        allow 127.0.0.1;
+        deny all;
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Application Monitoring
+
+<Tabs>
+  <Tab title="Error Tracking">
+    - Monitor application logs
+    - Track exception rates
+    - Alert on critical errors
+    
+    Implementation with Laravel Telescope:
+    ```bash
+    composer require laravel/telescope --dev
+    php artisan telescope:install
+    php artisan migrate
+    ```
+    
+    Configure in `config/telescope.php`:
+    ```php
+    'enabled' => env('TELESCOPE_ENABLED', true),
+    'middleware' => [
+        'web',
+        Authorize::class,
+    ],
+    ```
+  </Tab>
+  
+  <Tab title="Performance Monitoring">
+    - Track response times
+    - Monitor database query performance
+    - Identify slow endpoints
+    
+    Implementation with Laravel Debugbar:
+    ```bash
+    composer require barryvdh/laravel-debugbar --dev
+    ```
+    
+    Configure in `.env`:
+    ```
+    DEBUGBAR_ENABLED=true
+    ```
+  </Tab>
+  
+  <Tab title="User Activity Monitoring">
+    - Track login attempts
+    - Monitor critical operations
+    - Identify unusual activity patterns
+    
+    Using Laravel's built-in logging:
+    ```php
+    Log::channel('activity')->info('User logged in', [
+        'user_id' => $user->id,
+        'ip' => request()->ip(),
+    ]);
+    ```
+  </Tab>
+</Tabs>
+
+### Alerting System
+
+<Tabs>
+  <Tab title="Alert Thresholds">
+    - CPU usage > 80% for 5 minutes
+    - Memory usage > 90% for 5 minutes
+    - Disk space < 10% free
+    - Error rate > 10 errors per minute
+    - Response time > 2 seconds for critical endpoints
+  </Tab>
+  
+  <Tab title="Alert Channels">
+    - Email notifications
+    - SMS alerts for critical issues
+    - Integration with messaging platforms (Slack, Teams)
+    - On-call rotation system
+  </Tab>
+  
+  <Tab title="Alert Management">
+    - Implement alert grouping to prevent alert fatigue
+    - Define escalation paths for unresolved issues
+    - Document response procedures for common alerts
+  </Tab>
+</Tabs>
+
+### Logging Strategy
+
+<Tabs>
+  <Tab title="Centralized Logging">
+    - Aggregate logs from all system components
+    - Implement structured logging format
+    - Ensure proper log rotation
+    
+    Example ELK Stack setup:
+    - Filebeat to collect logs
+    - Elasticsearch for storage and indexing
+    - Kibana for visualization and search
+  </Tab>
+  
+  <Tab title="Log Levels">
+    - DEBUG: Detailed debugging information
+    - INFO: General operational information
+    - WARNING: Non-critical issues
+    - ERROR: Runtime errors
+    - CRITICAL: System failures
+    
+    Configure in `.env`:
+    ```
+    LOG_LEVEL=warning
+    ```
+  </Tab>
+  
+  <Tab title="Log Retention">
+    - Error logs: 90 days
+    - Access logs: 30 days
+    - Debug logs: 7 days
+    
+    Example log rotation configuration:
+    ```
+    /var/www/tongacp/storage/logs/*.log {
+        daily
+        missingok
+        rotate 14
+        compress
+        delaycompress
+        notifempty
+        create 0640 www-data www-data
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Long-Term Maintenance Best Practices
+
+Ensuring the long-term health and sustainability of the Government Administration Portal requires consistent maintenance practices.
+
+### Code Quality Maintenance
+
+<Tabs>
+  <Tab title="Regular Code Reviews">
+    - Review all code changes before deployment
+    - Enforce coding standards
+    - Use automated code quality tools
+    
+    Example PHP_CodeSniffer configuration:
+    ```xml
+    <?xml version="1.0"?>
+    <ruleset name="TongaCP">
+        <description>TongaCP coding standard</description>
+        <rule ref="PSR12"/>
+        <file>app</file>
+        <file>config</file>
+        <file>database</file>
+        <file>routes</file>
+        <exclude-pattern>*/vendor/*</exclude-pattern>
+    </ruleset>
+    ```
+  </Tab>
+  
+  <Tab title="Automated Testing">
+    - Maintain comprehensive test suite
+    - Run tests before each deployment
+    - Track test coverage
+    
+    Example PHPUnit configuration:
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+             bootstrap="vendor/autoload.php"
+             colors="true">
+        <testsuites>
+            <testsuite name="Unit">
+                <directory suffix="Test.php">./tests/Unit</directory>
+            </testsuite>
+            <testsuite name="Feature">
+                <directory suffix="Test.php">./tests/Feature</directory>
+            </testsuite>
+        </testsuites>
+        <coverage processUncoveredFiles="true">
+            <include>
+                <directory suffix=".php">./app</directory>
+            </include>
+        </coverage>
+    </phpunit>
+    ```
+  </Tab>
+  
+  <Tab title="Documentation Updates">
+    - Keep documentation in sync with code changes
+    - Document API changes
+    - Maintain clear changelog
+  </Tab>
+</Tabs>
+### Security Maintenance
+
+<Tabs>
+  <Tab title="Regular Security Audits">
+    - Conduct quarterly security reviews
+    - Perform penetration testing annually
+    - Review access controls and permissions
+  </Tab>
+  
+  <Tab title="Dependency Management">
+    - Regularly update dependencies
+    - Monitor for security vulnerabilities
+    - Use Composer security checks
+    - Ensure all required PHP extensions are installed:
+      - BCMath, Ctype, Fileinfo, JSON, Mbstring, OpenSSL, PDO, Tokenizer, XML, DOM
+      - GD or Imagick (for image manipulation)
+      - Zip, Curl, Intl, OPcache, SQLite, PCRE
+    
+    ```bash
+    composer audit
+    ```
+  </Tab>
+  
+  <Tab title="Security Patch Management">
+    - Apply security patches promptly
+    - Maintain security update schedule
+    - Document security-related changes
+  </Tab>
+</Tabs>
+
+### Database Maintenance
+
+<Tabs>
+  <Tab title="Regular Optimization">
+    - Analyze and optimize tables monthly
+    - Monitor index performance
+    - Clean up unnecessary data
+    
+    ```sql
+    -- Analyze tables
+    ANALYZE TABLE users, entities, tickets, appointments;
+    
+    -- Optimize tables
+    OPTIMIZE TABLE users, entities, tickets, appointments;
+    ```
+  </Tab>
+  
+  <Tab title="Data Archiving">
+    - Implement data archiving strategy for old records
+    - Maintain data retention policies
+    - Ensure archived data remains accessible when needed
+  </Tab>
+  
+  <Tab title="Schema Management">
+    - Document database schema changes
+    - Use migrations for all schema modifications
+    - Test migrations thoroughly before deployment
+  </Tab>
+</Tabs>
+
+### Performance Tuning
+
+<Tabs>
+  <Tab title="Regular Performance Reviews">
+    - Conduct monthly performance assessments
+    - Identify and address performance bottlenecks
+    - Monitor user experience metrics
+  </Tab>
+  
+  <Tab title="Caching Strategy Updates">
+    - Review and optimize caching configuration
+    - Adjust cache TTL based on data volatility
+    - Monitor cache hit/miss rates
+  </Tab>
+  
+  <Tab title="Resource Scaling">
+    - Plan for resource needs based on usage trends
+    - Implement proactive scaling
+    - Optimize resource allocation
+  </Tab>
+</Tabs>
+
+### Queue System Management with Supervisor
+
+<Tabs>
+  <Tab title="Supervisor Configuration">
+    - The system uses Supervisor to manage queue workers
+    - Default configuration file location: `/etc/supervisor/conf.d/tongacp-worker.conf`
+    - Default configuration:
+      ```ini
+      [program:tongacp-worker]
+      process_name=%(program_name)s_%(process_num)02d
+      command=php /var/www/tongacp/artisan queue:work redis --sleep=3 --tries=3 --max-time=3600
+      autostart=true
+      autorestart=true
+      stopasgroup=true
+      killasgroup=true
+      user=www-data
+      numprocs=8
+      redirect_stderr=true
+      stdout_logfile=/var/www/tongacp/storage/logs/worker.log
+      stopwaitsecs=3600
+      ```
+  </Tab>
+  
+  <Tab title="Queue Prioritization">
+    - Set up different queues for different types of jobs
+    - Prioritize critical jobs by processing them first
+    - Configure separate supervisor processes for different queue priorities
+    
+    Example job class configuration:
+    ```php
+    // In job classes
+    public function queue()
+    {
+        return 'high';
+    }
+    ```
+    
+    Example supervisor configuration for prioritized queues:
+    ```ini
+    [program:tongacp-high-priority]
+    process_name=%(program_name)s_%(process_num)02d
+    command=php /var/www/tongacp/artisan queue:work redis --queue=high --sleep=3 --tries=3 --max-time=3600
+    autostart=true
+    autorestart=true
+    user=www-data
+    numprocs=4
+    redirect_stderr=true
+    stdout_logfile=/var/www/tongacp/storage/logs/worker-high.log
+    
+    [program:tongacp-default-priority]
+    process_name=%(program_name)s_%(process_num)02d
+    command=php /var/www/tongacp/artisan queue:work redis --queue=default --sleep=3 --tries=3 --max-time=3600
+    autostart=true
+    autorestart=true
+    user=www-data
+    numprocs=8
+    redirect_stderr=true
+    stdout_logfile=/var/www/tongacp/storage/logs/worker-default.log
+    ```
+  </Tab>
+  
+  <Tab title="Supervisor Maintenance">
+    - Regularly check Supervisor logs for issues
+    - Monitor worker memory usage and restart if needed
+    - Update Supervisor configuration after changes:
+      ```bash
+      sudo supervisorctl reread
+      sudo supervisorctl update
+      sudo supervisorctl restart "tongacp-worker:*"
+      ```
+  </Tab>
+</Tabs>
+
+### Knowledge Management
+
+<CardGroup cols={3}>
+  <Card title="Maintenance Documentation" icon="book">
+    - Document all maintenance procedures
+    - Keep troubleshooting guides updated
+    - Maintain system architecture documentation
+  </Card>
+  
+  <Card title="Knowledge Transfer" icon="people">
+    - Train multiple team members on maintenance procedures
+    - Document tribal knowledge
+    - Implement pair maintenance sessions
+  </Card>
+  
+  <Card title="Incident Management" icon="triangle-exclamation">
+    - Document all incidents and resolutions
+    - Conduct post-incident reviews
+    - Implement preventive measures based on incident patterns
+  </Card>
+</CardGroup>
+
+### Continuous Improvement
+
+<Steps>
+  <Step title="User Feedback Collection">
+    - Gather feedback from government staff and citizens
+    - Prioritize improvements based on feedback
+    - Implement regular enhancement cycles
+  </Step>
+  
+  <Step title="Technology Stack Evaluation">
+    - Annually review technology stack
+    - Plan for major version upgrades
+    - Evaluate new technologies for potential benefits
+  </Step>
+  
+  <Step title="Process Refinement">
+    - Regularly review and improve maintenance processes
+    - Automate repetitive maintenance tasks
+    - Measure and optimize maintenance efficiency
+  </Step>
+</Steps>
+
+By following these comprehensive maintenance practices, the Government Administration Portal can remain secure, performant, and reliable throughout its lifecycle, providing consistent value to both government entities and citizens.
