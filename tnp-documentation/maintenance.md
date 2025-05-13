@@ -1,0 +1,875 @@
+# Maintenance Guide for Tonga National Portal
+
+This document provides comprehensive guidelines for maintaining the Tonga National Portal platform. It covers routine maintenance tasks, performance monitoring, backup procedures, security maintenance, content management, and troubleshooting common issues.
+
+## Table of Contents
+
+- [Routine Maintenance Tasks](#routine-maintenance-tasks)
+- [Performance Monitoring and Optimization](#performance-monitoring-and-optimization)
+- [Backup Procedures](#backup-procedures)
+- [Security Maintenance](#security-maintenance)
+- [Content Management](#content-management)
+- [Troubleshooting Common Issues](#troubleshooting-common-issues)
+- [Maintenance Schedule and Checklist](#maintenance-schedule-and-checklist)
+
+## Routine Maintenance Tasks
+
+Regular maintenance is essential to ensure the Tonga National Portal remains secure, performs optimally, and provides a good user experience.
+
+### WordPress Core Updates
+
+WordPress regularly releases updates that include security patches, bug fixes, and new features. Follow these guidelines for core updates:
+
+1. **Before updating:**
+   - Create a complete backup of the site (files and database)
+   - Test the update on a staging environment first
+   - Schedule updates during low-traffic periods
+
+2. **Update process:**
+   ```bash
+   # Using WP-CLI (recommended)
+   cd /var/www/tongaportal
+   sudo -u www-data wp core update
+   sudo -u www-data wp core update-db
+   
+   # Verify the update
+   sudo -u www-data wp core version
+   ```
+
+3. **After updating:**
+   - Test critical site functionality
+   - Check for any visual or functional regressions
+   - Review error logs for any new issues
+
+**Frequency:** Monthly, or immediately for security updates
+
+### Plugin Updates
+
+Outdated plugins can introduce security vulnerabilities and compatibility issues. Follow these steps for plugin updates:
+
+1. **Before updating:**
+   - Review plugin changelogs for breaking changes
+   - Back up the site
+   - Test updates on staging when possible
+
+2. **Update process:**
+   ```bash
+   # Update all plugins
+   cd /var/www/tongaportal
+   sudo -u www-data wp plugin update --all
+   
+   # Update specific plugin
+   sudo -u www-data wp plugin update [plugin-name]
+   
+   # List plugins that need updates
+   sudo -u www-data wp plugin list --update=available --format=table
+   ```
+
+3. **Plugin audit:**
+   - Regularly review installed plugins
+   - Remove unused or abandoned plugins
+   - Replace plugins that haven't been updated in over a year
+
+**Frequency:** Bi-weekly, or immediately for security updates
+
+### Theme Updates
+
+1. **Before updating:**
+   - Back up the current theme files
+   - Review theme changelogs for breaking changes
+
+2. **Update process:**
+   ```bash
+   # Update the theme
+   cd /var/www/tongaportal
+   sudo -u www-data wp theme update [theme-name]
+   ```
+
+3. **After updating:**
+   - Check for visual regressions across different device sizes
+   - Test custom theme functionality
+   - Verify custom CSS still works as expected
+
+**Frequency:** Monthly, or as new versions are released
+
+### Database Maintenance
+
+Regular database maintenance helps maintain site performance and prevents data corruption.
+
+1. **Database optimization:**
+   ```bash
+   # Optimize database tables
+   cd /var/www/tongaportal
+   sudo -u www-data wp db optimize
+   
+   # Repair database if needed
+   sudo -u www-data wp db repair
+   ```
+
+2. **Clean up post revisions:**
+   ```bash
+   # Delete old post revisions (keep last 5)
+   sudo -u www-data wp post delete $(wp post list --post_type=revision --format=ids --posts_per_page=1000 --offset=5) --force
+   ```
+
+3. **Remove spam comments:**
+   ```bash
+   # Delete spam comments
+   sudo -u www-data wp comment delete $(wp comment list --status=spam --format=ids)
+   ```
+
+4. **Clean up transients:**
+   ```bash
+   # Delete expired transients
+   sudo -u www-data wp transient delete --expired
+   ```
+
+**Frequency:** Weekly or monthly, depending on site activity
+
+### Content Auditing and Cleanup
+
+1. **Content audit checklist:**
+   - Review and update outdated content
+   - Fix or remove broken links
+   - Update copyright years and legal information
+   - Verify contact information accuracy
+   - Check for outdated announcements or news items
+
+2. **Media library cleanup:**
+   ```bash
+   # Find unused media files (requires Media Cleaner plugin)
+   sudo -u www-data wp media-cleaner scan
+   ```
+
+3. **Orphaned data cleanup:**
+   - Remove orphaned post meta
+   - Clean up unused tags and categories
+
+**Frequency:** Quarterly
+
+## Performance Monitoring and Optimization
+
+Regular performance monitoring helps identify issues before they impact users and ensures the portal operates efficiently.
+
+### Server Performance Monitoring
+
+1. **System resource monitoring:**
+   ```bash
+   # Install monitoring tools
+   sudo apt install -y htop iotop sysstat
+   
+   # Monitor CPU and memory usage
+   htop
+   
+   # Monitor disk I/O
+   iotop
+   
+   # View system statistics
+   sar -u 1 10  # CPU usage for 10 seconds
+   sar -r 1 10  # Memory usage for 10 seconds
+   ```
+
+2. **Log monitoring:**
+   ```bash
+   # Monitor web server error logs
+   sudo tail -f /var/log/nginx/error.log
+   
+   # Monitor PHP error logs
+   sudo tail -f /var/log/php8.1-fpm.log
+   ```
+
+3. **Disk space monitoring:**
+   ```bash
+   # Check disk usage
+   df -h
+   
+   # Find large files
+   sudo find /var/www/tongaportal -type f -size +10M -exec ls -lh {} \;
+   ```
+
+4. **Set up automated monitoring:**
+   - Configure server monitoring with tools like Nagios, Zabbix, or New Relic
+   - Set up alerts for critical thresholds (CPU > 80%, memory > 90%, disk > 85%)
+
+**Frequency:** Daily automated checks, weekly manual review
+
+### WordPress Performance Monitoring
+
+1. **WordPress health check:**
+   ```bash
+   # Run WordPress health check
+   cd /var/www/tongaportal
+   sudo -u www-data wp site health
+   ```
+
+2. **Query performance:**
+   ```bash
+   # Install Query Monitor plugin
+   sudo -u www-data wp plugin install query-monitor --activate
+   ```
+   - Use Query Monitor to identify slow queries
+   - Monitor database query times
+   - Identify plugins causing performance issues
+
+3. **External performance testing:**
+   - Use Google PageSpeed Insights to test performance
+   - Use GTmetrix for detailed performance analysis
+   - Use WebPageTest for multi-location testing
+
+4. **User experience metrics:**
+   - Monitor Core Web Vitals through Google Search Console
+   - Track Largest Contentful Paint (LCP)
+   - Track First Input Delay (FID)
+   - Track Cumulative Layout Shift (CLS)
+
+**Frequency:** Weekly or after significant content/code changes
+
+### Database Optimization
+
+1. **MySQL configuration optimization:**
+   ```bash
+   # Edit MySQL configuration
+   sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+   ```
+   
+   Key settings to optimize:
+   ```
+   innodb_buffer_pool_size = 4G  # Adjust based on available RAM (50-70% of RAM)
+   innodb_log_file_size = 512M
+   innodb_flush_method = O_DIRECT
+   innodb_flush_log_at_trx_commit = 2
+   query_cache_type = 1
+   query_cache_size = 128M
+   query_cache_limit = 2M
+   ```
+
+2. **Index optimization:**
+   - Review and optimize database indexes
+   - Add indexes to frequently queried columns
+   - Remove unused indexes
+
+3. **Table optimization:**
+   ```bash
+   # Optimize all tables
+   cd /var/www/tongaportal
+   sudo -u www-data wp db query "OPTIMIZE TABLE $(wp db tables --all-tables --format=csv | tr ',' ' ')"
+   ```
+
+**Frequency:** Monthly or when performance issues arise
+
+### Caching Management
+
+1. **Page caching configuration:**
+   - Configure WP Super Cache or similar caching plugin
+   - Set appropriate cache expiration times
+   - Configure browser caching through .htaccess or Nginx
+
+2. **Object caching:**
+   ```bash
+   # Check Redis status (if using Redis)
+   redis-cli ping
+   
+   # Monitor Redis memory usage
+   redis-cli info memory
+   ```
+
+3. **Cache purging:**
+   ```bash
+   # Purge all caches
+   cd /var/www/tongaportal
+   sudo -u www-data wp cache flush
+   
+   # Purge specific object from cache
+   sudo -u www-data wp cache delete [key]
+   ```
+
+4. **CDN cache management:**
+   - Purge CDN cache after major content updates
+   - Configure CDN cache TTL settings
+   - Set up cache invalidation rules
+
+**Frequency:** Monitor daily, purge as needed after content updates
+
+## Backup Procedures
+
+A robust backup strategy is essential for disaster recovery and protecting against data loss.
+
+### Database Backups
+
+1. **Automated daily backups:**
+   ```bash
+   # Create backup script
+   sudo nano /usr/local/bin/wp-db-backup.sh
+   ```
+   
+   Add the following content:
+   ```bash
+   #!/bin/bash
+   DATE=$(date +%Y-%m-%d)
+   BACKUP_DIR="/var/backups/tongaportal/database"
+   mkdir -p $BACKUP_DIR
+   
+   # Create database backup
+   cd /var/www/tongaportal
+   wp db export $BACKUP_DIR/tongaportal-db-$DATE.sql --allow-root
+   
+   # Compress backup
+   gzip $BACKUP_DIR/tongaportal-db-$DATE.sql
+   
+   # Remove backups older than 30 days
+   find $BACKUP_DIR -name "*.sql.gz" -type f -mtime +30 -delete
+   ```
+   
+   Make the script executable and schedule it:
+   ```bash
+   sudo chmod +x /usr/local/bin/wp-db-backup.sh
+   echo "0 1 * * * root /usr/local/bin/wp-db-backup.sh" | sudo tee -a /etc/crontab
+   ```
+
+2. **Manual database backups:**
+   ```bash
+   # Export database
+   cd /var/www/tongaportal
+   sudo -u www-data wp db export tongaportal-backup.sql
+   
+   # With compression
+   sudo -u www-data wp db export - | gzip > tongaportal-backup.sql.gz
+   ```
+
+3. **Database backup before updates:**
+   Always create a database backup before performing WordPress core, plugin, or theme updates.
+
+**Frequency:** Daily automated backups, additional manual backups before major changes
+
+### File System Backups
+
+1. **Automated file backups:**
+   ```bash
+   # Create backup script
+   sudo nano /usr/local/bin/wp-files-backup.sh
+   ```
+   
+   Add the following content:
+   ```bash
+   #!/bin/bash
+   DATE=$(date +%Y-%m-%d)
+   BACKUP_DIR="/var/backups/tongaportal/files"
+   mkdir -p $BACKUP_DIR
+   
+   # Create files backup
+   tar -czf $BACKUP_DIR/tongaportal-files-$DATE.tar.gz -C /var/www tongaportal
+   
+   # Remove backups older than 7 days
+   find $BACKUP_DIR -name "*.tar.gz" -type f -mtime +7 -delete
+   ```
+   
+   Make the script executable and schedule it:
+   ```bash
+   sudo chmod +x /usr/local/bin/wp-files-backup.sh
+   echo "0 2 * * 0 root /usr/local/bin/wp-files-backup.sh" | sudo tee -a /etc/crontab
+   ```
+
+2. **Critical files to back up:**
+   - WordPress core files
+   - Themes (especially custom themes)
+   - Plugins
+   - Uploads directory
+   - wp-config.php
+   - .htaccess or Nginx configuration files
+
+**Frequency:** Weekly automated backups, additional manual backups before major changes
+
+### Backup Verification
+
+1. **Verify backup integrity:**
+   ```bash
+   # Check database backup integrity
+   gunzip -c /var/backups/tongaportal/database/tongaportal-db-YYYY-MM-DD.sql.gz | head -n 20
+   
+   # Check file backup integrity
+   tar -tvf /var/backups/tongaportal/files/tongaportal-files-YYYY-MM-DD.tar.gz | head -n 20
+   ```
+
+2. **Test restoration process:**
+   - Create a staging environment
+   - Restore backups to staging
+   - Verify site functionality after restoration
+
+**Frequency:** Monthly
+
+### Restoration Procedures
+
+1. **Database restoration:**
+   ```bash
+   # Restore database from backup
+   cd /var/www/tongaportal
+   gunzip -c /path/to/backup.sql.gz | sudo -u www-data wp db import -
+   
+   # Or without compression
+   sudo -u www-data wp db import /path/to/backup.sql
+   ```
+
+2. **File restoration:**
+   ```bash
+   # Restore files from backup
+   sudo tar -xzf /path/to/backup.tar.gz -C /var/www/
+   
+   # Fix permissions after restore
+   sudo chown -R www-data:www-data /var/www/tongaportal
+   sudo chmod -R 755 /var/www/tongaportal
+   ```
+
+3. **Full site restoration:**
+   - Restore files first
+   - Then restore database
+   - Update wp-config.php if needed
+   - Test site functionality
+
+**Document location:** Keep detailed restoration procedures in a secure, accessible location for emergency use.
+
+## Security Maintenance
+
+Regular security maintenance is critical to protect the portal from vulnerabilities and attacks.
+
+### Security Scanning
+
+1. **WordPress security scanning:**
+   ```bash
+   # Install and run WP-Scan
+   sudo apt install -y ruby ruby-dev
+   sudo gem install wpscan
+   
+   # Run security scan
+   wpscan --url https://tongaportal.gov.to --api-token YOUR_API_TOKEN
+   ```
+
+2. **Malware scanning:**
+   ```bash
+   # Install and use Maldet
+   cd /usr/local/src
+   sudo wget http://www.rfxn.com/downloads/maldetect-current.tar.gz
+   sudo tar -xzf maldetect-current.tar.gz
+   cd maldetect-*
+   sudo ./install.sh
+   
+   # Scan WordPress directory
+   sudo maldet -a /var/www/tongaportal
+   ```
+
+3. **File integrity monitoring:**
+   ```bash
+   # Using WP-CLI
+   cd /var/www/tongaportal
+   sudo -u www-data wp core verify-checksums
+   sudo -u www-data wp plugin verify-checksums --all
+   ```
+
+**Frequency:** Weekly automated scans, monthly manual review
+
+### Log Monitoring
+
+1. **WordPress activity logs:**
+   ```bash
+   # Install Activity Log plugin
+   cd /var/www/tongaportal
+   sudo -u www-data wp plugin install wp-security-audit-log --activate
+   ```
+
+2. **Server log monitoring:**
+   ```bash
+   # Monitor authentication logs
+   sudo tail -f /var/log/auth.log
+   
+   # Monitor web server access logs
+   sudo tail -f /var/log/nginx/access.log
+   
+   # Search for suspicious activity
+   sudo grep -i "wp-login.php" /var/log/nginx/access.log | grep -i "POST"
+   ```
+
+3. **Automated log analysis:**
+   - Configure log shipping to a central logging system
+   - Set up alerts for suspicious patterns
+   - Regularly review security reports
+
+**Frequency:** Daily automated monitoring, weekly manual review
+
+### User Account Auditing
+
+1. **User account review:**
+   ```bash
+   # List all users
+   cd /var/www/tongaportal
+   sudo -u www-data wp user list --format=table
+   
+   # List users with specific role
+   sudo -u www-data wp user list --role=administrator --format=table
+   ```
+
+2. **Remove unnecessary users:**
+   ```bash
+   # Delete user (and assign content to another user)
+   sudo -u www-data wp user delete USER_ID --reassign=NEW_USER_ID
+   ```
+
+3. **Password policy enforcement:**
+   - Implement strong password requirements
+   - Configure password expiration
+   - Enable two-factor authentication
+
+4. **Session management:**
+   ```bash
+   # Force all users to log out
+   cd /var/www/tongaportal
+   sudo -u www-data wp user session destroy --all
+   ```
+
+**Frequency:** Monthly
+
+### Security Patch Management
+
+1. **WordPress security updates:**
+   ```bash
+   # Check for security updates
+   cd /var/www/tongaportal
+   sudo -u www-data wp core check-update
+   
+   # Apply security updates
+   sudo -u www-data wp core update
+   ```
+
+2. **Plugin security updates:**
+   ```bash
+   # Check for plugin updates
+   sudo -u www-data wp plugin list --update=available --format=table
+   
+   # Update vulnerable plugins
+   sudo -u www-data wp plugin update --all
+   ```
+
+3. **Server security updates:**
+   ```bash
+   # Update system packages
+   sudo apt update
+   sudo apt upgrade -y
+   
+   # Check if reboot is required
+   if [ -f /var/run/reboot-required ]; then echo "Reboot required"; fi
+   ```
+
+**Frequency:** Weekly checks, immediate application of critical security patches
+
+## Content Management
+
+Effective content management ensures the portal remains relevant, accurate, and engaging for users.
+
+### Content Update Guidelines
+
+1. **Content update workflow:**
+   - Draft content in a staging environment
+   - Peer review for accuracy and quality
+   - Approval by content manager
+   - Publication during low-traffic periods
+
+2. **Content standards:**
+   - Follow government communication guidelines
+   - Maintain consistent tone and style
+   - Ensure accessibility compliance
+   - Use plain language principles
+
+3. **Content versioning:**
+   - Keep track of major content changes
+   - Document content update history
+   - Maintain archive of critical content
+
+**Documentation:** Create and maintain a content style guide specific to the Tonga National Portal.
+
+### SEO Maintenance
+
+1. **SEO audit:**
+   ```bash
+   # Install Yoast SEO if not already installed
+   cd /var/www/tongaportal
+   sudo -u www-data wp plugin install wordpress-seo --activate
+   ```
+
+2. **SEO optimization tasks:**
+   - Review and update meta titles and descriptions
+   - Check keyword optimization
+   - Update internal linking structure
+   - Optimize images (alt text, size, filenames)
+
+3. **Search performance monitoring:**
+   - Monitor Google Search Console data
+   - Track keyword rankings
+   - Analyze user search patterns
+   - Address crawl errors and indexing issues
+
+**Frequency:** Monthly SEO audits, quarterly comprehensive review
+
+### Broken Link Checking
+
+1. **Automated link checking:**
+   ```bash
+   # Install Broken Link Checker plugin
+   cd /var/www/tongaportal
+   sudo -u www-data wp plugin install broken-link-checker --activate
+   ```
+
+2. **Manual link verification:**
+   - Check external links to critical resources
+   - Verify links to downloadable documents
+   - Test links in navigation menus
+   - Check links in footer and sidebar areas
+
+3. **Link maintenance:**
+   - Update or remove broken links
+   - Implement redirects for changed URLs
+   - Monitor 404 errors and address common issues
+
+**Frequency:** Monthly automated checks, quarterly manual review
+
+### Media Library Management
+
+1. **Media optimization:**
+   ```bash
+   # Install Smush image optimization plugin
+   cd /var/www/tongaportal
+   sudo -u www-data wp plugin install wp-smushit --activate
+   
+   # Optimize all images
+   sudo -u www-data wp smush all
+   ```
+
+2. **Media organization:**
+   - Use consistent naming conventions
+   - Organize media into folders/categories
+   - Add appropriate metadata and descriptions
+   - Tag media for easier searching
+
+3. **Media cleanup:**
+   - Remove unused media files
+   - Replace outdated images
+   - Optimize large files
+   - Convert to appropriate formats (WebP for images)
+
+**Frequency:** Monthly
+
+## Troubleshooting Common Issues
+
+This section provides guidance for diagnosing and resolving common issues with the Tonga National Portal.
+
+### WordPress Errors
+
+1. **White Screen of Death (WSOD):**
+   - Enable WP_DEBUG in wp-config.php
+   - Check PHP error logs
+   - Disable all plugins temporarily
+   - Switch to default theme
+   - Increase PHP memory limit
+
+2. **Database connection errors:**
+   ```bash
+   # Verify database credentials
+   grep DB_ /var/www/tongaportal/wp-config.php
+   
+   # Check database server status
+   sudo systemctl status mysql
+   
+   # Test database connection
+   mysql -u username -p -h localhost
+   ```
+
+3. **Fatal PHP errors:**
+   - Check PHP version compatibility
+   - Review PHP error logs
+   - Increase PHP memory limit
+   - Disable problematic plugins
+
+**Resolution steps:** Document specific steps for each common error scenario.
+
+### Plugin Conflicts
+
+1. **Identifying plugin conflicts:**
+   - Disable all plugins and re-enable one by one
+   - Use Health Check & Troubleshooting plugin
+   - Check browser console for JavaScript errors
+   - Review PHP error logs for plugin-related errors
+
+2. **Resolving plugin conflicts:**
+   - Update conflicting plugins
+   - Contact plugin developers
+   - Find alternative plugins
+   - Modify plugin loading order
+
+3. **Preventing plugin conflicts:**
+   - Test plugins on staging before production
+   - Keep plugins updated
+   - Limit number of active plugins
+   - Choose well-maintained plugins
+
+**Documentation:** Maintain a list of known plugin conflicts and their resolutions.
+
+### Performance Issues
+
+1. **Diagnosing slow page load:**
+   - Use Query Monitor to identify bottlenecks
+   - Check server resource usage
+   - Monitor database query performance
+   - Test with caching disabled
+
+2. **Common performance issues:**
+   - Unoptimized images
+   - Excessive database queries
+   - Inefficient plugins
+   - Missing or misconfigured caching
+   - External script blocking
+
+3. **Performance optimization steps:**
+   - Optimize images
+   - Implement or fix caching
+   - Minify CSS and JavaScript
+   - Reduce database queries
+   - Optimize database tables
+   - Consider content delivery network (CDN)
+
+**Tools:** Document performance testing tools and benchmarks.
+
+### Security Incidents
+
+1. **Signs of compromise:**
+   - Unexpected file changes
+   - Unknown admin users
+   - Unusual server behavior
+   - Defaced pages
+   - Malicious redirects
+
+2. **Immediate response steps:**
+   - Isolate the website
+   - Take offline if necessary
+   - Document the incident
+   - Identify the vulnerability
+   - Scan for malware
+
+3. **Recovery process:**
+   - Clean or restore from backup
+   - Update all software
+   - Change all passwords
+   - Remove unauthorized access
+   - Document lessons learned
+
+4. **Post-incident procedures:**
+   - Implement additional security measures
+   - Update incident response plan
+   - Train staff on security awareness
+   - Conduct security audit
+
+**Documentation:** Maintain a detailed security incident response plan.
+
+## Maintenance Schedule and Checklist
+
+A structured maintenance schedule ensures all necessary tasks are performed regularly.
+
+### Daily Tasks
+
+- [ ] Monitor server uptime and performance
+- [ ] Check for WordPress core and plugin updates
+- [ ] Review security logs for suspicious activity
+- [ ] Verify automated backups completed successfully
+- [ ] Monitor site for errors or issues
+
+### Weekly Tasks
+
+- [ ] Apply non-critical WordPress updates
+- [ ] Update plugins and themes
+- [ ] Run security scans
+- [ ] Optimize database tables
+- [ ] Clear expired cache and transients
+- [ ] Check disk space usage
+
+### Monthly Tasks
+
+- [ ] Comprehensive security audit
+- [ ] User account review
+- [ ] Performance optimization
+- [ ] Broken link checking
+- [ ] SEO review and optimization
+- [ ] Test backup restoration
+- [ ] Review and update documentation
+
+### Quarterly Tasks
+
+- [ ] Content audit
+- [ ] Media library cleanup
+- [ ] Comprehensive performance testing
+- [ ] Review and update security policies
+- [ ] Test disaster recovery procedures
+- [ ] Review and optimize server configurations
+
+### Annual Tasks
+
+- [ ] Complete site review
+- [ ] Infrastructure assessment
+- [ ] Technology stack evaluation
+- [ ] Major version upgrades planning
+- [ ] Comprehensive documentation review
+- [ ] Staff training and knowledge transfer
+
+### Maintenance Checklist Template
+
+```markdown
+## Tonga National Portal Maintenance Checklist
+
+**Date:** [Date]
+**Performed by:** [Name]
+
+### WordPress Core
+- [ ] Core version checked and updated
+- [ ] Database updated after core update
+- [ ] Functionality tested after update
+
+### Plugins and Themes
+- [ ] All plugins updated
+- [ ] All themes updated
+- [ ] Unused plugins deactivated and removed
+- [ ] Plugin conflicts checked
+
+### Database
+- [ ] Database tables optimized
+- [ ] Database backup created
+- [ ] Post revisions cleaned up
+- [ ] Spam comments removed
+- [ ] Transients cleaned up
+
+### Security
+- [ ] Security scan performed
+- [ ] User accounts reviewed
+- [ ] File permissions checked
+- [ ] Security logs reviewed
+- [ ] Two-factor authentication verified
+
+### Performance
+- [ ] Page speed tested
+- [ ] Caching configuration checked
+- [ ] Image optimization verified
+- [ ] Database query performance reviewed
+
+### Content
+- [ ] Broken links checked
+- [ ] Content reviewed for accuracy
+- [ ] SEO optimization reviewed
+- [ ] Media library organized
+
+### Backups
+- [ ] Database backups verified
+- [ ] File backups verified
+- [ ] Backup restoration tested
+
+### Notes and Issues
+[Document any issues found and actions taken]
+
+```
+
+---
+
+This documentation is maintained as part of the Tonga National Portal project and will be updated regularly to reflect changes in maintenance procedures and best practices.
