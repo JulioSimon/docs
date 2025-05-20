@@ -1305,30 +1305,734 @@ FS Poster is a powerful WordPress plugin that enables automatic sharing of posts
 
 #### Definition
 
+Pages are static, standalone content in WordPress designed for timeless information that isn't part of the regular chronological blog content flow. They represent permanent or semi-permanent content such as "About Us," "Contact," "Services," or "Privacy Policy" sections of a website.
+
+Key characteristics of Pages include:
+
+- **Hierarchical structure**: Pages can have parent-child relationships, creating nested navigation
+- **Static content**: Designed for information that doesn't change frequently
+- **No categorization or tagging**: Pages don't use the standard WordPress taxonomy system
+- **No date organization**: Pages aren't organized chronologically or displayed in date archives
+- **Custom templates**: Many themes offer page-specific templates for different layouts
+- **Menu integration**: Commonly used as primary navigation items
+- **No RSS inclusion**: Pages aren't included in the site's RSS feed by default
+- **Permalinks**: Typically have simpler URL structures than posts
+
+Pages are distinct from Posts (which are chronological, categorized content entries) and are ideal for essential website information that needs to be easily accessible and isn't time-sensitive.
+
 #### New Page Creation Process
 
-##### Creation of the Page using Guttemberg Editor Process
+Creating a new page in WordPress follows a structured workflow that can be performed by users with appropriate publishing permissions. Below is a detailed explanation of the page creation process:
+
+1. **Accessing the Pages Section**
+   - Log in to the WordPress admin dashboard
+   - Navigate to "Pages" > "Add New" in the left sidebar menu
+   - [Screenshot Recommended] *Pages menu in the WordPress admin sidebar highlighting the Add New option*
+
+2. **Basic Page Elements**
+   - **Title**: Enter a descriptive title at the top of the editor
+   - **Content**: Add the main content using the block editor (Gutenberg) or Bricks editor
+   - **Parent Page**: Optionally assign a parent page to create hierarchical structure
+   - **Template**: Select a page template if your theme offers multiple options
+   - **Featured Image**: Optionally set a representative image for the page
+   - [Screenshot Recommended] *New page screen showing the main content area and sidebar options*
+
+3. **Page Settings in the Sidebar**
+   - **Status & Visibility**: Set publication status, visibility, and scheduling options
+   - **Permalink**: View and edit the page's URL
+   - **Featured Image**: Upload or select an image to represent the page
+   - **Page Attributes**: Set parent page and template
+   - **Discussion**: Enable/disable comments and pingbacks
+   - [Screenshot Recommended] *Page settings sidebar showing various configuration options*
+
+4. **Publishing Options**
+   - **Save Draft**: Save the page without publishing
+   - **Preview**: View how the page will appear on the site before publishing
+   - **Publish**: Make the page live on the site immediately
+   - **Schedule**: Set a future date and time for automatic publication
+   - [Screenshot Recommended] *Publishing panel showing save, preview, and publish options*
+
+5. **Post-Publication Actions**
+   - View the published page on the live site
+   - Add the page to navigation menus
+   - Create links to the page from other content
+   - Update the page as needed with new information
+
+**Important Considerations:**
+
+- Choose a clear, descriptive title that accurately represents the content
+- Organize content logically using headings, paragraphs, and other block elements
+- Consider the page's position in the site's overall information architecture
+- Select appropriate page templates based on the content's purpose
+- Review the page for errors before publishing
+- Consider SEO best practices when creating page content and metadata
+
+##### Creation of the Page using Gutenberg Editor Process
+
+The Gutenberg editor is WordPress's default block-based content editor that provides a flexible and intuitive way to create rich content. Below is a detailed guide on creating pages using the Gutenberg editor:
+
+1. **Understanding the Gutenberg Interface**
+   - **Top Toolbar**: Contains document-level controls and settings
+   - **Content Area**: The main editing space where blocks are added and manipulated
+   - **Block Toolbar**: Context-sensitive controls that appear when a block is selected
+   - **Settings Sidebar**: Document and block-specific settings (toggle with the gear icon)
+   - [Screenshot Recommended] *Gutenberg editor interface with labeled components*
+
+2. **Working with Blocks**
+   - **Adding Blocks**: Click the "+" button in the top toolbar or at the beginning of a new line
+   - **Block Types**: Choose from various block types:
+     - **Text blocks**: Paragraph, Heading, List, Quote, etc.
+     - **Media blocks**: Image, Gallery, Video, Audio, etc.
+     - **Layout blocks**: Columns, Group, Cover, etc.
+     - **Widget blocks**: Shortcode, Latest Posts, Categories, etc.
+     - **Embeds**: YouTube, Twitter, Instagram, etc.
+   - [Screenshot Recommended] *Block inserter panel showing various block categories and options*
+
+3. **Text Formatting**
+   - Select text to reveal the inline formatting toolbar
+   - Apply formatting such as bold, italic, links, and inline code
+   - Use the Format tab in the sidebar for additional text formatting options
+   - [Screenshot Recommended] *Text selection with formatting toolbar visible*
+
+4. **Block Manipulation**
+   - **Select blocks**: Click on a block to select it
+   - **Move blocks**: Use the up/down arrows or drag the six-dot handle
+   - **Transform blocks**: Change one block type to another using the transform option
+   - **Duplicate blocks**: Use the duplicate button in the block toolbar
+   - **Remove blocks**: Use the delete/backspace key or the three-dot menu
+   - [Screenshot Recommended] *Selected block showing the block toolbar with manipulation options*
+
+5. **Page-Specific Block Features**
+   - **Cover blocks**: Create hero sections with background images and overlay text
+   - **Columns**: Create multi-column layouts for content organization
+   - **Buttons**: Add call-to-action elements
+   - **Contact forms**: Embed forms using form plugins
+   - **Maps**: Embed location information for physical businesses
+   - [Screenshot Recommended] *Page-specific blocks in action showing layout possibilities*
+
+6. **Document Settings**
+   - Access document-level settings in the right sidebar:
+     - **Status & Visibility**: Publication status, visibility, and scheduling
+     - **Permalink**: View and edit the page's URL
+     - **Featured Image**: Visual representation of the page
+     - **Page Attributes**: Parent page and template selection
+     - **Discussion**: Comment and pingback settings
+   - [Screenshot Recommended] *Document settings panel in the right sidebar*
+
+7. **Previewing and Publishing**
+   - Use the Preview button to see how the page will appear on the frontend
+   - Save drafts to continue editing later
+   - Schedule pages for future publication
+   - Publish immediately when the content is ready
+   - [Screenshot Recommended] *Pre-publication checklist and publish button*
+
+**Best Practices for Gutenberg Pages:**
+
+- Start with a clear page structure in mind
+- Use headings (H2, H3, etc.) to create a logical hierarchy
+- Break content into manageable sections using appropriate blocks
+- Utilize white space and separators to improve readability
+- Consider using reusable blocks for elements that appear on multiple pages
+- Test how your content appears on different screen sizes using the preview function
+- Save your work frequently using the Save Draft option
 
 ##### Creation of the Page using Bricks Editor Process
 
+The Bricks Builder is a powerful visual editor plugin for WordPress that offers an alternative to Gutenberg with advanced design capabilities. Below is a detailed guide on creating pages using the Bricks editor:
+
+1. **Accessing Bricks Editor for Pages**
+   - Create a new page or edit an existing one
+   - Look for the "Edit with Bricks" button in the WordPress admin bar
+   - Click to switch from the default WordPress editor to Bricks
+   - [Screenshot Recommended] *WordPress page edit screen showing the "Edit with Bricks" button*
+
+2. **Understanding the Bricks Interface**
+   - **Top Bar**: Contains save options, responsive controls, and global settings
+   - **Left Panel**: Elements panel for adding content blocks
+   - **Canvas**: The main editing area where you build your content
+   - **Right Panel**: Structure panel and element settings
+   - **Bottom Bar**: Revision history, keyboard shortcuts, and additional tools
+   - [Screenshot Recommended] *Bricks editor interface with labeled components*
+
+3. **Adding Elements**
+   - Click the "+" icon in the left panel to open the elements library
+   - Browse categories or search for specific elements:
+     - **Basic elements**: Text, Heading, Button, Image, Video, etc.
+     - **Layout elements**: Container, Section, Division, etc.
+     - **WordPress elements**: Page Title, Featured Image, etc.
+     - **Interactive elements**: Accordion, Tabs, Slider, etc.
+   - Drag elements onto the canvas or click to add them
+   - [Screenshot Recommended] *Elements panel showing available content blocks*
+
+4. **Structuring Page Content**
+   - Use Section elements as main containers for your content
+   - Add Container elements within sections to create layout structures
+   - Implement multi-column layouts using the Division element
+   - Nest elements to create complex content structures
+   - [Screenshot Recommended] *Structure panel showing the hierarchy of elements*
+
+5. **Styling Elements**
+   - Select any element to open its settings in the right panel
+   - Use the Style tab to modify:
+     - Typography (font, size, weight, line height, etc.)
+     - Colors (text, background, borders)
+     - Spacing (margin, padding)
+     - Borders and shadows
+     - Animations and effects
+   - Apply global styles or create custom styles for individual elements
+   - [Screenshot Recommended] *Element settings panel showing styling options*
+
+6. **Page-Specific Features**
+   - **Header and Footer**: Create custom headers and footers for specific pages
+   - **Full-width layouts**: Design edge-to-edge page sections
+   - **Hero sections**: Create impactful introductory areas
+   - **Call-to-action areas**: Design conversion-focused sections
+   - **Custom forms**: Build contact or lead generation forms
+   - [Screenshot Recommended] *Page-specific features in action*
+
+7. **Responsive Design**
+   - Use the responsive mode buttons in the top bar to preview different device sizes
+   - Apply device-specific styling using the device icons in the settings panel
+   - Set different layouts, visibility, and styling for desktop, tablet, and mobile
+   - [Screenshot Recommended] *Responsive controls showing device selection options*
+
+8. **Saving and Publishing**
+   - Use the save options in the top bar:
+     - **Save Draft**: Save changes without publishing
+     - **Preview**: View how the page will appear on the frontend
+     - **Update** or **Publish**: Make the page live on the site
+   - Access revision history from the bottom bar if needed
+   - [Screenshot Recommended] *Save options in the top bar*
+
+**Best Practices for Bricks Page Editor:**
+
+- Plan your page layout structure before starting to build
+- Use consistent spacing and styling throughout your content
+- Create and use global styles for consistent design across the site
+- Build reusable sections for common page elements
+- Test your design across different device sizes
+- Save your work frequently to avoid losing changes
+- Consider creating templates for common page layouts to save time
+
 #### Page Metadata Management
+
+Page metadata (or page meta) is additional information stored with a page that extends its functionality beyond the standard title and content. Properly managing page metadata is crucial for organizing content and enhancing site functionality.
+
+1. **Understanding Page Metadata**
+   - **Definition**: Custom data fields associated with pages
+   - **Storage**: Stored in the `wp_postmeta` table in the WordPress database
+   - **Usage**: Extends page functionality without modifying core tables
+   - **Examples**: Custom fields, SEO data, display options, etc.
+   - [Screenshot Recommended] *Conceptual diagram showing how page meta relates to pages*
+
+2. **Accessing the Custom Fields Interface**
+   - Navigate to the page editor
+   - Look for the "Custom Fields" section (may need to be enabled via Screen Options)
+   - If not visible, click on "Screen Options" at the top right and check "Custom Fields"
+   - [Screenshot Recommended] *Screen Options panel with Custom Fields checkbox*
+
+3. **Adding Custom Fields Manually**
+   - Scroll to the Custom Fields section in the page editor
+   - Enter a name (key) for your custom field
+   - Enter a value for the custom field
+   - Click "Add Custom Field" to save
+   - [Screenshot Recommended] *Custom Fields interface showing name and value fields*
+
+4. **Managing Existing Custom Fields**
+   - View all custom fields associated with the page
+   - Edit values by clicking on the field
+   - Delete fields using the delete link
+   - Select from previously used field names using the dropdown
+   - [Screenshot Recommended] *List of existing custom fields with edit and delete options*
+
+5. **Using Advanced Custom Fields Plugin**
+   - Install and activate the Advanced Custom Fields plugin for enhanced metadata management
+   - Create field groups with various field types (text, image, file, select, etc.)
+   - Assign field groups to specific page templates, parent pages, or other conditions
+   - Use the intuitive interface to add and edit field values
+   - [Screenshot Recommended] *Advanced Custom Fields interface in the page editor*
+
+6. **Page-Specific Metadata**
+   - **Template Selection**: Choose different page templates
+   - **Parent Page**: Set hierarchical relationships
+   - **Order**: Control the order of pages in menus and listings
+   - **Featured Image**: Set visual representation for the page
+   - **Custom CSS**: Add page-specific styling
+   - [Screenshot Recommended] *Page attributes panel showing template and parent options*
+
+7. **Metadata for SEO**
+   - Install SEO plugins like Yoast SEO or Rank Math
+   - Access the SEO metadata section in the page editor
+   - Configure:
+     - SEO title
+     - Meta description
+     - Focus keywords
+     - Social media previews
+     - Canonical URLs
+     - Indexing directives
+   - [Screenshot Recommended] *SEO plugin metadata panel in the page editor*
+
+**Important Considerations:**
+
+- Use consistent naming conventions for custom fields
+- Consider the performance impact of excessive metadata
+- Back up metadata when migrating or updating your site
+- Use specialized plugins for complex metadata requirements
+- Document custom fields and their purposes for team reference
+- Be cautious when deleting metadata as it may affect site functionality
+- Consider using page templates instead of custom fields for layout variations
 
 #### Page Translation Management with WPML Plugin
 
+The WPML (WordPress Multilingual) plugin provides comprehensive tools for translating pages and other content into multiple languages. Below is a detailed guide on managing page translations using the WPML plugin:
+
+1. **WPML Configuration for Pages**
+   - Navigate to "WPML" > "Settings" in the WordPress admin
+   - Ensure the "Pages" post type is set as translatable
+   - Configure language URL format (subdirectory, subdomain, or domain)
+   - Set up translation options for media and page attributes
+   - [Screenshot Recommended] *WPML settings page showing page type translation options*
+
+2. **Creating a New Multilingual Page**
+   - Create a page in your primary language as normal
+   - Publish the page
+   - Notice the language indicator in the page editor showing the current language
+   - Use the "+" icon next to other languages in the language metabox to add translations
+   - [Screenshot Recommended] *Page editor showing the WPML language metabox with language options*
+
+3. **Translating an Existing Page**
+   - Navigate to "WPML" > "Translation Management"
+   - Select the pages you want to translate
+   - Choose the target language(s)
+   - Select the translation method:
+     - **Translate yourself**: Create translations directly in WordPress
+     - **Send to translation service**: Use professional translation services
+     - **Duplicate content**: Copy content to create similar pages in other languages
+   - [Screenshot Recommended] *Translation Management dashboard showing page selection and options*
+
+4. **Translation Editor Interface**
+   - When translating yourself, WPML provides a side-by-side translation editor
+   - Original content appears on the left
+   - Translation fields appear on the right
+   - Translate each element:
+     - Title
+     - Content (block by block in Gutenberg)
+     - Custom fields
+     - SEO metadata
+     - Page attributes
+   - [Screenshot Recommended] *WPML translation editor showing side-by-side translation interface*
+
+5. **Managing Page Translation Status**
+   - Navigate to "WPML" > "Translation Management" > "Translation Status"
+   - View the translation status of all pages:
+     - Not translated
+     - In progress
+     - Needs updating (original content changed)
+     - Complete
+   - Filter by language, page hierarchy, and translation status
+   - [Screenshot Recommended] *Translation Status screen showing pages with different statuses*
+
+6. **Translating Page Hierarchies**
+   - Maintain consistent parent-child relationships across languages
+   - Navigate to "WPML" > "Translation Management" > "Translation Options"
+   - Configure how page hierarchies should be handled in translations
+   - Options include:
+     - Automatically create translated parent pages
+     - Maintain the same hierarchy in all languages
+     - Allow different hierarchies per language
+   - [Screenshot Recommended] *Page hierarchy translation options in WPML settings*
+
+7. **Translating Page Templates and Attributes**
+   - Select appropriate templates for each language version
+   - Translate page-specific custom fields
+   - Configure order attributes for each language version
+   - Ensure consistent navigation structure across languages
+   - [Screenshot Recommended] *Page attributes translation panel*
+
+8. **Language Switcher for Pages**
+   - Configure the language switcher appearance in "WPML" > "Languages" > "Language Switcher Options"
+   - Choose display options:
+     - Menu item
+     - Widget
+     - Footer text
+     - Shortcode
+   - Customize the appearance and flags/text display
+   - [Screenshot Recommended] *Language Switcher configuration screen*
+
+**Best Practices for Multilingual Pages:**
+
+- Maintain consistent structure and design across all language versions
+- Consider cultural differences when translating page content
+- Ensure navigation is intuitive in all languages
+- Translate URLs for better SEO in each language
+- Use language-specific SEO keywords and metadata
+- Regularly check for untranslated pages or outdated translations
+- Test the user experience in each language to ensure proper functionality
+- Consider using professional translation services for important pages
+
 #### Page Social Sharing with FS Poster Plugin
 
+FS Poster is a powerful WordPress plugin that enables automatic sharing of pages to multiple social media platforms. Below is a detailed guide on managing social sharing of pages using the FS Poster plugin:
+
+1. **Setting Up FS Poster for Pages**
+   - Navigate to "FS Poster" > "Accounts" in the WordPress admin
+   - Connect your social media accounts:
+     - Facebook (profiles, pages, groups)
+     - Twitter/X
+     - Instagram
+     - LinkedIn
+     - Pinterest
+     - Telegram
+     - And other supported platforms
+   - Authorize each account following the platform-specific authentication process
+   - [Screenshot Recommended] *FS Poster accounts page showing connected social platforms*
+
+2. **Configuring Page Sharing Settings**
+   - Navigate to "FS Poster" > "Settings"
+   - Ensure "Pages" is selected as a shareable post type
+   - Configure page-specific settings:
+     - Default sharing message templates
+     - Image selection preferences
+     - URL parameters for tracking
+     - Schedule timing options
+   - [Screenshot Recommended] *FS Poster settings page showing page configuration options*
+
+3. **Creating Page-Specific Sharing Rules**
+   - Navigate to "FS Poster" > "Schedules"
+   - Create rules specifically for pages:
+     - Filter by page template
+     - Filter by parent page
+     - Filter by page attributes
+   - Assign specific social accounts to each rule
+   - Configure custom messages for each platform and rule
+   - [Screenshot Recommended] *Schedule creation interface showing page-specific rule configuration*
+
+4. **Sharing Options in Page Editor**
+   - When creating or editing a page, locate the FS Poster metabox
+   - Select which social accounts to share to
+   - Customize the sharing message for each platform
+   - Upload custom images for specific platforms
+   - Set custom scheduling options for this specific page
+   - Enable/disable automatic sharing for this page
+   - [Screenshot Recommended] *FS Poster metabox in the page editor showing sharing options*
+
+5. **Scheduling Page Shares**
+   - Configure immediate sharing upon publication
+   - Set up delayed sharing (hours, days after publication)
+   - Create recurring sharing schedules for important pages
+   - Schedule shares at optimal times for each platform
+   - [Screenshot Recommended] *Scheduling interface showing timing options for pages*
+
+6. **Customizing Page Share Content**
+   - Use dynamic tags in your share messages:
+     - `{title}` - Page title
+     - `{excerpt}` - Page excerpt (if available)
+     - `{content}` - Page content (truncated)
+     - `{link}` - Page URL
+     - `{author}` - Page author name
+   - Create platform-specific messaging for each page
+   - [Screenshot Recommended] *Message customization interface showing available tags*
+
+7. **Monitoring Page Share Performance**
+   - Navigate to "FS Poster" > "Logs"
+   - Filter logs to show only page shares
+   - View the status of all page shares:
+     - Successful shares
+     - Failed shares with error messages
+     - Pending scheduled shares
+   - Track engagement metrics for shared pages
+   - [Screenshot Recommended] *Logs page showing page share history and status*
+
+8. **Page-Specific Sharing Strategies**
+   - **Service pages**: Share periodically to increase visibility
+   - **Contact pages**: Share with specific calls to action
+   - **Landing pages**: Share with tracking parameters for campaign monitoring
+   - **Event pages**: Share with countdown messaging as the event approaches
+   - **Resource pages**: Share with highlights of available resources
+   - [Screenshot Recommended] *Strategy configuration for different page types*
+
+**Best Practices for Page Social Sharing:**
+
+- Create custom messaging that highlights the page's value proposition
+- Use high-quality images that represent the page content effectively
+- Schedule important pages for periodic resharing to maintain visibility
+- Use different messaging angles for recurring shares of the same page
+- Add UTM parameters to track which social platforms drive the most traffic
+- Test how your page appears when shared on each platform before scheduling
+- Consider the permanence of pages when creating sharing schedules
+- Update share content when page content changes significantly
 
 ## Media Library
 
 ### Definition
 
+The WordPress Media Library is a centralized repository that manages all digital assets uploaded to your WordPress site. It serves as a comprehensive file management system for images, documents, audio, video, and other media files used throughout the website.
+
+Key components of the Media Library include:
+
+- **File storage**: Securely stores uploaded media files in the wp-content/uploads directory
+- **Metadata management**: Tracks file information such as dimensions, file size, upload date, and custom metadata
+- **Organization tools**: Provides filtering, searching, and sorting capabilities for media assets
+- **Image processing**: Automatically generates multiple sizes of uploaded images for different display contexts
+- **Media embedding**: Facilitates easy insertion of media into posts, pages, and other content areas
+- **File management**: Enables editing, deleting, and updating media files after upload
+
+The Media Library serves as the foundation for visual and multimedia content on WordPress sites, ensuring efficient management of digital assets while providing easy access for content creators.
+
 ### View All Media
 
+The "View All Media" interface provides a comprehensive overview of all media files uploaded to your WordPress site. This centralized view allows administrators and authorized users to browse, search, filter, and manage the entire collection of media assets.
+
+1. **Accessing the Media Library**
+   - Log in to the WordPress admin dashboard
+   - Navigate to "Media" > "Library" in the left sidebar menu
+   - [Screenshot Recommended] *Media menu in the WordPress admin sidebar highlighting the Library option*
+
+2. **Understanding the Media Library Interface**
+   - **Main Display Area**: Shows thumbnails or list of media files
+   - **View Options**: Toggle between Grid view (thumbnails) and List view (detailed information)
+   - **Search Box**: Filter media by filename or other attributes
+   - **Filter Dropdown**: Filter by media type (images, audio, video, documents)
+   - **Bulk Selection**: Select multiple items for batch operations
+   - [Screenshot Recommended] *Media Library interface showing the grid view with multiple media items*
+
+3. **Viewing Media Details**
+   - Click on any media item to open its attachment details panel
+   - View comprehensive information about the selected file:
+     - **Preview**: Visual preview of the media file
+     - **Filename**: Original name of the uploaded file
+     - **File Type**: Format of the media (JPEG, PNG, PDF, MP4, etc.)
+     - **Upload Date**: When the file was added to the library
+     - **File Size**: Storage space occupied by the file
+     - **Dimensions**: Width and height for images and videos
+     - **File URL**: Direct link to the media file
+   - [Screenshot Recommended] *Attachment details panel showing comprehensive file information*
+
+4. **Organizing and Filtering Media**
+   - Use the search box to find specific files by name
+   - Filter by media type using the dropdown menu (All media items, Images, Audio, Video, Documents)
+   - Filter by date using the date dropdown
+   - In List view, sort by columns (Name, Author, Date)
+   - [Screenshot Recommended] *Media Library filters and search options in action*
+
+5. **Managing Media Files**
+   - **Edit**: Modify file title, caption, alt text, and description
+   - **Delete**: Remove files from the Media Library
+   - **View**: Open the file in a new browser tab
+   - **Copy URL**: Get the direct link to the media file
+   - **Bulk Actions**: Select multiple files to delete or edit in batch
+   - [Screenshot Recommended] *Media item showing available management options*
+
+**Important Considerations:**
+
+- The Media Library displays all uploaded files, regardless of whether they're currently used in content
+- Deleting a media file will remove it from any posts or pages where it's embedded
+- Large media libraries may load slowly and benefit from additional organization plugins
+- WordPress automatically organizes uploaded files into year/month folders on the server
+- Regular backups of the uploads directory are essential for preserving media assets
+
 ### Add New Media
+
+Adding new media to your WordPress site involves uploading files to the Media Library, where they become available for use throughout your content. WordPress supports various file types including images, documents, audio, and video files.
+
+1. **Accessing the Upload Interface**
+   - **Method 1**: Navigate to "Media" > "Add New" in the left sidebar menu
+   - **Method 2**: Click "Add New" button at the top of the Media Library screen
+   - **Method 3**: Use the "Add Media" button when editing posts or pages
+   - [Screenshot Recommended] *Media menu showing the Add New option*
+
+2. **Upload Methods**
+   - **Drag and Drop**: Drag files directly from your computer to the upload area
+   - **Select Files**: Click the "Select Files" button to browse your computer
+   - **Device Camera**: Some devices allow direct capture from camera (mobile/tablet)
+   - [Screenshot Recommended] *Upload interface showing the drag and drop area*
+
+3. **File Selection Considerations**
+   - **Supported File Types**:
+     - Images: JPEG, PNG, GIF, WebP, SVG (if enabled)
+     - Documents: PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, etc.
+     - Audio: MP3, WAV, OGG, etc.
+     - Video: MP4, WebM, etc.
+   - **File Size Limits**: Default maximum is typically 2MB-8MB (server-dependent)
+   - **Dimensions**: Very large images may be automatically scaled down
+   - [Screenshot Recommended] *Error message when attempting to upload an unsupported file type*
+
+4. **Upload Process**
+   - Select or drag your file(s) to the upload area
+   - WordPress displays a progress bar during upload
+   - Successfully uploaded files appear as thumbnails
+   - Failed uploads show error messages explaining the issue
+   - [Screenshot Recommended] *Upload progress indicator showing files being processed*
+
+5. **Post-Upload Editing**
+   - After upload, WordPress displays the attachment details screen
+   - Edit the following metadata:
+     - **Title**: The display name of the media file (defaults to filename)
+     - **Caption**: Short text displayed below the media in some contexts
+     - **Alt Text**: Description for accessibility and SEO (important for images)
+     - **Description**: Longer text providing details about the media
+   - For images, additional editing options may be available:
+     - Crop
+     - Rotate
+     - Scale
+     - [Screenshot Recommended] *Attachment details screen showing editable fields*
+
+6. **Inserting Media into Content**
+   - When uploading via the content editor, you can immediately insert the media
+   - Choose display options:
+     - **Alignment**: Left, center, right, or none
+     - **Link Settings**: Link to media file, attachment page, custom URL, or none
+     - **Size**: Thumbnail, medium, large, or full size
+   - Click "Insert into post/page" to embed the media
+   - [Screenshot Recommended] *Media insertion options showing alignment and size settings*
+
+**Important Considerations:**
+
+- Organize your files before uploading to maintain a clean Media Library
+- Use descriptive filenames to make media easier to find later
+- Always add alt text to images for accessibility and SEO benefits
+- Consider image optimization plugins to reduce file sizes without quality loss
+- Be mindful of copyright when uploading media; only use files you have rights to
+- Regular backups of your Media Library are essential for data protection
+- Consider the total storage space available on your hosting plan when uploading large files
 
 
 ## Platform Settings
 
+### Definition
+
+The WordPress Platform Settings system is a comprehensive framework that allows administrators to configure and customize core aspects of the WordPress installation. It provides centralized control over site-wide settings that affect how the website functions, appears, and interacts with users and search engines.
+
+Key components of the Platform Settings system include:
+
+- **General settings**: Basic site information and configuration options
+- **Writing settings**: Default post categories, formats, and publishing options
+- **Reading settings**: Homepage display, post visibility, and RSS feed options
+- **Discussion settings**: Comment moderation and notification preferences
+- **Media settings**: Image sizes, upload directories, and media handling options
+- **Permalink settings**: URL structure for posts, pages, and archives
+- **Privacy settings**: Privacy policy page and data handling configurations
+
+The Platform Settings system serves as the foundation for customizing WordPress to meet specific site requirements, ensuring consistent behavior across the entire website while providing flexibility for administrators to tailor the platform to their needs.
+
 ### Basic Site Configuration
 
+The Basic Site Configuration section, found under "Settings" > "General" in the WordPress admin panel, provides essential options for defining your site's identity and core functionality. Below is a detailed explanation of these fundamental settings:
+
+1. **Accessing General Settings**
+   - Log in to the WordPress admin dashboard
+   - Navigate to "Settings" > "General" in the left sidebar menu
+   - [Screenshot Recommended] *Settings menu in the WordPress admin sidebar highlighting the General option*
+
+2. **Site Identity Settings**
+   - **Site Title**: The name of your website, displayed in browser tabs, search results, and various theme locations
+   - **Tagline**: A brief description of your site that appears in some themes and can influence SEO
+   - These elements define your site's identity across the web and in search engine results
+   - [Screenshot Recommended] *Site Title and Tagline fields in the General Settings panel*
+
+3. **Site Address Configuration**
+   - **WordPress Address (URL)**: The location of your WordPress core files (typically your domain)
+   - **Site Address (URL)**: The address visitors use to access your site (usually identical to WordPress Address)
+   - These settings are critical for proper site functioning and should only be changed with caution
+   - [Screenshot Recommended] *URL configuration fields showing example domain entries*
+
+4. **Contact Information**
+   - **Administration Email Address**: The primary contact email for site notifications
+   - Used for administrative communications, password resets, and system alerts
+   - Must be a valid, accessible email address to ensure you receive important notifications
+   - [Screenshot Recommended] *Email address field in the General Settings panel*
+
+5. **Membership Settings**
+   - **Membership**: Toggle whether anyone can register for an account on your site
+   - **New User Default Role**: Select the role automatically assigned to newly registered users
+   - These settings control public access to your site's registration features
+   - [Screenshot Recommended] *Membership options showing registration checkbox and role dropdown*
+
+6. **Date and Time Configuration**
+   - **Timezone**: Set your local timezone using a city reference or UTC offset
+   - **Date Format**: Choose how dates appear throughout your site
+   - **Time Format**: Select the preferred time display format (12 or 24-hour)
+   - **Week Starts On**: Define which day is considered the first day of the week
+   - These settings ensure consistent date and time display across your entire website
+   - [Screenshot Recommended] *Date and time configuration options showing format choices*
+
+7. **Language Settings**
+   - **Site Language**: Select the primary language for the WordPress admin interface
+   - This setting affects the admin dashboard language, not necessarily the content language
+   - Additional languages can be installed if needed
+   - [Screenshot Recommended] *Language dropdown showing available language options*
+
+8. **Saving Changes**
+   - Click the "Save Changes" button at the bottom of the page to apply all modifications
+   - WordPress confirms successful updates with a notification message
+   - [Screenshot Recommended] *Save Changes button and success message*
+
+**Important Considerations:**
+
+- Changing the site URL settings incorrectly can make your site inaccessible
+- The site title and tagline significantly impact SEO and should be chosen carefully
+- The administration email should be regularly monitored as it receives critical notifications
+- Allowing open registration may require additional security measures to prevent spam accounts
+- Time and date settings affect post publication timestamps, comment dates, and other time-sensitive features
+- Language settings only change the admin interface language, not existing content
+
 ### Media Settings
+
+The Media Settings section in WordPress provides configuration options for how media files (images, documents, videos, etc.) are handled, stored, and displayed throughout your website. These settings help maintain consistency in media presentation while optimizing server storage and page load times.
+
+1. **Accessing Media Settings**
+   - Log in to the WordPress admin dashboard
+   - Navigate to "Settings" > "Media" in the left sidebar menu
+   - [Screenshot Recommended] *Settings menu in the WordPress admin sidebar highlighting the Media option*
+
+2. **Image Size Configuration**
+   - **Thumbnail Size**: Define the dimensions for thumbnail images
+     - Default: 150×150 pixels
+     - Used in admin listings and theme-specific thumbnail displays
+   - **Medium Size**: Set dimensions for medium-sized images
+     - Default: 300×300 pixels maximum
+     - Commonly used in blog post listings and archive pages
+   - **Large Size**: Configure dimensions for large images
+     - Default: 1024×1024 pixels maximum
+     - Often used for featured images in single post views
+   - **Crop Settings**: Choose whether images are cropped to exact dimensions or proportionally scaled
+   - [Screenshot Recommended] *Image size configuration fields showing width and height inputs*
+
+3. **File Organization Settings**
+   - **Uploading Files Organization**: Toggle whether uploads should be organized into month and year-based folders
+   - When enabled, creates a structured directory system (e.g., /wp-content/uploads/2025/05/)
+   - Helps maintain an organized media library, especially for sites with numerous uploads
+   - [Screenshot Recommended] *Uploading Files Organization checkbox option*
+
+4. **Image Upload Handling**
+   - When an image is uploaded, WordPress automatically creates multiple versions in different sizes
+   - The original image is preserved alongside the generated thumbnail, medium, and large versions
+   - These different sizes are used throughout the site based on context and theme requirements
+   - Additional custom image sizes may be available depending on your active theme
+
+5. **Maximum Upload Size**
+   - While not directly configurable in the Media Settings interface, WordPress enforces upload size limits
+   - The maximum upload size is determined by your hosting configuration (php.ini settings)
+   - Typical limits range from 2MB to 50MB depending on your hosting plan
+   - [Screenshot Recommended] *Information about current maximum upload size*
+
+6. **Responsive Images**
+   - WordPress automatically generates HTML for responsive images using srcset attributes
+   - This allows browsers to choose the most appropriately sized image based on the user's device
+   - Improves page load times and reduces bandwidth usage on mobile devices
+   - No specific configuration is required as this functionality is built into core
+
+7. **Saving Changes**
+   - Click the "Save Changes" button at the bottom of the page to apply all modifications
+   - WordPress confirms successful updates with a notification message
+   - [Screenshot Recommended] *Save Changes button and success message*
+
+**Important Considerations:**
+
+- Changing image dimensions does not affect existing uploads, only newly uploaded images
+- Larger image dimensions provide better quality but consume more storage space and bandwidth
+- The "Crop" option forces images to exact dimensions, which may distort some images
+- Organizing uploads by month/year improves server file management but creates longer file paths
+- Very large media libraries may benefit from third-party solutions for advanced media management
+- Consider image optimization plugins to further reduce file sizes without quality loss
+- Some hosting providers have strict upload size limitations that cannot be changed in WordPress settings
