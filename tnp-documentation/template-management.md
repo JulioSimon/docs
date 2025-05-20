@@ -197,98 +197,39 @@ Access global settings by clicking the "Settings" icon in the top bar of the Bri
 
 ![Global settings panel showing the different tabs](./../images/tnp/templateManagement8.png)
 
-### Template-Specific Settings
-
-Each template has its own settings that override global settings:
-
-1. **Layout Settings**
-   - Template width and maximum width
-   - Content area padding
-   - Background settings
-
-2. **Typography Settings**
-   - Font family for headings and body text
-   - Font sizes and line heights
-   - Text colors and styles
-
-3. **Advanced Settings**
-   - Custom CSS classes
-   - Custom attributes
-   - Template visibility conditions
-
-### Responsive Settings
-
-Bricks Builder provides tools to ensure your templates look great on all devices:
-
-1. **Breakpoints**
-   - Define custom breakpoints for different screen sizes
-   - Default breakpoints: Desktop, Tablet, Mobile
-   - Preview your template at different breakpoints
-
-2. **Responsive Controls**
-   - Hide/show elements based on screen size
-   - Adjust spacing, sizing, and alignment for each breakpoint
-   - Set different styles for different devices
-
-3. **Responsive Images**
-   - Configure different image sizes for different devices
-   - Set aspect ratios that maintain across screen sizes
-   - Enable/disable lazy loading for images
-
 ## Custom Fonts
 
-Bricks Builder allows you to use custom fonts throughout your templates, giving you complete typographic control over your website's appearance.
+Bricks allows you to add any font you want. From web-safe fonts to Google fonts, and of course, uploading your own custom fonts in your WordPress dashboard under Bricks > Custom Fonts. The latter which we are going to have a more in-depth look at now.
 
 ### Adding Custom Fonts
 
-1. Navigate to Bricks > Settings in your WordPress admin dashboard
-2. Select the "Custom Fonts" tab
-3. Click "Add Custom Font"
-4. Enter the font details:
-   - Font name (how it will appear in the font selector)
-   - Font files (upload or link to font files)
-   - Font weight (regular, bold, light, etc.)
-   - Font style (normal, italic)
-5. Save your changes
+1. Navigate to Bricks > Custom Fonts in your WordPress admin dashboard
+2. Click "Add New Custom Font"
+3. Enter the font title (how it will appear in the font selector)
+4. Click on "Add a font variant" or Edit the present one by clicking at "Edit"
+5. On every variant, you can select the font weight and style
+6. When editing the font variant, you can upload WOFF2, WOFF or TTF files
 
-[Screenshot Recommended: Custom font addition interface]
+![Custom font addition interface](./../images/tnp/templateManagement9.png)
 
 ### Font Types Supported
 
-1. **Local Fonts**
-   - Upload font files directly to your server
-   - Supported formats: WOFF2, WOFF, TTF, EOT, SVG
-   - Better performance and privacy compared to external fonts
+The following font formats are enabled by default:
 
-2. **Google Fonts**
-   - Access the entire Google Fonts library
-   - Select specific weights and styles to optimize loading
-   - Enable/disable Google Fonts in performance settings
+- **WOFF (Web Open Font Format)**: This is the recommend font format used by all modern browsers. Font data is compressed and therefore loads faster than the same font provided via TrueType or OpenType files. Full support for IE9+.
+- **WOFF2 (Web Open Font Format 2.0)**: TrueType/OpenType font with even better compression than WOFF 1.0. No IE browser support.
+- **TTF (TrueType Font)**: Uncompressed font data, but partial IE9+ support.
 
-3. **Adobe Fonts (Typekit)**
-   - Connect your Adobe Fonts account
-   - Use your licensed Adobe fonts in templates
-   - Enter your Adobe Fonts Project ID in settings
-
-4. **Custom Font Services**
-   - Add fonts from other providers using custom CSS
-   - Support for services like Font Awesome, Fontspring, etc.
+The recommended font format is **WOFF**, with a current browser support of 98.26%, and full support for IE9+.
 
 ### Using Custom Fonts in Templates
 
 1. Select any text element in your template
-2. Open the Style tab in the right sidebar
+2. Open the Style tab in the left sidebar
 3. Find the Typography section
 4. Select your custom font from the Font Family dropdown
 5. Adjust weight, style, size, and other typography settings
 6. Apply the font to specific elements or set as a global default
-
-### Font Performance Optimization
-
-- **Subset Selection**: Choose only the character sets you need
-- **Font Display Settings**: Control how fonts load and display
-- **Preloading**: Configure critical fonts to preload for better performance
-- **Local Hosting**: Host Google Fonts locally for improved page speed
 
 ## System Information
 
@@ -296,34 +237,27 @@ The System Information section provides valuable data about your Bricks Builder 
 
 ### Accessing System Information
 
-1. Navigate to Bricks > Settings in your WordPress admin dashboard
-2. Select the "System Information" tab
-3. View comprehensive information about your setup
+1. Navigate to Bricks > System Information in your WordPress admin dashboard
+2. View comprehensive information about your setup
 
-[Screenshot Recommended: System Information screen showing server details]
+![System Information screen showing server details](./../images/tnp/templateManagement10.png)
 
 ### Available Information
 
-1. **WordPress Environment**
-   - WordPress version
-   - Site URL and home URL
-   - WP debug mode status
-   - Memory limit
-   - Active theme
+1. **Theme Information**
+   - Theme version
 
-2. **Server Environment**
-   - PHP version and memory limit
-   - MySQL/MariaDB version
-   - Server software (Apache, Nginx, etc.)
-   - SSL status
-   - Server architecture
+2. **Wordpress Environment**
+   - Home URL
+   - Rest API prefix
+   - WP environment data
+   - WP memorey limit should be more than 64 MB
 
-3. **Bricks Builder Information**
-   - Bricks version
-   - License status
-   - Activated features
-   - Database tables
-   - Template count
+3. **Server Environment**
+   - Server info
+   - Database version
+   - Postmeta table type
+   - PHP environment data
 
 4. **Active Plugins**
    - List of active plugins with versions
@@ -331,6 +265,8 @@ The System Information section provides valuable data about your Bricks Builder 
    - Required plugins status
 
 ### Using System Information for Troubleshooting
+
+At the System Information section, you will find several variables with colors. Those variables colors can be red or green. By having all of them in green, the system is working under the recommended settings.
 
 1. **Performance Issues**
    - Check PHP memory limits
