@@ -1,689 +1,360 @@
 # Template Management with Bricks Builder
 
-This document provides comprehensive information about using the Bricks template builder for managing templates in the Tonga National Portal. It covers the template system architecture, creation and editing processes, template hierarchy, and best practices for template management.
+## Definition
 
-## Table of Contents
+Bricks Builder is a powerful WordPress page builder that allows you to create custom templates for your website without writing code. Templates in Bricks Builder are reusable layouts that define how different parts of your website appear, such as headers, footers, single posts, archive pages, and more.
 
-1. [Introduction to Bricks Template Builder](#introduction-to-bricks-template-builder)
-2. [Template System Architecture](#template-system-architecture)
-3. [Creating and Editing Templates](#creating-and-editing-templates)
-4. [Template Hierarchy](#template-hierarchy)
-5. [Managing Specific Template Types](#managing-specific-template-types)
-6. [Best Practices for Template Design](#best-practices-for-template-design)
-7. [Performance Optimization](#performance-optimization)
-8. [Template Backup and Restoration](#template-backup-and-restoration)
-9. [Troubleshooting Common Issues](#troubleshooting-common-issues)
+Key template concepts in Bricks Builder:
 
----
+- **Global Templates**: Apply to your entire website (headers, footers)
+- **Content Templates**: Control how specific content types display (posts, pages, custom post types)
+- **Archive Templates**: Define the layout for archive pages, category pages, and other collection displays
+- **Template Conditions**: Rules that determine where and when templates are applied
+- **Template Hierarchy**: The order of priority when multiple templates could apply to the same page
 
-## Introduction to Bricks Template Builder
+Templates in Bricks Builder use a visual drag-and-drop interface, making it accessible for beginners while offering advanced capabilities for experienced designers.
 
-### Description
+## Editor UI Guide
 
-Bricks Template Builder is a powerful visual page builder integrated into the Tonga National Portal that enables administrators and content managers to create and manage website templates without coding knowledge. It provides a flexible system for designing consistent layouts across the portal while maintaining the government's visual identity.
+The Bricks Builder editor interface is divided into several key areas that work together to provide a comprehensive template building experience.
 
-### Key Features
+### Main Editor Components
 
-- **Visual Editing**: WYSIWYG interface for creating and editing templates
-- **Drag-and-Drop Interface**: Easily position and arrange elements
-- **Responsive Design Controls**: Create templates that work across all devices
-- **Global Elements**: Reusable components across multiple templates
-- **Dynamic Data Integration**: Connect templates with WordPress data sources
-- **Custom CSS/JS**: Advanced styling and functionality options
-- **Template Conditions**: Control where templates are applied
-- **Performance Optimization**: Built-in tools for fast-loading templates
+1. **Top Bar**
+   - Save button
+   - Responsive mode toggles (desktop, tablet, mobile)
+   - Settings button (opens global settings panel)
+   - Preview button (view template as it will appear on the frontend)
+   - Structure button (shows template structure in outline form)
+   - Revisions button (access previous versions of the template)
+   - Exit to Dashboard button
 
-### Role in the Tonga National Portal
+   ![Bricks UI top navigation](./../images/tnp/templateManagement1.png)
 
-Bricks Template Builder serves as the foundation for the portal's visual presentation and user experience by:
+2. **Left Sidebar**
+   - Elements panel: Contains all available building blocks
+   - Element Configurator: Shows configurable options for the selected element
+   - Settings: Access to Theme Styles and Page Settings
 
-- Ensuring consistent branding across all government departments
-- Providing standardized layouts for different content types
-- Enabling rapid deployment of new sections and features
-- Supporting multilingual content presentation
-- Maintaining accessibility standards for all citizens
-- Facilitating responsive design for mobile users
+    ![Left sidebar showing the elements panel](./../images/tnp/templateManagement2.png)
 
-![Screenshot: Bricks Template Builder Interface]
-(Here a screenshot would show the Bricks Template Builder interface with the Tonga National Portal template being edited)
+3. **Canvas Area**
+   - Main working area where you build your template
+   - WYSIWYG (What You See Is What You Get) interface
+   - Direct editing of content and styling
+   - Context-sensitive controls appear when elements are selected
 
----
+   ![Canvas area with a partially built template](./../images/tnp/templateManagement3.png)
 
-## Template System Architecture
+4. **Right Sidebar**
+   - Navigation area for the different page elements
+   - Page elements are nestable
+   - Posibility to copy and pages elements between pages
 
-### Template Types
+   [Screenshot Recommended: Right sidebar showing style options for a selected element]
+   ![Structure navigation](./../images/tnp/templateManagement4.png)
 
-The Tonga National Portal template system includes these primary template types:
+### Working with Elements
 
-1. **Global Templates**: Applied site-wide (headers, footers, popups)
-2. **Content Templates**: Applied to specific content types (pages, posts, custom post types)
-3. **Archive Templates**: Applied to content listings (news archives, department listings)
-4. **Single Templates**: Applied to individual content items (single news article, service page)
+1. **Adding Elements**
+   - Drag elements from the left sidebar onto the canvas
+   - Use the "+" button that appears when hovering over containers
+   - Search for elements using the search bar at the top of the elements panel
 
-### Template Components
+2. **Selecting Elements**
+   - Click directly on an element in the canvas
+   - Use the Structure panel to select nested elements
+   - Use breadcrumb navigation at the bottom of the screen
 
-Each template consists of these components:
+3. **Moving Elements**
+   - Drag and drop elements within the canvas
+   - Use the Structure panel to drag elements to new positions
+   - Cut and paste elements using keyboard shortcuts or right-click menu
 
-- **Sections**: Major horizontal divisions of the layout
-- **Containers**: Content wrappers within sections
-- **Elements**: Individual content blocks (text, images, buttons, etc.)
-- **Global Elements**: Reusable components shared across templates
-- **Dynamic Data Fields**: Content placeholders populated from the database
+4. **Styling Elements**
+   - Use the Style tab in the left sidebar
+   - Apply global styles or create custom styles
+   - Use responsive controls to adjust styling for different devices
 
-### Template Storage and Management
+## Manage Templates
 
-Templates are stored and managed through:
+Managing templates effectively is crucial for maintaining a well-organized website. Bricks Builder provides comprehensive tools for creating, organizing, and applying templates.
 
-- **WordPress Database**: Core template data and settings
-- **Template Library**: Collection of pre-designed templates
-- **Export/Import System**: Backup and transfer capabilities
-- **Version Control**: History of template changes
+### Creating Templates
 
-### Integration with WordPress
-
-Bricks templates integrate with WordPress through:
-
-- **Template Hierarchy Override**: Replacing default WordPress templates
-- **Custom Post Type Integration**: Templates for government-specific content types
-- **Dynamic Data Sources**: Connection to WordPress content and metadata
-- **Hook System**: Integration points for custom functionality
-- **Multilingual Support**: WPML integration for template translation
-
-![Diagram: Template System Architecture]
-(Here a diagram would show the relationship between template types, WordPress, and the front-end display)
-
----
-
-## Creating and Editing Templates
-
-### Accessing the Template Builder
-
-1. Navigate to **Bricks > Templates** in the WordPress admin dashboard
-2. Click **Add New** to create a new template or select an existing template to edit
+1. Navigate to Bricks > Templates in your WordPress admin dashboard
+2. Click "Add New" to create a new template
 3. Enter a descriptive name for your template
-4. Select the template type (global, content, archive, or single)
-5. Click **Edit with Bricks** to open the visual editor
+4. Select the template type:
+   - Header
+   - Footer
+   - Single (for individual posts/pages)
+   - Section
+   - Popup
+   - Archive (for collection pages)
+   - Search Results
+   - Error 404
+5. Click "Create Template" to enter the Bricks Builder editor
 
-### Template Builder Interface
-
-The Bricks Template Builder interface consists of:
-
-- **Canvas**: Central area where you build and preview the template
-- **Structure Panel**: Hierarchical view of all elements in the template
-- **Elements Panel**: Library of available elements to add to the template
-- **Settings Panel**: Configuration options for the selected element
-- **Top Bar**: Global controls, responsive preview, and save options
-
-### Creating a Basic Template
-
-1. **Start with Structure**:
-   - Add sections to create the main layout divisions
-   - Add containers within sections to control content width
-   - Configure responsive behavior for different screen sizes
-
-2. **Add Content Elements**:
-   - Drag elements from the Elements Panel to your layout
-   - Common elements include headings, text, images, buttons, and dividers
-   - Configure each element's settings in the Settings Panel
-
-3. **Style Your Template**:
-   - Set colors, typography, spacing, and borders
-   - Apply the Tonga government brand guidelines
-   - Ensure consistent styling across elements
-
-4. **Add Dynamic Data**:
-   - Insert dynamic fields where content should be pulled from WordPress
-   - Configure dynamic data sources and fallback content
-   - Test with different content scenarios
-
-5. **Set Template Conditions**:
-   - Define where the template should be applied
-   - Configure display rules based on content type, categories, or other criteria
-   - Set template priority if multiple templates could apply
-
-### Saving and Publishing Templates
-
-1. Click the **Save** button in the top bar to save your changes
-2. Review the template in the preview mode
-3. Configure template settings and conditions
-4. Publish the template to make it live on the site
-
-![Screenshot: Creating a new template]
-(Here a screenshot would show the process of creating a new template with sections and elements)
-
----
-
-## Template Hierarchy
-
-### Understanding Template Hierarchy
-
-The template hierarchy determines which template is applied to different parts of the website. The Tonga National Portal uses a combination of WordPress's native template hierarchy and Bricks' template conditions system.
-
-### Hierarchy Levels (from highest to lowest priority)
-
-1. **Specific Single Templates**: Templates targeting specific content items by ID
-2. **Custom Post Type Single Templates**: Templates for specific custom post types
-3. **Category/Taxonomy Templates**: Templates for specific taxonomies
-4. **Archive Templates**: Templates for content listings
-5. **Default Single Templates**: General templates for content types
-6. **Global Templates**: Site-wide templates like header and footer
-7. **WordPress Default Templates**: Native WordPress fallback templates
+![New template creation screen with template type options](./../images/tnp/templateManagement5.png)
 
 ### Template Conditions
 
-Template conditions allow you to specify exactly where each template should be applied:
-
-- **Content Type**: Apply to specific post types (pages, posts, services, departments)
-- **Taxonomy**: Apply to specific categories, tags, or custom taxonomies
-- **Post/Page**: Apply to specific individual content items
-- **User Role**: Show different templates based on user roles
-- **Language**: Display different templates based on selected language
+Template conditions determine where your templates will be displayed on your website:
 
-### Conflict Resolution
+1. In the template editor, click "Settings" in the top bar
+2. Navigate to "Theme Styles" -> "Conditions" tab
+3. Add one or more conditions:
+   - Include: Pages where the template WILL be displayed
+   - Exclude: Pages where the template WILL NOT be displayed
+4. Available condition types:
+   - Entire Website
+   - Front page
+   - Post page
+   - Archive
+   - Search results
+   - Error page
+   - Terms
+   - Individual
+5. Save your conditions
 
-When multiple templates could apply to the same content:
+![Template conditions interface showing include/exclude options](./../images/tnp/templateManagement6.png)
 
-1. Templates with more specific conditions take precedence
-2. Templates with higher priority settings override lower priority templates
-3. Recently published templates override older templates with the same conditions
-4. Manual priority can be set in template settings
+### Template Organization
 
-![Diagram: Template Hierarchy Flowchart]
-(Here a diagram would show the decision flow for template selection)
+- **Naming Convention**: Use clear, descriptive names (e.g., "Product Single Template" rather than "Template 1")
+- **Tags and Categories**: Assign tags and categories to templates for easier filtering
+- **Template Library**: Access your saved templates from the Templates screen
+- **Import/Export**: Share templates between sites using the import/export feature
 
----
+### Template Priority
 
-## Managing Specific Template Types
+When multiple templates could apply to the same page, Bricks Builder uses a priority system:
 
-### Header Templates
-
-Headers are global templates that appear at the top of every page.
-
-#### Creating a Header Template
-
-1. Go to **Bricks > Templates > Add New**
-2. Name your template (e.g., "Main Header")
-3. Select **Header** as the template type
-4. Click **Edit with Bricks**
-5. Build your header with these common elements:
-   - Logo (using the Image element)
-   - Navigation Menu (using the Nav Menu element)
-   - Search Bar (using the Search element)
-   - Language Switcher (using the WPML element)
-   - Call-to-Action buttons
+1. Templates with more specific conditions take precedence over general ones
+2. Custom templates override default templates
+3. User-created templates override theme templates
+4. Manual priority adjustment is available in template settings
 
-#### Header Template Best Practices
-
-- Keep headers clean and focused on navigation
-- Ensure the government logo is prominently displayed
-- Make the navigation intuitive and accessible
-- Include a mobile-responsive menu for smaller screens
-- Incorporate the language switcher in a visible location
-- Consider a sticky header for better user experience
-
-### Footer Templates
-
-Footers are global templates that appear at the bottom of every page.
-
-#### Creating a Footer Template
-
-1. Go to **Bricks > Templates > Add New**
-2. Name your template (e.g., "Main Footer")
-3. Select **Footer** as the template type
-4. Click **Edit with Bricks**
-5. Build your footer with these common elements:
-   - Government seal/logo
-   - Copyright information
-   - Contact details
-   - Quick links to important pages
-   - Social media links
-   - Privacy and terms links
-
-#### Footer Template Best Practices
-
-- Include all required legal information
-- Organize content in clear columns or sections
-- Provide easy access to important resources
-- Ensure contact information is up-to-date
-- Include a back-to-top button for user convenience
-- Maintain consistent branding with the rest of the site
-
-### Page Templates
-
-Page templates are applied to standard WordPress pages.
-
-#### Creating a Page Template
-
-1. Go to **Bricks > Templates > Add New**
-2. Name your template (e.g., "Standard Page")
-3. Select **Single** as the template type
-4. Set condition to apply to **Pages**
-5. Click **Edit with Bricks**
-6. Build your page template with:
-   - Hero section with page title
-   - Content area for the main page content
-   - Sidebar for related information (if needed)
-   - Call-to-action sections
+### Template Revisions
 
-#### Page Template Variations
+Bricks Builder maintains a history of changes to your templates:
 
-- **Homepage Template**: Special layout for the portal homepage
-- **Contact Page Template**: Including contact forms and maps
-- **Service Page Template**: Structured layout for government services
-- **Department Page Template**: Template for ministry/department pages
-- **Landing Page Template**: For campaign or special initiative pages
-
-### Archive Templates
+1. Click the "Revisions" button in the top bar while editing a template
+2. View a list of previous versions with timestamps and author information
+3. Preview any revision before restoring
+4. Restore a previous version if needed
+5. Compare revisions to see what changed
 
-Archive templates display collections of content items.
+![Revisions panel showing version history](./../images/tnp/templateManagement7.png)
 
-#### Creating an Archive Template
+## Bricks Settings
 
-1. Go to **Bricks > Templates > Add New**
-2. Name your template (e.g., "News Archive")
-3. Select **Archive** as the template type
-4. Set condition to apply to specific post type archives
-5. Click **Edit with Bricks**
-6. Build your archive template with:
-   - Archive title and description
-   - Filtering options
-   - Query Loop element to display posts
-   - Pagination controls
-
-#### Archive Template Best Practices
+Bricks Builder includes comprehensive settings that control how templates function and appear across your website.
 
-- Provide clear filtering and sorting options
-- Display content in a consistent grid or list format
-- Include pagination for large content collections
-- Show relevant metadata (date, category, author)
-- Optimize for both desktop and mobile viewing
-- Include search functionality within the archive
-
-### Single Post Templates
-
-Single post templates display individual blog posts or news articles.
-
-#### Creating a Single Post Template
-
-1. Go to **Bricks > Templates > Add New**
-2. Name your template (e.g., "News Article")
-3. Select **Single** as the template type
-4. Set condition to apply to **Posts**
-5. Click **Edit with Bricks**
-6. Build your single post template with:
-   - Featured image display
-   - Post title and metadata (date, author, categories)
-   - Content area for the post body
-   - Social sharing buttons
-   - Related posts section
-   - Comments section (if enabled)
+### Global Settings
 
-#### Single Post Template Best Practices
+Access global settings by clicking the "Settings" icon in the top bar of the Bricks editor:
 
-- Prioritize readability with appropriate typography
-- Include clear publication date and author information
-- Provide easy navigation to related content
-- Include social sharing options for important announcements
-- Ensure proper display of embedded media (images, videos)
-- Consider print-friendly styling
+1. **General**
+   - Posts types to edit with Bricks
+   - Convert Gutenberg data into Bricsk and viceversa
+   - Custom breakpoints
+   - Other CSS global configurations
 
-### Custom Post Type Templates
+2. **Builder access**
+   - Set builder access per user role
 
-Custom post type templates are designed for government-specific content types.
+3. **Templates**
+   - Automatic screenshots on edit
+   - Thumbnail dimension options
+   - Password protection
+   - Loading templates from a remote Bricks installation
 
-#### Creating a Custom Post Type Template
+4. **Builder**
+   - Autosave interval
+   - Builder template
+   - Canvas configurations
+   - Dynamic data configurations
 
-1. Go to **Bricks > Templates > Add New**
-2. Name your template (e.g., "Service Detail")
-3. Select **Single** as the template type
-4. Set condition to apply to your custom post type
-5. Click **Edit with Bricks**
-6. Build your template with fields specific to that content type
+5. **Performance**
+   - Disable options for performance
+   - Cache query configuration
+   - CSS loading methods
 
-#### Common Government Custom Post Types
+6. **Maintenance mode**
+   - Toogle to activate and disable the maintenance mode
+   - Template selection for maintenance
+   - Baypass maintenance options
 
-- **Services**: Government service details
-- **Departments**: Ministry and department information
-- **Officials**: Government official profiles
-- **Documents**: Official document presentations
-- **Events**: Government events and ceremonies
-- **Projects**: Government initiatives and projects
+7. **API Keys**
+   - API Keys for several 3rd party software
 
-![Screenshot: Template Conditions Interface]
-(Here a screenshot would show setting template conditions for different content types)
+8. **Custom code**
+   - Code exectuion security
+   - Custom CSS code
+   - Custom scripts loading
 
----
+![Global settings panel showing the different tabs](./../images/tnp/templateManagement8.png)
 
-## Best Practices for Template Design
+### Template-Specific Settings
 
-### Visual Consistency
+Each template has its own settings that override global settings:
 
-- **Maintain Brand Guidelines**: Follow the Tonga government brand guidelines for colors, typography, and visual elements
-- **Consistent Spacing**: Use standardized spacing between elements
-- **Element Styling**: Apply consistent styling to buttons, forms, and interactive elements
-- **Typography Hierarchy**: Establish clear heading and text styles
-- **Color Usage**: Use the official color palette consistently
+1. **Layout Settings**
+   - Template width and maximum width
+   - Content area padding
+   - Background settings
 
-### Accessibility Considerations
+2. **Typography Settings**
+   - Font family for headings and body text
+   - Font sizes and line heights
+   - Text colors and styles
 
-- **Color Contrast**: Ensure text has sufficient contrast against backgrounds
-- **Text Sizing**: Use relative units for text to support user scaling
-- **Keyboard Navigation**: Make sure all interactive elements are keyboard accessible
-- **Screen Reader Support**: Add appropriate ARIA labels and alt text
-- **Focus Indicators**: Provide visible focus states for interactive elements
-- **Form Labels**: Ensure all form fields have proper labels
+3. **Advanced Settings**
+   - Custom CSS classes
+   - Custom attributes
+   - Template visibility conditions
 
-### Responsive Design
+### Responsive Settings
 
-- **Mobile-First Approach**: Design for mobile devices first, then enhance for larger screens
-- **Flexible Layouts**: Use percentage-based widths and flexible grids
-- **Breakpoint Strategy**: Define consistent breakpoints for responsive adjustments
-- **Touch Targets**: Ensure buttons and links are large enough for touch interaction
-- **Content Prioritization**: Adjust content display priority on smaller screens
-- **Testing**: Test templates on various devices and screen sizes
+Bricks Builder provides tools to ensure your templates look great on all devices:
 
-### Performance Considerations
+1. **Breakpoints**
+   - Define custom breakpoints for different screen sizes
+   - Default breakpoints: Desktop, Tablet, Mobile
+   - Preview your template at different breakpoints
 
-- **Image Optimization**: Compress and properly size images
-- **Minimal Animation**: Use animations sparingly and efficiently
-- **Element Efficiency**: Avoid unnecessary nested elements
-- **CSS Efficiency**: Minimize custom CSS and leverage Bricks' built-in styling
-- **Lazy Loading**: Enable lazy loading for below-the-fold images
-- **Font Loading**: Optimize web font loading and provide fallbacks
+2. **Responsive Controls**
+   - Hide/show elements based on screen size
+   - Adjust spacing, sizing, and alignment for each breakpoint
+   - Set different styles for different devices
+
+3. **Responsive Images**
+   - Configure different image sizes for different devices
+   - Set aspect ratios that maintain across screen sizes
+   - Enable/disable lazy loading for images
 
-### Content Structure
+## Custom Fonts
 
-- **Clear Hierarchy**: Establish a clear visual hierarchy of information
-- **Scannable Content**: Design for easy scanning with headings and lists
-- **Consistent Navigation**: Provide consistent navigation patterns
-- **Content Grouping**: Group related information logically
-- **White Space**: Use appropriate spacing to improve readability
-- **Call-to-Action Clarity**: Make primary actions stand out visually
+Bricks Builder allows you to use custom fonts throughout your templates, giving you complete typographic control over your website's appearance.
 
-![Example: Responsive Design Demonstration]
-(Here an image would show how a template adapts across different screen sizes)
+### Adding Custom Fonts
 
----
+1. Navigate to Bricks > Settings in your WordPress admin dashboard
+2. Select the "Custom Fonts" tab
+3. Click "Add Custom Font"
+4. Enter the font details:
+   - Font name (how it will appear in the font selector)
+   - Font files (upload or link to font files)
+   - Font weight (regular, bold, light, etc.)
+   - Font style (normal, italic)
+5. Save your changes
 
-## Performance Optimization
+[Screenshot Recommended: Custom font addition interface]
 
-### Template Performance Factors
+### Font Types Supported
 
-Template performance directly impacts site speed and user experience. Key factors affecting template performance include:
+1. **Local Fonts**
+   - Upload font files directly to your server
+   - Supported formats: WOFF2, WOFF, TTF, EOT, SVG
+   - Better performance and privacy compared to external fonts
 
-- **Template Complexity**: Number and complexity of elements
-- **Asset Loading**: How images, scripts, and styles are loaded
-- **Dynamic Data Queries**: Efficiency of database queries
-- **Caching Implementation**: How templates utilize caching
-- **Code Efficiency**: Quality of generated HTML, CSS, and JavaScript
+2. **Google Fonts**
+   - Access the entire Google Fonts library
+   - Select specific weights and styles to optimize loading
+   - Enable/disable Google Fonts in performance settings
 
-### Optimization Techniques
+3. **Adobe Fonts (Typekit)**
+   - Connect your Adobe Fonts account
+   - Use your licensed Adobe fonts in templates
+   - Enter your Adobe Fonts Project ID in settings
 
-#### Reducing Template Complexity
+4. **Custom Font Services**
+   - Add fonts from other providers using custom CSS
+   - Support for services like Font Awesome, Fontspring, etc.
 
-- Minimize the number of elements and nested structures
-- Use global elements for repeated components
-- Avoid unnecessary divs and wrapper elements
-- Combine similar elements when possible
-- Use the Structure Panel to identify and clean up complex areas
+### Using Custom Fonts in Templates
 
-#### Asset Optimization
+1. Select any text element in your template
+2. Open the Style tab in the right sidebar
+3. Find the Typography section
+4. Select your custom font from the Font Family dropdown
+5. Adjust weight, style, size, and other typography settings
+6. Apply the font to specific elements or set as a global default
 
-- Enable image optimization in Bricks settings
-- Use WebP image format when possible
-- Implement lazy loading for images
-- Minimize custom fonts and icon sets
-- Optimize and compress custom CSS and JavaScript
+### Font Performance Optimization
 
-#### Dynamic Data Efficiency
+- **Subset Selection**: Choose only the character sets you need
+- **Font Display Settings**: Control how fonts load and display
+- **Preloading**: Configure critical fonts to preload for better performance
+- **Local Hosting**: Host Google Fonts locally for improved page speed
 
-- Limit the number of dynamic data queries per template
-- Use transients or object caching for expensive queries
-- Implement pagination for large data sets
-- Avoid redundant queries across multiple elements
-- Use query monitor to identify inefficient queries
+## System Information
 
-#### Caching Implementation
+The System Information section provides valuable data about your Bricks Builder installation and server environment, which is essential for troubleshooting and optimization.
 
-- Enable template caching in Bricks settings
-- Configure server-side caching for templates
-- Implement browser caching for static assets
-- Use CDN for global template assets
-- Set appropriate cache invalidation rules
+### Accessing System Information
 
-### Performance Testing
+1. Navigate to Bricks > Settings in your WordPress admin dashboard
+2. Select the "System Information" tab
+3. View comprehensive information about your setup
 
-- **Google PageSpeed Insights**: Test templates for performance issues
-- **GTmetrix**: Analyze template loading and rendering
-- **WebPageTest**: Test templates across different devices and connections
-- **Chrome DevTools**: Analyze rendering performance and identify bottlenecks
-- **Query Monitor**: Track database queries generated by templates
+[Screenshot Recommended: System Information screen showing server details]
 
-### Performance Monitoring
+### Available Information
 
-- Regularly test template performance after updates
-- Monitor server response times for template rendering
-- Track performance metrics in Google Analytics
-- Set up alerts for performance degradation
-- Conduct periodic performance audits
+1. **WordPress Environment**
+   - WordPress version
+   - Site URL and home URL
+   - WP debug mode status
+   - Memory limit
+   - Active theme
 
-![Chart: Performance Comparison]
-(Here a chart would show performance metrics before and after optimization)
+2. **Server Environment**
+   - PHP version and memory limit
+   - MySQL/MariaDB version
+   - Server software (Apache, Nginx, etc.)
+   - SSL status
+   - Server architecture
 
----
+3. **Bricks Builder Information**
+   - Bricks version
+   - License status
+   - Activated features
+   - Database tables
+   - Template count
 
-## Template Backup and Restoration
+4. **Active Plugins**
+   - List of active plugins with versions
+   - Plugin conflicts or compatibility notes
+   - Required plugins status
 
-### Backup Methods
+### Using System Information for Troubleshooting
 
-#### Built-in Template Export
+1. **Performance Issues**
+   - Check PHP memory limits
+   - Verify server resources are adequate
+   - Review active plugins for conflicts
 
-1. Go to **Bricks > Templates**
-2. Select the templates you want to export
-3. Click the **Export** button
-4. Save the JSON file to your computer
+2. **Compatibility Problems**
+   - Ensure PHP version meets requirements
+   - Check for outdated plugins
+   - Verify WordPress version compatibility
 
-#### Full Site Backup
+3. **Support Requests**
+   - Copy system information when submitting support tickets
+   - Identify potential issues before contacting support
+   - Provide complete environment details for faster resolution
 
-1. Use a WordPress backup plugin to create complete backups
-2. Ensure the backup includes the database and files
-3. Schedule regular automated backups
-4. Store backups in secure, off-site locations
+### Maintenance Recommendations
 
-### Restoration Methods
+Based on your system information, Bricks Builder may provide recommendations for:
 
-#### Template Import
+- PHP version upgrades
+- Memory limit increases
+- Plugin updates or replacements
+- Server configuration changes
+- Performance optimizations
 
-1. Go to **Bricks > Templates**
-2. Click the **Import** button
-3. Select your previously exported JSON file
-4. Choose which templates to import
-5. Click **Import** to restore the templates
-
-#### Database Restoration
-
-For complete template restoration from a database backup:
-
-1. Restore the WordPress database from backup
-2. Verify template functionality after restoration
-3. Check for any missing media or assets
-4. Test templates across different content types
-
-### Version Control
-
-#### Template Versioning
-
-1. Use descriptive names with version numbers for templates
-2. Export templates before making significant changes
-3. Document changes made to templates
-4. Maintain a library of template versions
-
-#### Collaborative Workflow
-
-When multiple administrators work on templates:
-
-1. Establish a check-out system for template editing
-2. Document all changes made to templates
-3. Review template changes before publishing
-4. Maintain a central repository of approved templates
-
-### Emergency Recovery
-
-In case of template corruption or failure:
-
-1. Deactivate problematic templates
-2. Restore from the most recent backup
-3. Apply a default template temporarily if needed
-4. Diagnose the cause of the failure before reimplementing changes
-
-![Diagram: Backup and Restoration Workflow]
-(Here a diagram would show the backup and restoration process)
-
----
-
-## Troubleshooting Common Issues
-
-### Display Issues
-
-#### Problem: Template Not Applying to Content
-
-**Possible Causes:**
-- Template conditions are not correctly configured
-- Another template has higher priority
-- Template is disabled or in draft status
-- Caching is serving old template versions
-
-**Solutions:**
-1. Check template conditions in **Bricks > Templates**
-2. Review template priority settings
-3. Verify template status is set to "Published"
-4. Clear all caches (Bricks, WordPress, server, browser)
-5. Check for conflicts with other plugins
-
-#### Problem: Responsive Design Issues
-
-**Possible Causes:**
-- Missing responsive settings for elements
-- Conflicting media queries
-- Fixed width elements breaking layouts
-- Improper nesting of responsive containers
-
-**Solutions:**
-1. Use the responsive preview mode to test all breakpoints
-2. Check element settings for each breakpoint
-3. Replace fixed widths with percentage or responsive units
-4. Simplify complex nested structures
-5. Test on actual devices, not just browser preview
-
-### Dynamic Data Issues
-
-#### Problem: Dynamic Content Not Displaying
-
-**Possible Causes:**
-- Incorrect dynamic data field selection
-- Missing content in the data source
-- Permission issues accessing the data
-- Query filters excluding the content
-
-**Solutions:**
-1. Verify dynamic data field mapping in element settings
-2. Check if the source content exists and has data
-3. Test with an administrator account to rule out permissions
-4. Review query filters and parameters
-5. Enable Bricks debug mode to see data sources
-
-#### Problem: Slow Template Loading
-
-**Possible Causes:**
-- Inefficient database queries
-- Too many dynamic data elements
-- Large unoptimized images
-- Excessive custom CSS/JS
-- Server resource limitations
-
-**Solutions:**
-1. Use Query Monitor to identify slow queries
-2. Consolidate dynamic data requests
-3. Optimize and compress images
-4. Minimize and combine custom code
-5. Implement caching for dynamic elements
-
-### Editing Issues
-
-#### Problem: Changes Not Saving
-
-**Possible Causes:**
-- Browser cache interference
-- Insufficient user permissions
-- PHP memory limits reached
-- Plugin conflicts
-- Server timeout during save
-
-**Solutions:**
-1. Clear browser cache and cookies
-2. Verify user has correct editing permissions
-3. Increase PHP memory limit in wp-config.php
-4. Temporarily disable other plugins to check for conflicts
-5. Increase server timeout limits
-
-#### Problem: Editor Loading Slowly
-
-**Possible Causes:**
-- Template has too many elements
-- Large media files in the template
-- Browser extensions interfering
-- Insufficient server resources
-- Outdated Bricks version
-
-**Solutions:**
-1. Simplify complex templates by using more global elements
-2. Optimize media files used in the editor
-3. Try with browser extensions disabled
-4. Check server resource usage during editing
-5. Update Bricks to the latest version
-
-### Integration Issues
-
-#### Problem: WPML Translation Issues
-
-**Possible Causes:**
-- Template strings not registered for translation
-- Dynamic content not configured for translation
-- Language switcher not properly implemented
-- Missing translations for template elements
-
-**Solutions:**
-1. Register template strings for translation in WPML
-2. Configure dynamic data to pull language-specific content
-3. Verify language switcher implementation
-4. Check for missing translations in WPML String Translation
-
-#### Problem: Plugin Compatibility Issues
-
-**Possible Causes:**
-- Plugins modifying the same output areas
-- JavaScript conflicts between plugins
-- CSS conflicts affecting template styling
-- Plugin hooks interfering with template rendering
-
-**Solutions:**
-1. Check for plugins that modify the same areas of the site
-2. Use browser developer tools to identify JavaScript errors
-3. Use CSS specificity to override conflicting styles
-4. Consult with plugin developers for compatibility solutions
-5. Consider alternative plugins with better compatibility
-
-![Screenshot: Troubleshooting Interface]
-(Here a screenshot would show the Bricks debug mode with troubleshooting information)
-
----
-
-## Conclusion
-
-The Bricks Template Builder provides a powerful and flexible system for managing the Tonga National Portal's visual presentation and user experience. By following the guidelines and best practices outlined in this document, government staff can create and maintain templates that are consistent, accessible, and performant.
-
-For more information on other aspects of the Tonga National Portal, please refer to the following documentation:
-
-- [Platform Structure](./platform-structure.md)
-- [Generic Functionalities](./generic-functionalities.md)
-- [Plugin Functionalities](./plugins-functionalities.md)
+Regular review of your system information helps ensure optimal performance and compatibility as your website grows and evolves.
