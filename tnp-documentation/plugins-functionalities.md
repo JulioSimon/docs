@@ -5,7 +5,6 @@ This document provides comprehensive information about all the plugins installed
 ## Table of Contents
 
 1. [Announcer Pro](#announcer-pro)
-2. [Core Framework](#core-framework)
 3. [Document Library Lite](#document-library-lite)
 4. [Location Weather Pro](#location-weather-pro)
 5. [MxChat](#mxchat)
@@ -20,322 +19,474 @@ This document provides comprehensive information about all the plugins installed
 ## Announcer Pro
 
 ### Description
-Announcer Pro is a powerful WordPress plugin that enables administrators to create and manage announcements, alerts, and notifications across the Tonga National Portal. It provides a flexible system for communicating important information to site visitors.
+
+Announcer Pro is a premium WordPress plugin developed by Aakash Web that enables website administrators to create and display eye-catching notification bars (also called message banners or sticky bars) on their WordPress websites. As a standalone plugin with enhanced capabilities beyond the free version, Announcer Pro provides a comprehensive solution for displaying important announcements, promotional messages, special offers, and time-sensitive information to website visitors in an engaging and non-intrusive manner.
+
+The plugin allows for complete customization of announcement appearance, positioning, and behavior, making it an essential tool for increasing user engagement, driving conversions, and communicating important information effectively across your website.
+
+![Announcer message at Tonga National Portal homepage](./../images/tnp/pf5.png)
 
 ### Key Features
-- **Multiple Announcement Types**: Create banners, popups, floating notifications, and in-content alerts
-- **Scheduling**: Set start and end dates for announcements
-- **Targeting**: Display announcements to specific user roles or visitor segments
-- **Customization**: Full control over colors, typography, and positioning
-- **Analytics**: Track views and interactions with announcements
 
-### Configuration
-1. **Basic Setup**:
-   - Navigate to **Announcer Pro > Settings** in the WordPress admin dashboard
-   - Configure global settings including default styles and behavior
+- **Multiple Announcement Creation**: Create and manage unlimited announcements with different designs, content, and configurations.
+  
+- **Flexible Positioning**: Place announcements at the top, bottom, or custom positions on your website with precise control over appearance.
+  
+- **Multiple Messages Support**: Display multiple messages within a single announcement bar that rotate automatically like a ticker.
+  
+- **Advanced Targeting Options**: Control announcement visibility based on specific pages, posts, user roles, devices, and custom conditions.
+  
+- **Visitor Conditions**: Target visitors based on specific criteria
+  
+- **Countdown Timer**: Add dynamic countdown timers to create urgency for limited-time offers, sales, or events.
+  
+- **Animation Effects**: Apply attention-grabbing animations to both announcements and call-to-action buttons to increase engagement.
+  
+- **Scheduling Options**: Set specific date and time ranges for announcements to automatically display and expire.
+  
+- **Shortcode Support**: Insert announcements anywhere on your site using simple shortcodes, including within posts, pages, and widgets.
+  
+- **Responsive Design**: Ensure announcements display properly across all devices with mobile-friendly layouts.
+  
+- **Close Button Customization**: Configure how and when users can dismiss announcements, with options to remember user preferences.
+  
+- **Analytics Integration**: Track announcement performance with built-in view and click statistics.
 
-2. **Creating an Announcement**:
-   - Go to **Announcer Pro > Add New**
-   - Enter a title and content for your announcement
-   - Select the announcement type (banner, popup, etc.)
-   - Configure display options and targeting rules
-   - Set scheduling parameters if needed
-   - Click "Publish" to activate
+### Adding a New Announcement
 
-3. **Advanced Configuration**:
-   - **Custom CSS**: Add custom styling under the "Custom CSS" tab
-   - **API Integration**: Use the provided API endpoints to programmatically create or manage announcements
+Creating a new announcement in Announcer Pro involves a straightforward process that allows for extensive customization:
 
-### Usage Examples
+1. **Access the Announcer Dashboard**:
+   - Log in to your WordPress admin panel
+   - Navigate to "Announcer" in the left sidebar menu
+   - Click on "Add New" to create a new announcement
+   ![Announcer menu with Add New highlighted](./../images/tnp/pf1.png)
 
-#### Emergency Alert Banner
-```
-Title: Weather Emergency Alert
-Content: Due to approaching tropical storm, all government offices will be closed on Friday, May 15.
-Type: Top Banner
-Color: Red
-Display: All users
-Duration: May 14-16
-```
+2. **Configure Basic Settings**:
+   - Enter a descriptive title for internal reference
+   - Add your announcement message in the content editor
+     - Use the rich text editor to format text, add links, and insert media
+     - Include call-to-action buttons as needed
+   - Select the announcement type (notification bar, floating banner, etc.)
 
-#### Welcome Message for New Visitors
-```
-Title: Welcome to the Tonga National Portal
-Content: This portal provides access to all government services. Create an account to personalize your experience.
-Type: Modal Popup
-Trigger: First visit
-Display: Non-logged in users
-```
+3. **Design Your Announcement**:
+   - Choose from pre-designed templates or create a custom design
+   - Set colors for background, text, and buttons
+   - Configure typography settings (font family, size, weight)
+   - Add borders, shadows, and other visual elements
+   - Adjust padding and spacing for optimal appearance
+   ![Announcer predefined layout options](./../images/tnp/pf2.png)
+
+4. **Position the Announcement**:
+   - Select placement location (top, bottom, or custom position)
+   - Configure display behavior (fixed, static, or slide-in)
+   - Set z-index to control stacking with other page elements
+   - Adjust responsive behavior for different screen sizes
+
+5. **Save and Publish**:
+   - Click "Save Draft" to save your work without publishing
+   - Use "Preview" to see how the announcement will appear on your site
+   - Click "Publish" to make the announcement live on your website
+
+### Announcement Configuration
+
+After creating a basic announcement, Announcer Pro offers extensive configuration options to fine-tune its behavior and targeting:
+
+1. **Display Conditions**:
+   - **Page Targeting**: Select specific pages, posts, categories, or custom post types where the announcement should appear
+   - **Exclusion Rules**: Define pages or sections where the announcement should not be shown
+   - **Device Targeting**: Choose to display on desktop, mobile, tablet, or specific devices only
+   - **User Targeting**: Show announcements based on user roles, login status, or custom user attributes
+   ![Show announcements based on user roles, login status, or custom user attributes](./../images/tnp/pf3.png)
+
+2. **Timing Controls**:
+   - **Schedule**: Set start and end dates/times for the announcement
+   - **Display Frequency**: Control how often the announcement appears to the same visitor
+   - **Delay Options**: Add a time delay before showing the announcement
+   - **Scroll Trigger**: Display the announcement after the user scrolls to a certain point
+
+3. **Advanced Visitor Conditions**:
+   - **Referrer Source**: Show announcements only to visitors coming from specific websites or search engines
+   - **Query Parameters**: Target based on URL parameters (useful for campaign tracking)
+   - **Cookie-Based Rules**: Display based on the presence or value of specific cookies
+
+4. **Behavior Settings**:
+   - **Close Button Options**: Customize appearance and behavior of the close button
+   - **Cookie Duration**: Set how long the announcement remains hidden after a user closes it
+   - **Animation Settings**: Configure entrance and exit animations
+   - **Interaction Triggers**: Define actions that cause the announcement to appear or disappear
+   ![Customize appearance and behavior of the close button](./../images/tnp/pf4.png)
+
+5. **Multiple Messages Configuration**:
+   - Add multiple content blocks to a single announcement
+   - Configure rotation speed and transition effects
+   - Set display order (sequential or random)
+   - Control navigation options for users to browse messages
+
+6. **Countdown Timer Setup**:
+   - Select timer style and appearance
+   - Set the target date and time
+   - Configure what happens when the countdown ends
+   - Customize labels and formatting
 
 ### Best Practices
-- Keep announcements concise and focused on a single message
-- Use appropriate colors to indicate urgency (red for emergencies, yellow for warnings, etc.)
-- Schedule end dates for all announcements to prevent outdated information
-- Test announcements on different devices before publishing
-- Avoid displaying multiple announcements simultaneously
 
-### Troubleshooting
-- **Announcements Not Displaying**: Check targeting rules and scheduling parameters
-- **Styling Issues**: Verify custom CSS is properly formatted and not conflicting with theme styles
-- **Performance Impact**: If site performance decreases, reduce the number of active announcements
-- **Mobile Display Problems**: Test and adjust responsive settings for mobile devices
+To maximize the effectiveness of your announcements while maintaining a positive user experience, follow these best practices:
 
----
+1. **Content Optimization**:
+   - Keep messages clear, concise, and action-oriented
+   - Use compelling call-to-action text that creates urgency or interest
+   - Ensure text is readable against the background color
+   - Limit announcements to one key message rather than cramming multiple offers
+   - Use proper grammar and spelling to maintain professionalism
 
-## Core Framework
+2. **Design Considerations**:
+   - Match announcement design with your website's branding
+   - Use contrasting colors to make announcements stand out without being jarring
+   - Ensure text size is readable on all devices
+   - Leave sufficient padding around text and buttons
+   - Test appearance across different screen sizes [Screenshot Recommended]
+
+3. **Strategic Timing and Targeting**:
+   - Avoid showing too many announcements simultaneously
+   - Use scheduling to display time-sensitive offers only when relevant
+   - Target announcements to the most appropriate audience segments
+   - Consider user journey and intent when determining where announcements appear
+   - Implement frequency capping to prevent announcement fatigue
+
+4. **Performance Optimization**:
+   - Compress images used in announcements
+   - Minimize the use of complex animations on mobile devices
+   - Test site loading speed with announcements active
+   - Consider using asynchronous loading for announcements
+
+## Document Library
 
 ### Description
-Core Framework serves as the foundation for the Tonga National Portal, providing essential functionality, structure, and integration capabilities. It establishes the architectural backbone that other plugins and features build upon.
+
+Document Library Lite is a powerful WordPress plugin developed by Barn2 Plugins that creates a comprehensive document management system for the Tonga National Portal. This plugin enables administrators to organize, display, and manage various types of documents in a professional and user-friendly manner. It transforms the portal into a centralized repository where government documents, forms, reports, and publications can be easily accessed, searched, and downloaded by citizens and staff.
+
+The plugin creates a dedicated 'Documents' section in the WordPress admin panel, separate from other content types, allowing for specialized document management. Documents are displayed in a clean, responsive table layout that makes it easy for users to find what they need through instant search, sorting, and filtering capabilities.
+
+Document Library Lite serves as an essential tool for government transparency and information dissemination, making it simple for the Tonga National Portal to maintain an organized collection of official documents that citizens can access anytime.
+
+![Document Library main interface showing the table layout of documents](./../images/tnp/pf6.png)
 
 ### Key Features
-- **Modular Architecture**: Extensible framework for adding new features
-- **API Management**: Centralized API handling and authentication
-- **User Management**: Enhanced user roles and permissions system
-- **Performance Optimization**: Caching and optimization tools
-- **Security Features**: Built-in security measures and monitoring
-- **Development Tools**: Hooks, filters, and debugging capabilities
 
-### Configuration
-1. **System Settings**:
-   - Navigate to **Core Framework > System** in the admin dashboard
-   - Configure server environment settings, caching options, and performance parameters
-   - Set up security policies and access controls
+- **Dedicated Document Management**: Creates a separate 'Documents' custom post type in WordPress admin for specialized document handling and organization.
 
-2. **API Configuration**:
-   - Go to **Core Framework > API Settings**
-   - Configure API endpoints, authentication methods, and rate limiting
-   - Set up integration with external services
+- **Table Layout Display**: Presents documents in a clean, professional table format that's easy to navigate and scan.
 
-3. **User Roles and Permissions**:
-   - Access **Core Framework > User Management**
-   - Define custom user roles specific to the Tonga National Portal
-   - Set granular permissions for different administrative functions
+- **Instant Search Functionality**: Allows users to quickly find specific documents by typing keywords that filter results in real-time.
 
-### Usage Examples
+- **Sorting and Filtering**: Enables users to sort documents by various criteria (date, title, etc.) and filter by categories or tags.
 
-#### Creating a Custom Module
-```php
-// Register a new module
-add_action('cf_register_modules', function() {
-    cf_register_module([
-        'id' => 'tourism_services',
-        'name' => 'Tourism Services',
-        'description' => 'Tourism-related government services',
-        'icon' => 'beach-access',
-        'permissions' => ['manage_tourism']
-    ]);
-});
+- **Document Categories and Tags**: Provides robust organization options through hierarchical categories and flexible tagging systems.
 
-// Add module content
-add_action('cf_module_tourism_services', function() {
-    // Module content and functionality
-});
-```
+- **File Type Support**: Handles various file formats including PDF, Word documents, Excel spreadsheets, PowerPoint presentations, images, and more.
 
-#### Implementing Custom API Endpoint
-```php
-// Register custom API endpoint
-add_action('cf_api_init', function() {
-    cf_register_api_endpoint('tourism/locations', [
-        'methods' => 'GET',
-        'callback' => 'get_tourism_locations',
-        'permission_callback' => function() {
-            return current_user_can('read_tourism_data');
-        }
-    ]);
-});
+- **Download Management**: Tracks and manages document downloads with direct download links for easy access.
 
-function get_tourism_locations() {
-    // API logic here
-    return cf_api_response($data);
-}
-```
+- **Shortcode Integration**: Includes the `[doc_library]` shortcode to display document libraries anywhere on the portal.
 
-### Best Practices
-- Keep the Core Framework updated to the latest version
-- Use the provided hooks and filters rather than modifying core files
-- Implement proper caching strategies for optimal performance
-- Follow the established coding standards for custom development
-- Document all customizations and extensions
-- Regularly back up configuration settings
+- **Responsive Design**: Ensures the document library displays properly across all devices, from desktop computers to mobile phones.
 
-### Troubleshooting
-- **Performance Issues**: Check the performance logs at **Core Framework > Diagnostics > Performance**
-- **API Errors**: Review the API error logs and test endpoints using the built-in API tester
-- **Permission Problems**: Verify user roles and permissions in the User Management section
-- **Caching Issues**: Clear all caches through **Core Framework > Maintenance > Cache**
-- **Module Conflicts**: Use the Module Conflict Resolution tool under Diagnostics
+- **User-Friendly Interface**: Features an intuitive interface that requires no technical knowledge for citizens to navigate and use.
 
----
+- **SEO-Friendly Structure**: Improves document discoverability through search engines with proper document indexing.
 
-## Document Library Lite
+### Adding a New Document
 
-### Description
-Document Library Lite provides a comprehensive solution for managing, organizing, and sharing documents on the Tonga National Portal. It enables government departments to publish and categorize official documents while providing citizens with an easy way to search and access them.
+Adding documents to the Document Library Lite plugin involves a straightforward process that ensures proper organization and accessibility:
 
-### Key Features
-- **Document Management**: Upload, organize, and manage documents in a centralized library
-- **Categorization**: Create hierarchical categories and tags for documents
-- **Search Functionality**: Advanced search with filters for document type, department, date, etc.
-- **Access Control**: Set permissions for viewing and downloading documents
-- **Version Control**: Track document versions and updates
-- **Metadata**: Add and manage custom metadata for documents
-- **Download Tracking**: Monitor document downloads and usage statistics
+1. **Access the Documents Section**:
+   - Log in to the WordPress admin panel
+   - Navigate to "Documents" in the left sidebar menu
+   - Click on "Add New" to create a new document entry
+   ![Documents menu with Add New option highlighted](./../images/tnp/pf7.png)
 
-### Configuration
-1. **Basic Setup**:
-   - Navigate to **Documents > Settings** in the WordPress admin
-   - Configure general settings, file types, and maximum file sizes
-   - Set up default categories and tags
+2. **Enter Document Information**:
+   - Add a descriptive title for the document
+   - Write a summary or description in the main content area
+   - (Optional) Add a shorter excerpt that will appear in the document library listing
+   - Set a featured image if relevant to the document (e.g., cover page thumbnail)
 
-2. **Document Upload Settings**:
-   - Go to **Documents > Upload Settings**
-   - Configure upload permissions and approval workflows
-   - Set up document validation rules
+3. **Upload the Document File**:
+   - Scroll to the "Document Details" meta box
+   - Click "Upload File" or drag and drop your file into the designated area
+   - Supported formats include PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, and various image formats
+   - For larger files, ensure they don't exceed the server's maximum upload size
+   ![Document upload interface showing file selection options](./../images/tnp/pf8.png)
 
-3. **Search Configuration**:
-   - Access **Documents > Search Settings**
-   - Configure search indexing options
-   - Set up custom search filters
+4. **Organize with Categories and Tags**:
+   - Assign the document to relevant categories (e.g., "Forms", "Reports", "Legislation")
+   - Add tags to further classify the document (e.g., "2023", "Tax", "Healthcare")
+   - Categories provide hierarchical organization while tags offer flexible cross-referencing
+   - Consider creating a consistent category structure for better organization
 
-### Usage Examples
+5. **Set Document Attributes**:
+   - Configure additional document properties:
+     - Document date (publication or effective date)
+     - Version number (if applicable)
+     - Status (Draft, Published, etc.)
+     - Access level (Public, Registered Users, etc.)
 
-#### Uploading Official Documents
-1. Navigate to **Documents > Add New**
-2. Fill in document details:
-   - Title: "2023 National Budget"
-   - Category: "Finance"
-   - Department: "Ministry of Finance"
-   - Description: "Official national budget for fiscal year 2023"
-3. Upload the PDF file
-4. Add relevant metadata (fiscal year, approval date, etc.)
-5. Set appropriate access permissions
-6. Click "Publish"
-
-#### Creating a Document Collection
-1. Go to **Documents > Collections > Add New**
-2. Create a collection called "COVID-19 Health Guidelines"
-3. Add relevant documents to the collection
-4. Configure display options and access permissions
-5. Use the shortcode `[doc_collection id="covid-guidelines"]` to display on a page
+6. **Preview and Publish**:
+   - Use the "Preview" button to check how the document will appear
+   - Click "Publish" to make the document live on the portal
+   - Alternatively, use "Schedule" to set a future publication date
 
 ### Best Practices
-- Use consistent naming conventions for documents
-- Create a logical category hierarchy that aligns with government structure
-- Add comprehensive metadata to improve searchability
-- Regularly audit document permissions to ensure proper access control
-- Use PDF format for official documents to maintain formatting
-- Implement a document review and approval workflow for sensitive materials
-- Regularly back up the document library
 
-### Troubleshooting
-- **Upload Failures**: Check file size limits and allowed file types
-- **Search Not Finding Documents**: Rebuild the search index in Settings
-- **Permission Issues**: Verify user roles and document-specific permissions
-- **Slow Document Library**: Consider enabling document caching or optimizing large files
-- **Missing Metadata**: Use the Metadata Repair tool under Documents > Tools
+To maximize the effectiveness of the Document Library and ensure a positive user experience, follow these best practices:
+
+1. **Document Organization Strategy**:
+   - Develop a clear, consistent categorization system before adding many documents
+   - Create a balanced category hierarchy that's neither too shallow nor too deep
+   - Use descriptive category names that make sense to citizens (avoid government jargon)
+   - Implement a standardized tagging convention for cross-referencing related documents
+   - Consider creating category-specific document libraries for different sections of the portal
+
+2. **Document Naming and Metadata**:
+   - Use clear, descriptive titles that include key information (e.g., "2023 Tax Filing Form - Individual")
+   - Include relevant dates in document titles or descriptions when applicable
+   - Write concise but informative document descriptions
+   - Add complete metadata (categories, tags, dates) to improve searchability
+   - Use consistent naming conventions across similar document types
+
+3. **File Optimization**:
+   - Convert text-heavy documents to searchable PDFs rather than image scans
+   - Compress large files to improve download speeds without sacrificing quality
+   - Use PDF bookmarks and table of contents for lengthy documents
+   - Ensure documents are accessible according to web standards (proper headings, alt text, etc.)
+   - Consider breaking very large documents into logical sections for easier consumption
 
 ---
 
 ## Location Weather Pro
 
 ### Description
-Location Weather Pro integrates real-time weather information into the Tonga National Portal, providing citizens with accurate weather forecasts, alerts, and climate data specific to different regions of Tonga. This plugin is particularly important for a Pacific island nation where weather conditions can significantly impact daily life and safety.
+
+Location Weather Pro is a premium WordPress plugin developed by ShapedPlugin, LLC that enables website administrators to display accurate, real-time weather information and forecasts for any location worldwide on their WordPress websites. The plugin retrieves weather data from OpenWeatherMap (OWM), a comprehensive weather data and forecast API provider, and presents it in visually appealing, customizable formats.
+
+As a powerful weather forecasting solution, Location Weather Pro transforms the Tonga National Portal into an informative resource for citizens seeking current weather conditions, hourly updates, extended forecasts, and weather alerts. The plugin offers multiple display options including widgets, shortcodes, and block editor integration, making it flexible for various implementation needs across the portal.
+
+![Location Weather Pro main interface showing weather display options](./../images/tnp/pf9.png)
 
 ### Key Features
-- **Real-time Weather Data**: Current conditions for all regions of Tonga
-- **Forecasting**: 7-day weather forecasts with hourly breakdowns
-- **Weather Alerts**: Automatic alerts for severe weather conditions
-- **Weather Maps**: Interactive maps showing precipitation, temperature, and wind
-- **Historical Data**: Access to historical weather patterns and statistics
-- **Weather API**: Integration with international weather services
-- **Customizable Displays**: Various widgets and shortcodes for displaying weather information
+
+- **Real-time Weather Data**: Displays current temperature, weather conditions, humidity, wind speed and direction, pressure, visibility, and more for any location worldwide.
+
+- **Multiple Location Methods**: Supports various ways to specify locations:
+  - City name (e.g., "Nuku'alofa, TO")
+  - City ID (OpenWeatherMap unique city identifier)
+  - ZIP code with country code
+  - Geographic coordinates (latitude and longitude)
+  - Auto-detect visitor's location (with user permission)
+
+- **Comprehensive Forecast Options**:
+  - Hourly forecasts (up to 48 hours)
+  - Daily forecasts (up to 16 days)
+  - Detailed weather parameters for each forecast period
+
+- **Multiple Display Layouts**:
+  - Vertical layout
+  - Horizontal layout
+  - Weather card design
+  - Minimal design
+  - Customizable templates
+
+- **Advanced Customization**:
+  - 5 different weather icon sets
+  - Custom background images or colors
+  - Typography controls (font family, size, color)
+  - Responsive design settings for all devices
+  - Temperature unit selection (°C or °F)
+  - 12-hour or 24-hour time format
+
+- **Weather Alerts Integration**: Displays severe weather alerts and warnings for the selected location.
+
+- **Weather Map**: Interactive weather map showing precipitation, temperature, wind, and cloud layers.
+
+- **Multilingual Support**: Compatible with WPML and other translation plugins for displaying weather information in multiple languages.
+
+- **Shortcode System**: Easy implementation anywhere on the site using shortcodes with various parameters.
+
+- **Widget Ready**: Drag-and-drop widget functionality for sidebars and widget areas.
 
 ### Configuration
-1. **API Setup**:
-   - Navigate to **Weather Pro > Settings > API**
-   - Enter your weather service API key (default provider: OpenWeatherMap)
-   - Configure update frequency and caching settings
 
-2. **Location Settings**:
-   - Go to **Weather Pro > Locations**
-   - Add and configure locations for different regions of Tonga
-   - Set the default location for the portal homepage
+Setting up Location Weather Pro involves several key steps to ensure accurate weather data display:
 
-3. **Display Options**:
-   - Access **Weather Pro > Display Settings**
-   - Configure widget styles, units (metric/imperial), and information to display
-   - Set up custom CSS if needed
+1. **API Key Configuration**:
+   - Sign up for an OpenWeatherMap account at [openweathermap.org](https://openweathermap.org/)
+   - Generate a free or paid API key from your OpenWeatherMap dashboard
+   - Navigate to **Location Weather → Settings** in your WordPress admin
+   - Enter your API key in the designated field and save changes
+   ![API Key configuration screen showing where to enter the OpenWeatherMap API key](./../images/tnp/pf10.png)
 
-### Usage Examples
+2. **Creating a New Weather Display**:
+   - Go to **Location Weather → Add New**
+   - Enter a descriptive title for internal reference (e.g., "Nuku'alofa Current Weather")
+   - Configure the following settings:
 
-#### Adding a Weather Widget to Homepage
-1. Go to **Appearance > Widgets**
-2. Add the "Weather Pro - Current Conditions" widget to your desired sidebar or widget area
-3. Configure the widget settings:
-   - Title: "Current Weather in Nuku'alofa"
-   - Location: "Nuku'alofa"
-   - Display: Temperature, Conditions, Wind, Humidity
-   - Style: "Compact"
-4. Save the widget settings
+3. **Location Settings**:
+   - Select your preferred location method:
+     - **City Name**: Enter city name with optional country code (e.g., "Nuku'alofa, TO")
+     - **City ID**: Enter the OpenWeatherMap city ID
+     - **ZIP Code**: Enter ZIP/postal code with country code
+     - **Coordinates**: Enter latitude and longitude values
+     - **Auto Detect**: Enable automatic location detection based on visitor's browser
+   - For the Tonga National Portal, setting specific locations for major Tongan cities is recommended
 
-#### Creating a Weather Page with Shortcode
-```
-[weather_pro_forecast location="Vava'u" days="5" show_hourly="true" show_alerts="true"]
-```
+4. **Display Options**:
+   - **Layout Selection**: Choose from vertical, horizontal, or card layouts
+   - **Template**: Select from available design templates
+   - **Weather Data**: Configure which weather elements to display:
+     - Current conditions (temperature, description, icon)
+     - Additional details (humidity, pressure, wind, etc.)
+     - Forecast options (hourly, daily, or both)
+     - Sunrise/sunset times
+   ![Weather display layout options showing different templates](./../images/tnp/pf11.png)
 
-#### Embedding Weather Alerts
-```
-[weather_pro_alerts regions="all" priority="high" banner="true"]
-```
+5. **Customization Settings**:
+   - **Weather Icons**: Choose from 5 different icon sets
+   - **Colors**: Set background, text, and accent colors
+   - **Typography**: Configure font family, size, and weight
+   - **Responsive Behavior**: Adjust display for different screen sizes
+   - **Units**: Select temperature unit (°C or °F) and time format (12h or 24h)
+
+6. **Advanced Options**:
+   - **Cache Duration**: Set how long weather data should be cached (recommended: 1-3 hours)
+   - **Fallback Data**: Configure what to display if API is unavailable
+   - **Custom CSS**: Add custom styling if needed
+   - **Weather Alerts**: Enable/disable severe weather alerts display
+
+7. **Save and Generate Shortcode**:
+   - Click "Publish" to save your weather display configuration
+   - The plugin will generate a unique shortcode for this specific weather display
+
+### Adding a Weather Widget to Homepage
+
+Adding a weather widget to the Tonga National Portal homepage provides visitors with immediate access to current weather conditions:
+
+1. **Create a Dedicated Weather Display**:
+   - Follow the steps in the Configuration section to create a new weather display
+   - Optimize the display for widget use by selecting a compact layout
+   - Focus on current conditions and short-term forecast for homepage display
+   - Save the configuration and note the generated shortcode
+
+2. **Widget Implementation Methods**:
+   
+   **Method 1: Using the Built-in Widget**:
+   - Navigate to **Appearance → Widgets** in your WordPress admin
+   - Find the "Location Weather Pro" widget in the available widgets list
+   - Drag and drop it to your desired widget area (e.g., sidebar, header, or footer)
+   - Select the previously created weather display from the dropdown menu
+   - Configure widget-specific settings if needed:
+     - Title (optional)
+     - CSS class (optional)
+   - Save the widget settings
+
+   **Method 2: Using a Shortcode in a Text Widget**:
+   - Navigate to **Appearance → Widgets**
+   - Add a "Text" or "Custom HTML" widget to your desired widget area
+   - Paste the shortcode generated for your weather display
+   - Save the widget settings
+
+   **Method 3: Using Bricks Page Builder**:
+   - If using a page builder for the homepage (Bricks)
+   - Add a "Shortcode" element to your homepage design
+   - Paste the weather display shortcode into the element
+   - Adjust the element's styling and positioning as needed
+
+3. **Optimizing the Homepage Weather Widget**:
+   - Keep the widget compact and focused on essential information
+   - Consider using auto-location detection for personalized weather
+   - Use a design that complements the portal's color scheme
+   - Ensure responsive behavior works well on all devices
+   - For the Tonga National Portal, prioritize displaying weather for the capital city by default
+
+### Creating a Weather Page with Shortcode
+
+Creating a dedicated weather page allows for more comprehensive weather information display:
+
+1. **Create Multiple Weather Displays**:
+   - Create separate weather displays for major locations in Tonga
+   - Configure each with appropriate settings:
+     - Detailed current conditions
+     - Extended forecasts (hourly and daily)
+     - Weather maps if desired
+     - Weather alerts for each location
+   - Save each configuration and note the generated shortcodes
+
+2. **Create a New Weather Page**:
+   - Navigate to **Pages → Add New** in your WordPress admin
+   - Enter an appropriate title (e.g., "Tonga Weather Forecast")
+   - Add descriptive introduction text explaining the weather service
+
+3. **Implement Weather Displays Using Shortcodes**:
+   - Use the basic shortcode format: `[location-weather-pro id="X"]` where X is the display ID
+   - For multiple locations, add each shortcode in a structured layout
+   - Example implementation:
+   
+   ```
+   <h2>Nuku'alofa Weather</h2>
+   [location-weather-pro id="1"]
+   
+   <h2>Neiafu Weather</h2>
+   [location-weather-pro id="2"]
+   
+   <h2>Pangai Weather</h2>
+   [location-weather-pro id="3"]
+   ```
+
+4. **Advanced Shortcode Parameters**:
+   - Customize individual instances with additional parameters:
+   - `[location-weather-pro id="1" forecast="daily" days="5"]` - Show 5-day forecast only
+   - `[location-weather-pro id="2" current="true" forecast="false"]` - Show current conditions only
+   - `[location-weather-pro id="3" units="imperial"]` - Override temperature units
+
+5. **Enhance the Weather Page**:
+   - Add explanatory text between weather displays
+   - Include a legend explaining weather icons and terminology
+   - Consider adding weather safety information or seasonal weather patterns
+   - Link to official weather resources for additional information
 
 ### Best Practices
-- Configure automatic weather alerts for severe conditions
-- Display weather information relevant to the most populated areas
-- Use weather widgets strategically on pages related to tourism, transportation, and emergency services
-- Ensure weather data is updated frequently during storm seasons
-- Provide context and safety recommendations alongside severe weather alerts
-- Consider bandwidth limitations when configuring weather maps and graphics
 
-### Troubleshooting
-- **Weather Data Not Updating**: Check API key validity and connection status
-- **Incorrect Location Data**: Verify coordinates for custom locations
-- **Missing Weather Alerts**: Ensure alert settings are properly configured
-- **Display Issues**: Test different display settings and check for CSS conflicts
-- **High API Usage**: Adjust caching settings to reduce API calls
+To maximize the effectiveness of Location Weather Pro on the Tonga National Portal while maintaining optimal performance and user experience:
+
+1. **API Usage Optimization**:
+   - Use appropriate cache settings (2-3 hours recommended) to reduce API calls
+   - Monitor API usage to stay within limits of your OpenWeatherMap plan
+   - Consider upgrading to a paid API plan for higher call limits during severe weather seasons
+   - Implement fallback display options in case of API unavailability
+
+2. **Performance Considerations**:
+   - Limit the number of weather displays on a single page to prevent slow loading
+   - Optimize weather icons and background images for web use
+   - Enable browser caching for weather assets
+   - Use minimal layouts on high-traffic pages
+   - Test weather displays on low-bandwidth connections
+
+3. **Design and User Experience**:
+   - Maintain consistent design language across all weather displays
+   - Ensure text has sufficient contrast against backgrounds for readability
+   - Use appropriate font sizes, especially for temperature and important data
+   - Implement responsive designs that work well on all devices
+   - Consider cultural preferences for temperature units (Tonga uses Celsius)
 
 ---
 
 ## MxChat
 
 ### Description
-MxChat provides real-time chat and messaging capabilities for the Tonga National Portal, enabling direct communication between citizens and government representatives. It facilitates efficient customer service, support for government services, and internal communication between departments.
 
 ### Key Features
-- **Live Chat**: Real-time chat functionality for citizen support
-- **Ticketing System**: Convert chats to support tickets when needed
-- **Department Routing**: Automatically route inquiries to appropriate departments
-- **Chat History**: Searchable archives of previous conversations
-- **File Sharing**: Secure document sharing within chats
-- **Chatbots**: Configurable automated responses for common questions
-- **Analytics**: Comprehensive reporting on chat volume, response times, and satisfaction
-- **Mobile Support**: Responsive design for mobile devices
 
 ### Configuration
-1. **General Setup**:
-   - Navigate to **MxChat > Settings**
-   - Configure operational hours, offline messages, and general behavior
-   - Set up department structure and routing rules
-
-2. **Agent Configuration**:
-   - Go to **MxChat > Agents**
-   - Add government staff as chat agents
-   - Assign agents to departments and set availability
-
-3. **Chatbot Setup**:
-   - Access **MxChat > Chatbots**
-   - Create automated responses for frequently asked questions
-   - Configure chatbot behavior and fallback options
 
 ### Usage Examples
 
@@ -372,13 +523,6 @@ MxChat provides real-time chat and messaging capabilities for the Tonga National
 - Implement clear escalation procedures for complex issues
 - Configure appropriate offline messages for after-hours support
 - Use chatbots strategically to handle routine questions
-
-### Troubleshooting
-- **Connection Issues**: Check server WebSocket configuration
-- **Agent Availability Problems**: Verify agent status and scheduling settings
-- **Chatbot Not Responding**: Review trigger phrases and response configuration
-- **Routing Failures**: Check department assignment and routing rules
-- **Performance Issues**: Monitor concurrent chat limits and server resources
 
 ---
 
