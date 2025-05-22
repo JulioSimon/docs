@@ -23,9 +23,9 @@ The authentication system serves as the gateway to the WordPress administration 
 The WordPress login process follows a structured sequence of steps to verify user identity and establish a secure session. Below is a detailed explanation of the standard login workflow:
 
 1. **Accessing the Login Page**
-   - Navigate to the login URL: `/wp-login.php` (typically https://yourdomain.com/wp-login.php)
+   - Navigate to the login URL.
    - The system presents a login form requesting username/email and password
-   - [Screenshot Recommended] *Login form showing username and password fields*
+   ![Login form showing username and password fields](./../images/tnp/gf1.png)
 
 2. **Credential Submission**
    - User enters their username or email address and password
@@ -52,7 +52,7 @@ The WordPress login process follows a structured sequence of steps to verify use
      - The admin dashboard by default
      - A specific page if a redirect parameter was included in the login URL
      - The page they were attempting to access before being prompted to log in
-   - [Screenshot Recommended] *Admin dashboard after successful login*
+     ![Admin dashboard after successful login](./../images/tnp/gf2.png)
 
 **Important Security Considerations:**
 
@@ -92,7 +92,6 @@ Adds an additional verification layer beyond passwords:
   1. User enters username/password
   2. System prompts for the second factor
   3. User provides the verification code or uses the security key
-  - [Screenshot Recommended] *2FA verification screen showing code entry field*
 
 #### 3. Single Sign-On (SSO)
 
@@ -155,7 +154,7 @@ The WordPress logout process securely terminates user sessions and removes authe
    - User clicks the "Log Out" link in the admin bar or profile menu
    - This link points to: `wp-login.php?action=logout`
    - A nonce parameter is included to prevent CSRF attacks
-   - [Screenshot Recommended] *Admin bar highlighting the logout option*
+   ![Admin bar highlighting the logout option](./../images/tnp/gf3.png)
 
 2. **Server-side Processing**
    - WordPress validates the logout request and nonce
@@ -170,7 +169,6 @@ The WordPress logout process securely terminates user sessions and removes authe
    - System redirects to:
      - The login page by default
      - A custom URL if specified in the configuration
-     - [Screenshot Recommended] *Logout confirmation screen*
 
 #### Automatic Logout Scenarios
 
@@ -237,7 +235,8 @@ Adding new users to a WordPress site follows a structured workflow that can be p
 
 1. **Accessing the Users Section**
    - Log in to the WordPress admin dashboard
-   - Navigate to "Users" > "Add New" in the left sidebar menu
+   - Navigate to "Users" > "Add User" in the left sidebar menu
+   ![Users menu in the WordPress admin sidebar](./../images/tnp/gf4.png)
    - [Screenshot Recommended] *Users menu in the WordPress admin sidebar*
 
 2. **Completing the New User Form**
@@ -249,6 +248,7 @@ Adding new users to a WordPress site follows a structured workflow that can be p
      - First Name (optional)
      - Last Name (optional)
      - Website (optional)
+     ![Add New User form with all fields visible](./../images/tnp/gf5.png)
    - [Screenshot Recommended] *Add New User form with all fields visible*
 
 3. **Setting the User Role**
@@ -259,7 +259,7 @@ Adding new users to a WordPress site follows a structured workflow that can be p
      - Contributor
      - Subscriber
    - The selected role determines what actions the user can perform on the site
-   - [Screenshot Recommended] *Role selection dropdown showing available options*
+   ![Role selection dropdown showing available options](./../images/tnp/gf6.png)
 
 4. **Additional Options**
    - "Send User Notification" checkbox: When selected, WordPress sends the new user an email with their account details
@@ -269,7 +269,6 @@ Adding new users to a WordPress site follows a structured workflow that can be p
    - Click the "Add New User" button to create the account
    - WordPress validates the information and creates the user account
    - A success message appears confirming the user creation
-   - [Screenshot Recommended] *Success message after user creation*
 
 **Important Considerations:**
 
@@ -288,6 +287,7 @@ The WordPress password reset functionality allows administrators to help users r
 1. **Accessing User Management**
    - Log in to the WordPress admin dashboard
    - Navigate to "Users" > "All Users" in the left sidebar
+   ![AAAAAA](./../images/tnp/gf8.png)
    - [Screenshot Recommended] *Users listing page showing all user accounts*
 
 2. **Locating the User**
@@ -296,24 +296,22 @@ The WordPress password reset functionality allows administrators to help users r
 
 3. **Initiating the Reset**
    - Click on the "Send password reset" link that appears when hovering over the user's name
+   ![AAAAAA](./../images/tnp/gf7.png)
    - [Screenshot Recommended] *Hover state showing the "Send password reset" link*
 
 4. **Confirmation**
    - WordPress displays a confirmation message indicating that the password reset email has been sent
    - The system automatically generates a unique, secure reset link and sends it to the user's registered email address
-   - [Screenshot Recommended] *Confirmation message after sending reset email*
 
 #### User-Initiated Password Reset
 
 1. **Accessing the Login Page**
    - User navigates to the WordPress login page (typically /wp-login.php)
    - Clicks on the "Lost your password?" link below the login form
-   - [Screenshot Recommended] *Login form highlighting the "Lost your password?" link*
 
 2. **Requesting Password Reset**
    - User enters their username or email address in the provided field
    - Clicks the "Get New Password" button
-   - [Screenshot Recommended] *Password reset request form*
 
 3. **Email Delivery**
    - WordPress sends a password reset link to the user's registered email address
@@ -323,7 +321,6 @@ The WordPress password reset functionality allows administrators to help users r
    - User clicks the link in the email, which directs them to a password reset page
    - User enters a new password (and confirms it)
    - Clicks "Reset Password" to save the changes
-   - [Screenshot Recommended] *New password creation form*
 
 5. **Confirmation and Login**
    - WordPress confirms the password has been changed
@@ -373,7 +370,6 @@ WordPress implements a role-based access control system that assigns specific ca
    - Import and export site content
    - Update WordPress core, themes, and plugins
    - Moderate comments
-   - [Screenshot Recommended] *Administrator capabilities in the user profile screen*
    
    **Best suited for:**
    - Site owners
@@ -483,14 +479,13 @@ Adding new items to a WordPress navigation menu follows a structured workflow th
 1. **Accessing the Menu Editor**
    - Log in to the WordPress admin dashboard
    - Navigate to "Appearance" > "Menus" in the left sidebar
-   - [Screenshot Recommended] *Appearance menu in the WordPress admin sidebar highlighting the Menus option*
+   ![Appearance menu in the WordPress admin sidebar highlighting the Menus option](./../images/tnp/gf9.png)
 
 2. **Selecting a Menu to Edit**
    - Choose an existing menu from the dropdown at the top of the page, or
    - Create a new menu by clicking the "create a new menu" link
    - Enter a name for the new menu if creating one
    - Click "Create Menu" button
-   - [Screenshot Recommended] *Menu selection dropdown and creation form*
 
 3. **Adding Items to the Menu**
    - Use the panels on the left side of the screen to select items to add:
@@ -502,7 +497,7 @@ Adding new items to a WordPress navigation menu follows a structured workflow th
      - **Post Types**: Select from custom post types (if available)
    - Check the boxes next to items you want to add
    - Click the "Add to Menu" button
-   - [Screenshot Recommended] *Left panel showing available items with checkboxes and Add to Menu button*
+   ![Left panel showing available items with checkboxes and Add to Menu button](./../images/tnp/gf10.png)
 
 4. **Organizing Menu Structure**
    - Drag and drop menu items to reorder them
@@ -514,17 +509,10 @@ Adding new items to a WordPress navigation menu follows a structured workflow th
      - **CSS Classes**: Field to add custom CSS classes
      - **Link Relationship (XFN)**: Define the relationship between the linked page and your site
      - **Description**: Additional text that some themes display with menu items
-   - [Screenshot Recommended] *Menu item being dragged to create a hierarchical structure*
 
-5. **Assigning Menu Location**
-   - In the "Menu Settings" section at the bottom of the page, check the appropriate display location(s)
-   - Available locations depend on the active theme (common locations include Primary Menu, Footer Menu, etc.)
-   - [Screenshot Recommended] *Menu Settings section showing theme locations*
-
-6. **Saving the Menu**
+5. **Saving the Menu**
    - Click the "Save Menu" button to apply all changes
    - A success message will appear confirming the menu has been updated
-   - [Screenshot Recommended] *Success message after saving menu changes*
 
 **Important Considerations:**
 
@@ -543,21 +531,20 @@ The Bricks Builder plugin provides advanced capabilities for creating and managi
    - Navigate to "Bricks" in the left sidebar
    - Select the template or page where you want to manage navigation
    - Click "Edit with Bricks" to open the builder interface
-   - [Screenshot Recommended] *Bricks menu in WordPress admin and Edit with Bricks button*
+   ![Bricks menu in WordPress admin and Edit with Bricks button](./../images/tnp/gf11.png)
 
 2. **Adding a Navigation Menu Element**
    - In the Bricks builder, click the "+" icon to add a new element
    - Search for "Nav Menu" in the elements panel
    - Drag the Nav Menu element to your desired location in the layout
-   - [Screenshot Recommended] *Bricks elements panel with Nav Menu element highlighted*
 
 3. **Configuring the Basic Menu Settings**
-   - In the element settings panel (right side):
+   - In the element settings panel (left side):
      - Select your WordPress menu from the "Menu" dropdown
      - Choose the menu layout type (horizontal or vertical)
-     - Set the alignment (left, center, right)
-     - Configure spacing between menu items
-   - [Screenshot Recommended] *Basic menu settings panel in Bricks*
+     - Set the content position at Top Level menu (left, center, right)
+     - Configure spacing between menu items through Gap property
+     ![Basic menu settings panel in Bricks](./../images/tnp/gf12.png)
 
 4. **Creating Special Submenu Styles**
    - Navigate to the "Dropdown" tab in the settings panel
@@ -567,7 +554,6 @@ The Bricks Builder plugin provides advanced capabilities for creating and managi
      - **Width**: Set fixed or auto width for dropdown menus
      - **Position**: Adjust the position relative to parent items
      - **Offset**: Fine-tune the submenu positioning
-   - [Screenshot Recommended] *Dropdown settings panel showing animation and positioning options*
 
 5. **Styling Submenu Appearance**
    - In the "Style" tab:
@@ -576,7 +562,6 @@ The Bricks Builder plugin provides advanced capabilities for creating and managi
      - Add custom padding and margins
      - Configure hover effects and transitions
    - Use the "Submenu Item" section to style individual items within dropdowns
-   - [Screenshot Recommended] *Style tab showing submenu appearance settings*
 
 6. **Creating Mega Menus**
    - Enable the "Mega Menu" option for specific top-level menu items
@@ -588,7 +573,6 @@ The Bricks Builder plugin provides advanced capabilities for creating and managi
      - Buttons
      - Dividers
      - Custom HTML
-   - [Screenshot Recommended] *Mega menu configuration panel with column settings*
 
 7. **Adding Custom Interactions**
    - Navigate to the "Interactions" tab
@@ -598,7 +582,6 @@ The Bricks Builder plugin provides advanced capabilities for creating and managi
      - Scroll
    - Configure animations, transitions, and transforms
    - Set timing and easing functions
-   - [Screenshot Recommended] *Interactions panel with animation settings*
 
 8. **Mobile Menu Configuration**
    - Switch to the "Mobile" tab
@@ -606,7 +589,6 @@ The Bricks Builder plugin provides advanced capabilities for creating and managi
    - Choose the mobile menu type (off-canvas, dropdown, fullscreen)
    - Configure the mobile menu toggle button appearance
    - Set animation and transition effects for mobile menu
-   - [Screenshot Recommended] *Mobile menu settings showing toggle button configuration*
 
 **Important Points:**
 
@@ -626,13 +608,12 @@ The WPML (WordPress Multilingual) plugin provides comprehensive tools for transl
    - Navigate to "WPML" > "Languages" in the left sidebar
    - Ensure all required languages are added and active
    - Check that language switcher settings are configured
-   - [Screenshot Recommended] *WPML Languages settings page showing active languages*
+   ![WPML Languages settings page showing active languages](./../images/tnp/gf13.png)
 
 2. **Accessing the Menu Translation Interface**
    - Navigate to "Appearance" > "Menus" in the left sidebar
    - Select the menu you want to translate from the dropdown
    - Look for the WPML language tabs at the top of the menu editor
-   - [Screenshot Recommended] *Menu editor showing WPML language tabs*
 
 3. **Creating a Translated Menu**
    - Click on the tab for the language you want to create a translation for
@@ -641,7 +622,6 @@ The WPML (WordPress Multilingual) plugin provides comprehensive tools for transl
      - **Translate existing**: Create a translated version of the current menu
    - Select "Translate existing" to maintain the same structure
    - Click "Create" to generate the translated menu
-   - [Screenshot Recommended] *WPML menu creation options dialog*
 
 4. **Translating Menu Items**
    - After creating the translated menu, you'll see the original menu structure
@@ -651,7 +631,7 @@ The WPML (WordPress Multilingual) plugin provides comprehensive tools for transl
      - **Navigation Label**: The visible menu text
      - **Title Attribute**: The tooltip text (if used)
    - Click "Save" to apply the translation
-   - [Screenshot Recommended] *Menu item translation panel with text fields*
+   ![WPML Languages settings page showing active languages](./../images/tnp/gf14.png)
 
 5. **Synchronizing Menu Structure**
    - If you make structural changes to your primary language menu:
@@ -659,7 +639,6 @@ The WPML (WordPress Multilingual) plugin provides comprehensive tools for transl
      - Select the menu you want to synchronize
      - Check the languages you want to update
      - Click "Synchronize" to apply the structural changes across languages
-   - [Screenshot Recommended] *WPML Navigation Menus synchronization screen*
 
 6. **Managing Language-Specific Menu Items**
    - Some menu items may need to be different in specific languages
@@ -667,14 +646,12 @@ The WPML (WordPress Multilingual) plugin provides comprehensive tools for transl
      - Switch to the specific language tab in the menu editor
      - Add new items that should appear only in that language
      - These items won't appear in other language versions
-   - [Screenshot Recommended] *Adding language-specific menu items*
 
 7. **Assigning Menus to Language-Specific Locations**
    - Navigate to the "Manage Locations" tab in the menu editor
    - You'll see location options for each active language
    - Assign the appropriate translated menu to each language's locations
    - Click "Save Changes" to apply the assignments
-   - [Screenshot Recommended] *Menu locations panel showing language-specific assignments*
 
 8. **Testing Menu Translations**
    - Use the language switcher on your live site to verify:
@@ -682,7 +659,6 @@ The WPML (WordPress Multilingual) plugin provides comprehensive tools for transl
      - Links point to the correct translated content
      - Dropdown functionality works properly
      - Mobile menu displays translations correctly
-   - [Screenshot Recommended] *Front-end view showing translated menu in different languages*
 
 **Important Considerations:**
 
@@ -718,7 +694,7 @@ The "View All Media" interface provides a comprehensive overview of all media fi
 1. **Accessing the Media Library**
    - Log in to the WordPress admin dashboard
    - Navigate to "Media" > "Library" in the left sidebar menu
-   - [Screenshot Recommended] *Media menu in the WordPress admin sidebar highlighting the Library option*
+   ![Media menu in the WordPress admin sidebar highlighting the Library option](./../images/tnp/gf15.png)
 
 2. **Understanding the Media Library Interface**
    - **Main Display Area**: Shows thumbnails or list of media files
@@ -726,7 +702,7 @@ The "View All Media" interface provides a comprehensive overview of all media fi
    - **Search Box**: Filter media by filename or other attributes
    - **Filter Dropdown**: Filter by media type (images, audio, video, documents)
    - **Bulk Selection**: Select multiple items for batch operations
-   - [Screenshot Recommended] *Media Library interface showing the grid view with multiple media items*
+   ![Media Library interface showing the grid view with multiple media items](./../images/tnp/gf16.png)
 
 3. **Viewing Media Details**
    - Click on any media item to open its attachment details panel
@@ -738,14 +714,12 @@ The "View All Media" interface provides a comprehensive overview of all media fi
      - **File Size**: Storage space occupied by the file
      - **Dimensions**: Width and height for images and videos
      - **File URL**: Direct link to the media file
-   - [Screenshot Recommended] *Attachment details panel showing comprehensive file information*
 
 4. **Organizing and Filtering Media**
    - Use the search box to find specific files by name
    - Filter by media type using the dropdown menu (All media items, Images, Audio, Video, Documents)
    - Filter by date using the date dropdown
    - In List view, sort by columns (Name, Author, Date)
-   - [Screenshot Recommended] *Media Library filters and search options in action*
 
 5. **Managing Media Files**
    - **Edit**: Modify file title, caption, alt text, and description
@@ -753,7 +727,6 @@ The "View All Media" interface provides a comprehensive overview of all media fi
    - **View**: Open the file in a new browser tab
    - **Copy URL**: Get the direct link to the media file
    - **Bulk Actions**: Select multiple files to delete or edit in batch
-   - [Screenshot Recommended] *Media item showing available management options*
 
 **Important Considerations:**
 
@@ -768,16 +741,16 @@ The "View All Media" interface provides a comprehensive overview of all media fi
 Adding new media to your WordPress site involves uploading files to the Media Library, where they become available for use throughout your content. WordPress supports various file types including images, documents, audio, and video files.
 
 1. **Accessing the Upload Interface**
-   - **Method 1**: Navigate to "Media" > "Add New" in the left sidebar menu
-   - **Method 2**: Click "Add New" button at the top of the Media Library screen
+   - **Method 1**: Navigate to "Media" > "Add Media File" in the left sidebar menu
+   - **Method 2**: Click "Select Files" button at the top of the Media Library screen
    - **Method 3**: Use the "Add Media" button when editing posts or pages
-   - [Screenshot Recommended] *Media menu showing the Add New option*
+   ![Media menu showing the Add New option](./../images/tnp/gf17.png)
 
 2. **Upload Methods**
    - **Drag and Drop**: Drag files directly from your computer to the upload area
    - **Select Files**: Click the "Select Files" button to browse your computer
    - **Device Camera**: Some devices allow direct capture from camera (mobile/tablet)
-   - [Screenshot Recommended] *Upload interface showing the drag and drop area*
+   ![Upload interface showing the drag and drop area](./../images/tnp/gf17.png)
 
 3. **File Selection Considerations**
    - **Supported File Types**:
@@ -787,14 +760,12 @@ Adding new media to your WordPress site involves uploading files to the Media Li
      - Video: MP4, WebM, etc.
    - **File Size Limits**: Default maximum is typically 2MB-8MB (server-dependent)
    - **Dimensions**: Very large images may be automatically scaled down
-   - [Screenshot Recommended] *Error message when attempting to upload an unsupported file type*
 
 4. **Upload Process**
    - Select or drag your file(s) to the upload area
    - WordPress displays a progress bar during upload
    - Successfully uploaded files appear as thumbnails
    - Failed uploads show error messages explaining the issue
-   - [Screenshot Recommended] *Upload progress indicator showing files being processed*
 
 5. **Post-Upload Editing**
    - After upload, WordPress displays the attachment details screen
@@ -807,7 +778,6 @@ Adding new media to your WordPress site involves uploading files to the Media Li
      - Crop
      - Rotate
      - Scale
-     - [Screenshot Recommended] *Attachment details screen showing editable fields*
 
 6. **Inserting Media into Content**
    - When uploading via the content editor, you can immediately insert the media
@@ -816,7 +786,6 @@ Adding new media to your WordPress site involves uploading files to the Media Li
      - **Link Settings**: Link to media file, attachment page, custom URL, or none
      - **Size**: Thumbnail, medium, large, or full size
    - Click "Insert into post/page" to embed the media
-   - [Screenshot Recommended] *Media insertion options showing alignment and size settings*
 
 **Important Considerations:**
 
@@ -854,31 +823,27 @@ The Basic Site Configuration section, found under "Settings" > "General" in the 
 1. **Accessing General Settings**
    - Log in to the WordPress admin dashboard
    - Navigate to "Settings" > "General" in the left sidebar menu
-   - [Screenshot Recommended] *Settings menu in the WordPress admin sidebar highlighting the General option*
+   ![Settings menu in the WordPress admin sidebar highlighting the General option](./../images/tnp/gf19.png)
 
 2. **Site Identity Settings**
    - **Site Title**: The name of your website, displayed in browser tabs, search results, and various theme locations
    - **Tagline**: A brief description of your site that appears in some themes and can influence SEO
    - These elements define your site's identity across the web and in search engine results
-   - [Screenshot Recommended] *Site Title and Tagline fields in the General Settings panel*
 
 3. **Site Address Configuration**
    - **WordPress Address (URL)**: The location of your WordPress core files (typically your domain)
    - **Site Address (URL)**: The address visitors use to access your site (usually identical to WordPress Address)
    - These settings are critical for proper site functioning and should only be changed with caution
-   - [Screenshot Recommended] *URL configuration fields showing example domain entries*
 
 4. **Contact Information**
    - **Administration Email Address**: The primary contact email for site notifications
    - Used for administrative communications, password resets, and system alerts
    - Must be a valid, accessible email address to ensure you receive important notifications
-   - [Screenshot Recommended] *Email address field in the General Settings panel*
 
 5. **Membership Settings**
    - **Membership**: Toggle whether anyone can register for an account on your site
    - **New User Default Role**: Select the role automatically assigned to newly registered users
    - These settings control public access to your site's registration features
-   - [Screenshot Recommended] *Membership options showing registration checkbox and role dropdown*
 
 6. **Date and Time Configuration**
    - **Timezone**: Set your local timezone using a city reference or UTC offset
@@ -886,18 +851,15 @@ The Basic Site Configuration section, found under "Settings" > "General" in the 
    - **Time Format**: Select the preferred time display format (12 or 24-hour)
    - **Week Starts On**: Define which day is considered the first day of the week
    - These settings ensure consistent date and time display across your entire website
-   - [Screenshot Recommended] *Date and time configuration options showing format choices*
 
 7. **Language Settings**
    - **Site Language**: Select the primary language for the WordPress admin interface
    - This setting affects the admin dashboard language, not necessarily the content language
    - Additional languages can be installed if needed
-   - [Screenshot Recommended] *Language dropdown showing available language options*
 
 8. **Saving Changes**
    - Click the "Save Changes" button at the bottom of the page to apply all modifications
    - WordPress confirms successful updates with a notification message
-   - [Screenshot Recommended] *Save Changes button and success message*
 
 **Important Considerations:**
 
@@ -915,7 +877,6 @@ The Media Settings section in WordPress provides configuration options for how m
 1. **Accessing Media Settings**
    - Log in to the WordPress admin dashboard
    - Navigate to "Settings" > "Media" in the left sidebar menu
-   - [Screenshot Recommended] *Settings menu in the WordPress admin sidebar highlighting the Media option*
 
 2. **Image Size Configuration**
    - **Thumbnail Size**: Define the dimensions for thumbnail images
@@ -928,13 +889,12 @@ The Media Settings section in WordPress provides configuration options for how m
      - Default: 1024×1024 pixels maximum
      - Often used for featured images in single post views
    - **Crop Settings**: Choose whether images are cropped to exact dimensions or proportionally scaled
-   - [Screenshot Recommended] *Image size configuration fields showing width and height inputs*
+   ![Image size configuration fields showing width and height inputs](./../images/tnp/gf20.png)
 
 3. **File Organization Settings**
    - **Uploading Files Organization**: Toggle whether uploads should be organized into month and year-based folders
    - When enabled, creates a structured directory system (e.g., /wp-content/uploads/2025/05/)
    - Helps maintain an organized media library, especially for sites with numerous uploads
-   - [Screenshot Recommended] *Uploading Files Organization checkbox option*
 
 4. **Image Upload Handling**
    - When an image is uploaded, WordPress automatically creates multiple versions in different sizes
@@ -946,7 +906,6 @@ The Media Settings section in WordPress provides configuration options for how m
    - While not directly configurable in the Media Settings interface, WordPress enforces upload size limits
    - The maximum upload size is determined by your hosting configuration (php.ini settings)
    - Typical limits range from 2MB to 50MB depending on your hosting plan
-   - [Screenshot Recommended] *Information about current maximum upload size*
 
 6. **Responsive Images**
    - WordPress automatically generates HTML for responsive images using srcset attributes
@@ -957,7 +916,6 @@ The Media Settings section in WordPress provides configuration options for how m
 7. **Saving Changes**
    - Click the "Save Changes" button at the bottom of the page to apply all modifications
    - WordPress confirms successful updates with a notification message
-   - [Screenshot Recommended] *Save Changes button and success message*
 
 **Important Considerations:**
 
