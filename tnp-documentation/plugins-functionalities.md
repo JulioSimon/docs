@@ -668,13 +668,93 @@ To maximize the effectiveness of MxChat on the Tonga National Portal while ensur
 
 ### Description
 
+Popup Maker is a powerful WordPress plugin developed by Code Atlantic LLC that enables website administrators to create and manage customizable popup windows on their WordPress websites. As one of the most popular popup solutions with over 780,000 active installations, Popup Maker provides a comprehensive toolkit for creating attention-grabbing, conversion-focused popups that can significantly enhance user engagement and drive specific actions on the Tonga National Portal.
+
+The plugin offers an intuitive interface for designing popups with various triggers, animations, and targeting options, making it suitable for a wide range of applications including announcements, newsletter signups, important notifications, content upgrades, and promotional offers. Popup Maker stands out for its flexibility, allowing administrators to create popups that integrate seamlessly with existing forms, page builders, and other WordPress plugins without requiring coding knowledge.
+
+![Popup Maker dashboard showing available popups](./../images/tnp/pf18.png)
+
 ### Key Features
 
-### Embedding Popups
+- **Unlimited Popup Creation**: Create and manage an unlimited number of popups with different designs, content, and configurations to serve various purposes across the portal.
+
+- **Multiple Trigger Options**: Configure popups to appear based on various user actions.
+
+- **Advanced Targeting Controls**: Display popups only to specific audiences.
+
+- **Customizable Appearance**: Extensive styling options.
 
 ### Creating a Popup
 
+Creating an effective popup in Popup Maker involves a straightforward process:
+
+1. **Access the Popup Maker Dashboard**:
+   - Log in to the WordPress admin panel
+   - Navigate to "Popup Maker" in the left sidebar menu
+   - Click on "Create New Popup" to create a new popup
+   ![Popup Maker menu with Add Popup option highlighted](./../images/tnp/pf20.png)
+
+2. **Configure Basic Settings**:
+   - Enter a descriptive name for internal reference (e.g., "Newsletter Signup Popup")
+   - Add a title (optional) that will appear at the top of the popup
+
+3. **Design Popup Content**:
+   - Use the WordPress editor to add and format content
+   - Insert text, images, videos, or other media
+   - Customize typography, colors, and spacing
+   ![Popup content editor showing design options](./../images/tnp/pf21.png)
+
+4. **Configure Trigger Settings**:
+   - Navigate to the "Triggers" tab
+   - Click "Add New Trigger"
+   - Select the trigger type:
+     - Time Delay / Auto Open 
+     - Click Open 
+     - Form Submission
+   - Configure trigger-specific settings:
+     - For time delay: set the delay in milliseconds
+     - For click: specify the CSS selector for clickable elements
+
+5. **Set Targeting Conditions**:
+   - Navigate to the "Conditions" tab
+   - Click "Choose a condition" select field.
+   - Configure where the popup should appear:
+     - All pages or specific pages/posts
+     - Specific categories or tags
+     - Custom post types
+   - Add multiple condition groups for complex targeting scenarios
+   ![Popup conditions tab showing targeting options](./../images/tnp/pf22.png)
+
+6. **Advanced Settings**:
+   - Configure additional options:
+     - Animation effects and timing
+     - Overlay settings (color, opacity, click behavior)
+     - Close button appearance and position
+     - Accessibility settings
+     - Z-index for proper layering with other page elements
+
+7. **Save and Test**:
+   - Click "Publish" to save the popup
+   - Use the "Preview" button to test the popup behavior
+   - Check appearance and functionality across different devices
+   - Make adjustments as needed before final deployment
+
 ### Best Practices
+
+To maximize the effectiveness of popups while maintaining a positive user experience on the Tonga National Portal:
+
+1. **Strategic Popup Timing and Frequency**:
+   - Avoid showing popups immediately when users land on the site
+   - Allow users to engage with content before displaying popups (15-30 second delay)
+   - Limit the number of popups shown in a single session
+   - Use cookies to prevent showing the same popup repeatedly to returning visitors
+
+2. **Responsive Design Considerations**:
+   - Create separate popup configurations for mobile and desktop users
+   - Use smaller, less intrusive popups on mobile devices
+   - Ensure text is readable without zooming on all screen sizes
+   - Test popups across multiple devices and browsers
+   - Make close buttons easily tappable on touch screens
 
 ---
 
