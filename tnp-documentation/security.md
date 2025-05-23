@@ -1,186 +1,341 @@
-# Security
+# WordPress Security Guide: Understanding and Securing Your WordPress Website
 
-This document outlines the security measures implemented in the Tonga National Portal (TNP) platform to ensure data protection, system integrity, and compliance with relevant standards and regulations.
+## 1. Introduction to WordPress Security
 
-## 1. Security Architecture Overview
+WordPress security is a critical aspect of website management that requires ongoing attention. As the most popular content management system (CMS) powering over 40% of all websites on the internet, WordPress is a frequent target for hackers and malicious actors. This document provides a comprehensive overview of WordPress security, from understanding the baseline security of a clean installation to implementing best practices for maintaining a secure website.
 
-The Tonga National Portal implements a multi-layered security architecture designed to protect against various threats while ensuring system availability and data integrity. Our approach includes:
+## 2. Security of a Clean WordPress Installation
 
-- **Defense in Depth**: Multiple security controls at different layers of the application
-- **Principle of Least Privilege**: Users and processes operate with minimal necessary permissions
-- **Security by Design**: Security considerations integrated throughout the development lifecycle
-- **Regular Security Assessments**: Continuous evaluation and improvement of security measures
+### 2.1 Core Security Features
 
-The security architecture encompasses infrastructure security, application security, data security, and operational security to provide comprehensive protection for the portal and its users.
+A fresh WordPress installation includes several built-in security features:
 
-## 2. WordPress Core Security Measures
+- **User Authentication System**: WordPress has a robust user authentication system with role-based access control.
+- **Password Security**: WordPress enforces strong password policies and securely stores passwords using hashing algorithms.
+- **Automatic Updates**: WordPress supports automatic background updates for minor releases and security patches.
+- **Database Security**: WordPress uses prepared SQL statements to prevent SQL injection attacks.
+- **File Permissions**: WordPress recommends specific file permissions to protect system files.
+- **Security Headers**: WordPress implements various security headers to protect against common web vulnerabilities.
 
-As the TNP is built on WordPress, we leverage and enhance the following core security features:
+### 2.2 Security Limitations
 
-- **Regular Core Updates**: Automatic application of security patches and updates
-- **Secure Authentication**: Implementation of strong password policies and multi-factor authentication
-- **Role-Based Access Control**: Granular permission management through WordPress roles
-- **Sanitization and Validation**: Proper handling of user inputs to prevent injection attacks
-- **Database Security**: Prepared SQL statements to prevent SQL injection
-- **File Permissions**: Properly configured file permissions to prevent unauthorized access
-- **API Security**: Secure implementation of WordPress REST API with proper authentication
+Despite these features, a clean WordPress installation has several security limitations:
 
-## 3. Plugin-Specific Security Features
+- **Default Settings**: Many default settings prioritize usability over security.
+- **Open Registration**: By default, anyone can register for an account if user registration is enabled.
+- **Plugin/Theme Vulnerabilities**: The ability to extend WordPress through plugins and themes introduces potential security risks.
+- **Visible Version Information**: WordPress displays version information that can help attackers identify vulnerabilities.
+- **Login Page Vulnerabilities**: The standard login page (/wp-login.php) is vulnerable to brute force attacks.
 
-The TNP utilizes carefully selected and vetted plugins with the following security considerations:
+## 3. Common WordPress Security Vulnerabilities
 
-- **Plugin Vetting Process**: All plugins undergo security assessment before implementation
-- **Regular Plugin Updates**: Automatic or scheduled updates to address security vulnerabilities
-- **Plugin Isolation**: Implementation of measures to contain potential plugin vulnerabilities
-- **Code Reviews**: Regular review of plugin code for security issues
-- **Minimal Plugin Usage**: Only essential plugins are installed to reduce attack surface
-- **Plugin Compatibility**: Ensuring all plugins work together without creating security gaps
+### 3.1 Authentication Vulnerabilities
+- Weak passwords
+- Brute force attacks
+- Session hijacking
 
-### Key Security Plugins
+### 3.2 Authorization Vulnerabilities
+- Privilege escalation
+- Unauthorized access to protected content
 
-- **Wordfence Security**: Real-time threat defense, malware scanning, and firewall protection
-- **Sucuri Security**: Malware scanning, security hardening, and post-hack security actions
-- **iThemes Security**: 30+ ways to secure and protect WordPress installation
-- **WP Activity Log**: Comprehensive activity logging for security monitoring
+### 3.3 Code Vulnerabilities
+- SQL injection
+- Cross-site scripting (XSS)
+- Cross-site request forgery (CSRF)
+- Remote code execution
 
-## 4. User Authentication and Authorization
+### 3.4 Server and Hosting Vulnerabilities
+- Outdated server software
+- Insecure file permissions
+- Shared hosting risks
 
-The TNP implements robust user authentication and authorization mechanisms:
+## 4. Best Security Practices
 
-### Authentication
+### 4.1 Server-Level Security
 
-- **Strong Password Policy**: Enforcement of complex passwords with regular rotation
-- **Multi-Factor Authentication (MFA)**: Additional verification layer beyond passwords
-- **Login Attempt Limitations**: Protection against brute force attacks
-- **Secure Password Recovery**: Secure process for password resets
-- **Session Management**: Secure handling of user sessions with appropriate timeouts
+#### 4.1.1 File Permissions
 
-### Authorization
+Set proper file permissions to prevent unauthorized access:
 
-- **Role-Based Access Control (RBAC)**: Granular permission management
-- **Custom User Roles**: Tailored roles specific to TNP requirements
-- **Permission Auditing**: Regular review of user permissions
-- **Principle of Least Privilege**: Users granted only necessary permissions
-- **Access Request Workflow**: Formal process for requesting elevated permissions
+```
+# Set directory permissions to 755
+find /path/to/your/wordpress/install/ -type d -exec chmod 755 {} \;
 
-## 5. Data Protection and Privacy Measures
+# Set file permissions to 644
+find /path/to/your/wordpress/install/ -type f -exec chmod 644 {} \;
+```
 
-The TNP implements comprehensive data protection measures:
+Critical files should have more restrictive permissions:
+```
+600 -rw-------  /home/user/wp-config.php
+```
 
-- **Data Classification**: Categorization of data based on sensitivity
-- **Data Encryption**: Encryption of sensitive data both at rest and in transit
-- **Data Minimization**: Collection of only necessary personal information
-- **Data Retention Policies**: Clear policies on how long data is stored
-- **Privacy by Design**: Privacy considerations integrated into all features
-- **Consent Management**: Tools for managing user consent for data processing
-- **Data Access Controls**: Strict controls on who can access different types of data
-- **Data Processing Agreements**: Formal agreements with any third-party data processors
+#### 4.1.2 Web Server Configuration
 
-## 6. SSL/TLS Implementation
+**Apache Configuration**:
 
-The TNP uses strong encryption for all communications:
+Protect wp-config.php:
+```
+<Files "wp-config.php">
+Require all denied
+</Files>
+```
 
-- **TLS 1.2/1.3**: Implementation of modern TLS protocols
-- **Strong Cipher Suites**: Use of secure cipher configurations
-- **HSTS (HTTP Strict Transport Security)**: Forcing secure connections
-- **Certificate Management**: Regular renewal and validation of SSL certificates
-- **Mixed Content Prevention**: Ensuring all resources load over HTTPS
-- **Certificate Transparency**: Monitoring for unauthorized certificates
+Secure wp-includes directory:
+```
+# Block the include-only files
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^wp-admin/includes/ - [F,L]
+RewriteRule !^wp-includes/ - [S=3]
+RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+RewriteRule ^wp-includes/theme-compat/ - [F,L]
+</IfModule>
+```
 
-## 7. Firewall and Malware Protection
+**Nginx Configuration**:
 
-The TNP employs multiple layers of protection against attacks and malicious code:
+```
+# Global restrictions configuration
+location = /favicon.ico {
+    log_not_found off;
+    access_log off;
+}
 
-### Web Application Firewall (WAF)
+location = /robots.txt {
+    allow all;
+    log_not_found off;
+    access_log off;
+}
 
-- **Rule-Based Protection**: Custom and pre-configured rules to block common attacks
-- **IP Blocking**: Blocking of suspicious IP addresses
-- **Rate Limiting**: Prevention of DoS attacks through request limiting
-- **Geographic Restrictions**: Optional blocking of traffic from high-risk regions
+# Deny all attempts to access hidden files
+location ~ /\. {
+    deny all;
+}
 
-### Malware Protection
+# Deny access to PHP files in uploads directory
+location ~* /(?:uploads|files)/.*\.php$ {
+    deny all;
+}
+```
 
-- **Regular Scanning**: Automated scanning for malware and suspicious code
-- **File Integrity Monitoring**: Detection of unauthorized file changes
-- **Malware Removal Tools**: Tools for removing detected malware
-- **Code Signing**: Verification of code authenticity
+#### 4.1.3 SSL/TLS Implementation
 
-## 8. Backup and Disaster Recovery
+- Implement HTTPS using SSL/TLS certificates
+- Configure proper SSL settings:
 
-The TNP implements comprehensive backup and recovery procedures:
+```
+# Force HTTPS for admin and login
+define( 'FORCE_SSL_ADMIN', true );
+```
 
-- **Automated Backups**: Regular scheduled backups of all system components
-- **Offsite Storage**: Secure storage of backups in separate locations
-- **Encrypted Backups**: Encryption of backup data
-- **Backup Testing**: Regular testing of backup restoration process
-- **Disaster Recovery Plan**: Documented procedures for various disaster scenarios
-- **Recovery Time Objectives (RTO)**: Defined timeframes for system recovery
-- **Recovery Point Objectives (RPO)**: Maximum acceptable data loss periods
+For sites behind a reverse proxy:
+```
+define( 'FORCE_SSL_ADMIN', true );
+if( strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false )
+    $_SERVER['HTTPS'] = 'on';
+```
 
-## 9. Security Monitoring and Logging
+#### 4.1.4 PHP Configuration
 
-The TNP implements comprehensive monitoring to detect and respond to security events:
+- Keep PHP updated to the latest stable version
+- Configure PHP securely:
 
-- **Centralized Logging**: Collection of logs from all system components
-- **Log Retention**: Secure storage of logs for compliance and forensic purposes
-- **Real-time Alerting**: Immediate notification of suspicious activities
-- **Log Analysis**: Regular review and analysis of security logs
-- **User Activity Monitoring**: Tracking of user actions for security purposes
-- **System Performance Monitoring**: Detection of anomalies that may indicate security issues
-- **Intrusion Detection**: Monitoring for signs of unauthorized access
+```
+# Enable OpCache security settings
+opcache.validate_permission = On
+opcache.validate_root = On
+opcache.restrict_api = '/some/folder/path'
+```
 
-## 10. Security Best Practices for Administrators
+### 4.2 WordPress Core Security
 
-Administrators should follow these security best practices:
+#### 4.2.1 Keep WordPress Updated
 
-- **Use Strong Authentication**: Implement MFA for all administrative accounts
-- **Regular Password Changes**: Change administrative passwords periodically
-- **Secure Admin Access**: Access administrative interfaces only from secure networks
-- **Regular Updates**: Keep all components updated with security patches
-- **Principle of Least Privilege**: Use administrator accounts only when necessary
-- **Security Training**: Stay informed about security threats and best practices
-- **Audit Logs Review**: Regularly review security logs for suspicious activity
-- **Clean Desk Policy**: Ensure sensitive information is not physically exposed
-- **Secure Communication**: Use encrypted channels for administrative communication
-- **Account Management**: Promptly disable accounts of departed staff
+- Enable automatic updates for minor releases:
+```
+add_filter( 'auto_update_core', '__return_true' );
+```
 
-## 11. Incident Response Procedures
+- Regularly check for and apply major updates
 
-The TNP has established procedures for responding to security incidents:
+#### 4.2.2 Secure wp-config.php
 
-### Incident Response Plan
+- Move wp-config.php outside the web root
+- Add security keys and salts:
+```
+define('AUTH_KEY',         'unique random string');
+define('SECURE_AUTH_KEY',  'unique random string');
+define('LOGGED_IN_KEY',    'unique random string');
+define('NONCE_KEY',        'unique random string');
+define('AUTH_SALT',        'unique random string');
+define('SECURE_AUTH_SALT', 'unique random string');
+define('LOGGED_IN_SALT',   'unique random string');
+define('NONCE_SALT',       'unique random string');
+```
 
-1. **Detection and Reporting**: Processes for identifying and reporting security incidents
-2. **Assessment and Triage**: Evaluation of incident severity and potential impact
-3. **Containment**: Measures to limit the damage of an incident
-4. **Eradication**: Removal of the threat from the system
-5. **Recovery**: Restoration of affected systems to normal operation
-6. **Post-Incident Analysis**: Review of the incident and response for improvement
+- Disable file editing in the admin area:
+```
+define( 'DISALLOW_FILE_EDIT', true );
+```
 
-### Incident Response Team
+- Use a custom database table prefix:
+```
+$table_prefix = 'unique_prefix_'; // Only numbers, letters, and underscores
+```
 
-- Defined roles and responsibilities for incident response
-- Contact information for team members
-- Escalation procedures for different types of incidents
+#### 4.2.3 Secure WordPress Login
 
-## 12. Compliance with Security Standards and Regulations
+- Implement two-factor authentication
+- Limit login attempts
+- Change the default login URL
+- Block access to wp-login.php from unauthorized IPs:
 
-The TNP is designed to comply with relevant security standards and regulations:
+```
+# Apache 2.4
+<Files wp-login.php>
+    Require ip 203.0.113.15
+</Files>
 
-- **GDPR Compliance**: Adherence to European data protection regulations
-- **Local Data Protection Laws**: Compliance with Tongan data protection requirements
-- **OWASP Guidelines**: Implementation of OWASP security best practices
-- **PCI DSS**: Compliance with payment card industry standards (if applicable)
-- **ISO 27001**: Alignment with international information security standards
-- **Regular Compliance Audits**: Scheduled reviews of compliance status
-- **Documentation**: Maintenance of required compliance documentation
+# Nginx
+location /wp-login.php {
+    allow   203.0.113.15;
+    deny    all;
+}
+```
 
-## Conclusion
+### 4.3 Plugin and Theme Security
 
-Security is a continuous process, not a one-time implementation. The Tonga National Portal team is committed to regularly reviewing and enhancing these security measures to address evolving threats and protect the platform and its users.
+#### 4.3.1 Plugin Management
 
-For security-related inquiries or to report security issues, please contact the TNP security team at [security contact information].
+- Use plugins from reputable sources
+- Keep plugins updated
+- Remove unused plugins
+- Regularly audit installed plugins
+- Research plugins before installation (check reviews, last update, support)
 
----
+#### 4.3.2 Theme Security
 
-*Last updated: May 13, 2025*
+- Use themes from reputable sources
+- Keep themes updated
+- Remove unused themes
+- Use child themes for customizations
+
+### 4.4 User Management
+
+#### 4.4.1 User Roles and Permissions
+
+- Follow the principle of least privilege
+- Regularly audit user accounts and roles
+- Remove unnecessary user accounts
+
+#### 4.4.2 Password Policies
+
+- Enforce strong password requirements
+- Implement regular password changes
+- Use unique passwords for administrator accounts
+
+#### 4.4.3 Admin Account Security
+
+- Change the default "admin" username:
+```
+# SQL command to change admin username
+UPDATE wp_users SET user_login = 'newuser' WHERE user_login = 'admin';
+```
+
+- Create a separate admin account for daily tasks
+- Use email addresses not associated with the domain
+
+## 5. Security Plugins and Tools
+
+### 5.1 Recommended Security Plugins
+
+- **Web Application Firewalls (WAF)**: Sucuri, Wordfence, Cloudflare
+- **Security Scanners**: Sucuri SiteCheck, Quttera
+- **Login Protection**: Limit Login Attempts Reloaded, WPS Hide Login
+- **Activity Monitoring**: WP Activity Log, Stream
+- **Backup Solutions**: UpdraftPlus, BackupBuddy, VaultPress
+
+### 5.2 Security Headers Implementation
+
+Implement security headers via .htaccess or plugin:
+
+```
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Content-Security-Policy "default-src 'self';"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+```
+
+## 6. Monitoring and Maintenance
+
+### 6.1 Regular Security Audits
+
+- Conduct regular security scans
+- Review user accounts and permissions
+- Check file integrity
+- Monitor for unusual activity
+
+### 6.2 Logging and Monitoring
+
+- Enable WordPress debug logging:
+```
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+```
+
+- Protect debug.log:
+```
+<Files debug.log>
+  Order allow,deny
+  Deny from all
+</Files>
+```
+
+- Monitor login attempts
+- Set up alerts for suspicious activities
+
+### 6.3 Backup Strategy
+
+- Implement regular automated backups
+- Store backups in multiple locations
+- Test backup restoration regularly
+- Include database and files in backups
+
+## 7. Recovery from Security Breaches
+
+### 7.1 Identifying a Breach
+
+- Signs of compromise (unusual admin accounts, modified files, etc.)
+- Using logs to trace the breach
+- Determining the extent of the breach
+
+### 7.2 Containment and Recovery
+
+- Isolate the website
+- Remove malicious code
+- Reset all passwords
+- Restore from clean backups
+- Update all software
+
+### 7.3 Post-Breach Security Improvements
+
+- Conduct a thorough security audit
+- Implement additional security measures
+- Document the incident and response
+- Develop an improved security plan
+
+## 8. Conclusion
+
+WordPress security is not a one-time setup but an ongoing process that requires vigilance and regular maintenance. By understanding the security features and limitations of a clean WordPress installation and implementing the best practices outlined in this document, you can significantly reduce the risk of security breaches and protect your website, data, and users.
+
+Remember that security is a balance between protection and usability. The most secure website might be difficult to use, while the most user-friendly website might have security vulnerabilities. Finding the right balance for your specific needs is key to maintaining a secure and functional WordPress website.
