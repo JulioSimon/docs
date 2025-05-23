@@ -25,29 +25,43 @@ Welcome to the comprehensive documentation for the Tonga National Portal. This d
    - Search functionality
    - Multilingual support
 
-4. [Module Functionalities](module-functionalities.md)
-   - Government services modules
-   - News and announcements
-   - Document repository
-   - Public engagement features
-   - E-services integration
-   - Forms and applications
+4. [Content Management](content-management.md)
+   - Posts management
+   - Pages management
+   - Media library
+   - Categories and tags
+   - Content organization
 
-5. [Security](security.md)
-   - Authentication mechanisms
-   - Data protection measures
-   - Privacy controls
-   - Compliance with regulations
-   - Audit logging
+5. [Template Management](template-management.md)
+   - Bricks Builder overview
+   - Global templates
+   - Content templates
+   - Template customization
+   - Responsive design settings
 
-6. [Deployment](deployment.md)
+6. [Plugins Functionalities](plugins-functionalities.md)
+   - Announcer Pro
+   - Document Library Lite
+   - Location Weather Pro
+   - MxChat
+   - Other installed plugins
+
+7. [Security](security.md)
+   - WordPress security overview
+   - Security vulnerabilities
+   - Best security practices
+   - Security plugins and tools
+   - Monitoring and maintenance
+   - Recovery from security breaches
+
+8. [Deployment](deployment.md)
    - Infrastructure requirements
    - Installation process
    - Configuration options
    - Performance optimization
    - Integration with existing systems
 
-7. [Maintenance](maintenance.md)
+9. [Maintenance](maintenance.md)
    - Content update procedures
    - System updates and patches
    - Backup and recovery
