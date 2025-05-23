@@ -484,45 +484,183 @@ To maximize the effectiveness of Location Weather Pro on the Tonga National Port
 
 ### Description
 
+MxChat is a powerful AI-powered chatbot plugin for WordPress developed by MxChat that enhances the Tonga National Portal's user engagement and support capabilities. This versatile solution integrates advanced language models including OpenAI's GPT, Anthropic's Claude, Google's Gemini, xAI's Grok, and DeepSeek to provide intelligent, real-time interactions with portal visitors.
+
+The plugin creates an intuitive chat interface that can be embedded throughout the portal, allowing citizens to quickly find information, get assistance with government services, and receive immediate responses to their queries without waiting for human support. MxChat significantly reduces the burden on support staff by handling routine inquiries automatically while providing a seamless escalation path to human agents when necessary.
+
+What sets MxChat apart is its ability to be trained on the Tonga National Portal's specific content, including pages, posts, documents, and custom knowledge base entries. This ensures that responses are contextually relevant to Tongan government services, policies, and procedures rather than generic information. The chatbot becomes an extension of the portal's information architecture, making government resources more accessible to citizens through natural conversation.
+
+![MxChat interface showing the chatbot embedded on a portal page](./../images/tnp/pf12.png)
+
 ### Key Features
 
-### Configuration
+- **Multiple AI Model Integration**: Supports various AI models including OpenAI (GPT-3.5/4), Anthropic Claude, Google Gemini, xAI Grok, and DeepSeek, allowing administrators to choose the most appropriate model for different use cases.
 
-### Usage Examples
+- **Custom Knowledge Base**: Create and manage a specialized knowledge repository that trains the AI on Tonga-specific government information, ensuring accurate and relevant responses.
 
-#### Setting Up a Department Chat
-1. Go to **MxChat > Departments > Add New**
-2. Configure department settings:
-   - Name: "Immigration Services"
-   - Description: "Support for visa and immigration inquiries"
-   - Operating Hours: Monday-Friday, 8:00 AM - 4:30 PM
-   - Offline Message: "Immigration support is currently offline. Please leave a message or return during business hours."
-3. Assign agents to the department
-4. Create pre-defined responses for common immigration questions
+- **Website Content Training**: Automatically scans and learns from existing portal content, including pages, posts, and documents to provide contextually appropriate answers.
 
-#### Implementing Chat on a Service Page
-```
-[mxchat department="tax_services" button_text="Chat with Tax Support" theme="blue"]
-```
+- **PDF Document Upload**: Import PDF documents directly into the knowledge base, making government forms, reports, and publications searchable by the chatbot.
 
-#### Creating a Chatbot for FAQs
-1. Navigate to **MxChat > Chatbots > Add New**
-2. Name the chatbot "General Information Bot"
-3. Add Q&A pairs:
-   - Q: "What are the office hours?"
-   - A: "Government offices are open Monday to Friday, 8:30 AM to 4:30 PM."
-   - Q: "How do I renew my passport?"
-   - A: "Passport renewals can be submitted online through the Passport Services section or in person at the Immigration Office."
-4. Configure the chatbot to handle initial inquiries before routing to a live agent
+- **Conversation Memory**: Maintains context throughout user interactions, allowing for natural, flowing conversations with appropriate follow-up responses.
+
+- **Multilingual Support**: Communicates with citizens in both English and Tongan languages, making government services more accessible to all citizens.
+
+- **Customizable Chat Interface**: Fully adaptable chat window appearance including colors, fonts, positioning, and behavior to match the Tonga National Portal's design.
+
+- **Shortcode Implementation**: Easy embedding of the chatbot anywhere on the portal using simple shortcodes, with options for different configurations.
+
+- **Chat Transcripts**: Review and analyze past conversations to improve responses and identify common citizen needs.
+
+### LLM API Key Configuration and Selected Models
+
+To deliver the best balance between performance, cost-efficiency, and relevance to your content, two specific AI models from OpenAI were selected: text-embedding-3-large for embedding custom knowledge, and gpt-4o-mini for generating conversational responses.
+
+It is required to add a OpenAI Api Key for the plugin to connect to the LLMs:
+
+   - Go to **MxChat > MxChat** in the WordPress admin menu
+   - OpenAI models are already pre-selected and configured.
+   - Enter your OpenAI API key.
+   - Settings are automatically saved.
+   ![MxChat welcome screen showing initial setup options](./../images/tnp/pf13.png)
+
+### Adding Content to the Knowledge Base
+
+The knowledge base is the foundation of MxChat's ability to provide accurate, Tonga-specific information. Properly populating and maintaining this knowledge base is crucial for the chatbot's effectiveness:
+
+1. **Accessing the Knowledge Base Manager**:
+   - Navigate to **MxChat > Knowledge** in the WordPress admin menu
+   - The Knowledge Base dashboard displays existing entries in the knowledge base and several options to import new content.
+   ![MxChat Knowledge Base management interface](./../images/tnp/pf14.png)
+
+2. **Adding WordPress Content**:
+   - Click on the WordPress Content button.
+   - A modal will appear with all the content available in the National Portal.
+   - You can filter the data by content type and using a search box at the top.
+   - Select the content you want to add to the Knoledge Base.
+   - Click "Process Selected Content" to add them into the Knowledge base.
+   ![Wordpress Content Modal](./../images/tnp/pf15.png)
+
+5. **Adding PDF Documents**:
+   - Click on the PDF Import box.
+   - Enter the URL where the PDF document is stored.
+   - Click on Import to process the content.
+
+5. **Adding Content from Sitemap**:
+   - Click on the Sitempa Import box.
+   - Enter the sitemap URL in the input field.
+   - Make sure you use a content-specific sub-sitemap URL, not the sitemap index.
+   - Click on Import to process the content.
+
+5. **Adding Content from Any Webpage**:
+   - Click on the Direct URL box.
+   - Enter the URL of the website in the input field.
+   - Click on Import to process the content.
+
+5. **Add Content Directly**:
+   - Click on the Direct Content box.
+   - Enter the content to add in the text area.
+   - Click on Import to process the content.
+
+### Visualize Chat Transcripts
+
+Chat transcripts provide valuable insights into citizen needs and chatbot performance. This feature is available in the Pro version of MxChat:
+
+1. **Accessing Chat Transcripts**:
+   - Navigate to **MxChat > Transcripts** in the WordPress admin menu
+   - The transcripts dashboard displays recent conversations with a search box
+   - Conversations can be exported to excel file
+   ![MxChat Transcripts dashboard showing conversation history and analytics](./../images/tnp/pf16.png)
+
+2. **Reviewing Individual Conversations**:
+   - It is possible to scroll in a specific conversation to review the content
+   - Every conversation has a Session ID
+   - This Session ID is searchable
+   - It is possible to delete individual conversations
+
+3. **Identifying Improvement Opportunities**:
+   - Common questions the AI struggled to answer correctly
+   - Knowledge gaps based on user queries
+
+4. **Managing Transcript Data**:
+   - Configure transcript retention policies in the settings
+   - Manually delete sensitive conversations if needed
+   - Export transcript archives for compliance or backup purposes
+
+### Embedding Chatbox in Tonga National Portal
+
+MxChat can be embedded throughout the Tonga National Portal using shortcodes on specific pages or in all pages using a simple portal wide configuration:
+
+1. **Basic Shortcode Implementation**:
+   - The standard shortcode to embed the chatbot is: `[mxchat_chatbot floating="yes"]`
+   - This will display the chatbot with default settings as configured in the admin panel
+   - Place this shortcode in any page, post, or widget area where you want the chatbot to appear
+
+2. **Customized Shortcode Options**:
+   - Modify the chatbot appearance and behavior for specific pages using parameters:
+   ```
+   [mxchat_chatbot 
+     floating="yes" # Displays the chatbot as a floating widget on the page.
+     floating="no"  # Embeds the chatbot directly within the page content.
+   ]
+   ```
+   - Common parameters include:
+     - `floating`: Placement of the chatbox (yes | no)
+
+3. **Creating a Dedicated Chat Page**:
+   - Create a new page titled "Chat with Us" or similar
+   - Use an expanded shortcode with full-page configuration:
+   ```
+   [mxchat_chatbot 
+     floating="no"
+   ]
+   ```
+   - This creates a dedicated page where citizens can have extended conversations with the chatbot
+   - Link to this page from the main navigation or support sections
+
+3. **Activating the Chatbox in all pages**:
+   - Is it possible to activate a floating chatbox in all pages.
+   - Go to the Wordpress administration panel.
+   - Go to MxChat -> MxChat section.
+   - Look for the "Auto-Display Chatbot" and activate the switch.
+   ![Auto-Display chatbot switch option](./../images/tnp/pf17.png)
 
 ### Best Practices
-- Train agents on proper communication protocols and response templates
-- Set realistic expectations for chat response times
-- Use canned responses for common inquiries to improve efficiency
-- Regularly review chat transcripts to identify areas for improvement
-- Implement clear escalation procedures for complex issues
-- Configure appropriate offline messages for after-hours support
-- Use chatbots strategically to handle routine questions
+
+To maximize the effectiveness of MxChat on the Tonga National Portal while ensuring a positive user experience:
+
+1. **Knowledge Base Optimization**:
+   - Develop a comprehensive knowledge base structure before adding content
+   - Prioritize high-demand information based on common citizen inquiries
+   - Use clear, conversational language that matches how citizens actually ask questions
+   - Regularly update the knowledge base with new information and services
+   - Remove outdated information promptly to prevent inaccurate responses
+   - Create specific entries for frequently asked questions and common procedures
+   - Use a consistent format and style across all knowledge base entries
+   - Include practical examples and step-by-step instructions where appropriate
+   - All knowledge base content must be in an unique language (English).
+   - Do not mix the language contents to increase accuracy in bot responses.
+
+2. **Conversation Prompt Design**:
+   - Craft a friendly, helpful personality for the chatbot that represents the government appropriately
+   - Configure welcome messages that clearly explain what the chatbot can help with
+   - Create fallback responses that guide users when the AI cannot answer
+   - Develop clear escalation paths to human support for complex issues
+   - Use natural language and avoid technical jargon in all bot responses
+   - Ensure the chatbot can handle both English and Tongan language interactions
+   - Test conversations regularly to identify and fix any awkward or incorrect responses
+
+3. **Visual Integration**:
+   - Customize the chatbot appearance to match the Tonga National Portal's branding
+   - Test the chat interface on multiple devices and screen sizes
+   - Position the chat widget where it's visible but not intrusive
+
+4. **Performance and Security**:
+   - Regularly monitor API usage to manage costs
+   - Configure reasonable token limits to balance comprehensive answers with performance
+   - Ensure all personal data handling complies with privacy regulations
+   - Regularly review chat transcripts to identify security or privacy concerns
+   - Regularly backup the knowledge base and configuration settings
 
 ---
 
