@@ -1,12 +1,12 @@
 # WordPress Security Guide: Understanding and Securing Your WordPress Website
 
-## 1. Introduction to WordPress Security
+## Introduction to WordPress Security
 
 WordPress security is a critical aspect of website management that requires ongoing attention. As the most popular content management system (CMS) powering over 40% of all websites on the internet, WordPress is a frequent target for hackers and malicious actors. This document provides a comprehensive overview of WordPress security, from understanding the baseline security of a clean installation to implementing best practices for maintaining a secure website.
 
-## 2. Security of a Clean WordPress Installation
+## Security of a Clean WordPress Installation
 
-### 2.1 Core Security Features
+### Core Security Features
 
 A fresh WordPress installation includes several built-in security features:
 
@@ -17,7 +17,7 @@ A fresh WordPress installation includes several built-in security features:
 - **File Permissions**: WordPress recommends specific file permissions to protect system files.
 - **Security Headers**: WordPress implements various security headers to protect against common web vulnerabilities.
 
-### 2.2 Security Limitations
+### Security Limitations
 
 Despite these features, a clean WordPress installation has several security limitations:
 
@@ -27,9 +27,9 @@ Despite these features, a clean WordPress installation has several security limi
 - **Visible Version Information**: WordPress displays version information that can help attackers identify vulnerabilities.
 - **Login Page Vulnerabilities**: The standard login page (/wp-login.php) is vulnerable to brute force attacks.
 
-## 3. Common WordPress Security Vulnerabilities
+## Common WordPress Security Vulnerabilities
 
-### 3.1 Authentication Vulnerabilities
+### Authentication Vulnerabilities
 Authentication vulnerabilities compromise the process of verifying user identity, potentially allowing unauthorized access to WordPress sites.
 
 - **Weak passwords**: Easily guessable passwords that don't meet complexity requirements.
@@ -41,7 +41,7 @@ Authentication vulnerabilities compromise the process of verifying user identity
 - **Session hijacking**: Stealing or forging session tokens to impersonate authenticated users.
   - *Example*: Capturing WordPress auth cookies transmitted over unencrypted connections, then using these cookies to gain unauthorized admin access.
 
-### 3.2 Authorization Vulnerabilities
+### Authorization Vulnerabilities
 Authorization vulnerabilities occur after authentication and involve improper access control, allowing users to perform actions beyond their intended permissions.
 
 - **Privilege escalation**: Gaining higher permission levels than intended.
@@ -50,7 +50,7 @@ Authorization vulnerabilities occur after authentication and involve improper ac
 - **Unauthorized access to protected content**: Bypassing access controls to view restricted information.
   - *Example*: Manipulating URL parameters in a membership site to access premium content without proper authorization.
 
-### 3.3 Code Vulnerabilities
+### Code Vulnerabilities
 Code vulnerabilities exploit flaws in WordPress core, themes, or plugins to compromise site security and functionality.
 
 - **SQL injection**: Inserting malicious SQL code that can read, modify, or delete database content.
@@ -65,7 +65,7 @@ Code vulnerabilities exploit flaws in WordPress core, themes, or plugins to comp
 - **Remote code execution**: Executing arbitrary code on the server through vulnerabilities.
   - *Example*: Exploiting a file upload vulnerability in a plugin to upload a PHP shell that provides complete server access.
 
-### 3.4 Server and Hosting Vulnerabilities
+### Server and Hosting Vulnerabilities
 These vulnerabilities exist at the infrastructure level, affecting the environment where WordPress runs.
 
 - **Outdated server software**: Running obsolete versions of web servers, PHP, or database software with known security flaws.
@@ -77,14 +77,14 @@ These vulnerabilities exist at the infrastructure level, affecting the environme
 - **Shared hosting risks**: Security compromises due to sharing server resources with other potentially vulnerable sites.
   - *Example*: Another compromised website on the same shared server using a local file inclusion vulnerability to access your wp-config.php file through improper server configuration.
 
-## 4. Best Security Practices
+## Best Security Practices
 
 This section outlines critical security measures that should be implemented to protect WordPress installations against the vulnerabilities described earlier. Each recommendation includes practical implementation steps.
 
-### 4.1 Server-Level Security
+### Server-Level Security
 Server-level security forms the foundation of WordPress security by hardening the underlying infrastructure that hosts your WordPress installation.
 
-#### 4.1.1 File Permissions
+#### File Permissions
 Proper file permissions are critical to prevent unauthorized access to WordPress files. The principle of least privilege should be applied to all files and directories.
 
 Set proper file permissions to prevent unauthorized access:
@@ -102,7 +102,7 @@ Critical files should have more restrictive permissions:
 600 -rw-------  /home/user/wp-config.php
 ```
 
-#### 4.1.2 Web Server Configuration
+#### Web Server Configuration
 Web server configuration is essential for protecting sensitive WordPress files and directories from direct access. Properly configured web servers can block many common attack vectors.
 
 **Apache Configuration**:
@@ -154,7 +154,7 @@ location ~* /(?:uploads|files)/.*\.php$ {
 }
 ```
 
-#### 4.1.3 SSL/TLS Implementation
+#### SSL/TLS Implementation
 SSL/TLS encryption protects data in transit between users and your WordPress site, preventing man-in-the-middle attacks and credential theft. It's essential for any site that handles sensitive information.
 
 - Implement HTTPS using SSL/TLS certificates
@@ -172,7 +172,7 @@ if( strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false )
     $_SERVER['HTTPS'] = 'on';
 ```
 
-#### 4.1.4 PHP Configuration
+#### PHP Configuration
 PHP configuration directly impacts WordPress security as PHP is the language WordPress is built on. Insecure PHP settings can expose your site to various attacks.
 
 - Keep PHP updated to the latest stable version
@@ -185,10 +185,10 @@ opcache.validate_root = On
 opcache.restrict_api = '/some/folder/path'
 ```
 
-### 4.2 WordPress Core Security
+### WordPress Core Security
 WordPress core security focuses on securing the WordPress application itself through proper configuration and maintenance.
 
-#### 4.2.1 Keep WordPress Updated
+#### Keep WordPress Updated
 Keeping WordPress updated is one of the most effective security measures, as updates often include patches for security vulnerabilities.
 
 - Enable automatic updates for minor releases:
@@ -198,7 +198,7 @@ add_filter( 'auto_update_core', '__return_true' );
 
 - Regularly check for and apply major updates
 
-#### 4.2.2 Secure wp-config.php
+#### Secure wp-config.php
 The wp-config.php file contains sensitive database credentials and security keys. Protecting this file is critical to prevent unauthorized access to your database.
 
 - Move wp-config.php outside the web root
@@ -254,7 +254,7 @@ define( 'DISALLOW_FILE_EDIT', true );
 $table_prefix = 'unique_prefix_'; // Only numbers, letters, and underscores
 ```
 
-#### 4.2.3 Secure WordPress Login
+#### Secure WordPress Login
 The WordPress login page is a primary target for brute force attacks. Implementing additional security measures can significantly reduce this risk.
 
 - Implement two-factor authentication
@@ -275,10 +275,10 @@ location /wp-login.php {
 }
 ```
 
-### 4.3 Plugin and Theme Security
+### Plugin and Theme Security
 Plugins and themes extend WordPress functionality but can introduce security vulnerabilities if not properly managed.
 
-#### 4.3.1 Plugin Management
+#### Plugin Management
 Plugins are the most common source of WordPress vulnerabilities. Proper management is essential to maintain security.
 
 - Use plugins from reputable sources
@@ -287,23 +287,23 @@ Plugins are the most common source of WordPress vulnerabilities. Proper manageme
 - Regularly audit installed plugins
 - Research plugins before installation (check reviews, last update, support)
 
-#### 4.3.2 Theme Security
+#### Theme Security
 Themes can contain vulnerable code that may compromise your WordPress site if exploited.
 
 - Use the pre installed and configured Bricks theme crafted for the Tonga National Portal.
 - Do not install any other template, if for some reason you need a fallback template, install the new template from reputable sources.
 
-### 4.4 User Management
+### User Management
 User management security focuses on controlling access to your WordPress site and ensuring users only have the permissions they need.
 
-#### 4.4.1 User Roles and Permissions
+#### User Roles and Permissions
 WordPress uses a role-based access control system. Properly configuring user roles and permissions is essential for security.
 
 - Follow the principle of least privilege
 - Regularly audit user accounts and roles
 - Remove unnecessary user accounts
 
-#### 4.4.2 Password Policies
+#### Password Policies
 Strong password policies are essential to prevent brute force attacks and credential stuffing.
 
 - Enforce strong password requirements
@@ -315,7 +315,7 @@ Strong password policies are essential to prevent brute force attacks and creden
 - Do not send the password via email, whatsapp, etc.
 - Use password management software like 1password to store the credentials.
 
-#### 4.4.3 Admin Account Security
+#### Admin Account Security
 Administrator accounts have complete control over your WordPress site. Securing these accounts is critical to prevent unauthorized administrative access.
 
 - Change the default "admin" username:
@@ -327,11 +327,11 @@ UPDATE wp_users SET user_login = 'newuser' WHERE user_login = 'admin';
 - Create a separate admin account for daily tasks
 - Use email addresses not associated with the domain
 
-## 5. Security Plugins and Tools
+## Security Plugins and Tools
 
 While proper configuration and maintenance are the foundation of WordPress security, specialized security plugins and tools can provide additional layers of protection, monitoring, and recovery capabilities.
 
-### 5.1 Recommended Security Plugins
+### Recommended Security Plugins
 
 Security plugins extend WordPress's built-in security features and provide specialized protection against various threats. A strategic combination of plugins is recommended rather than relying on a single solution.
 
@@ -357,7 +357,7 @@ Security plugins extend WordPress's built-in security features and provide speci
   - *Example*: **BackupBuddy** offers complete WordPress backups with migration capabilities. Setup: Configure daily database backups and weekly full backups in BackupBuddy > Backup.
   - *Example*: **VaultPress** (part of Jetpack) provides real-time backups and security scanning. Implementation: Connect to WordPress.com and enable VaultPress in Jetpack > Settings > Security.
 
-### 5.2 Security Headers Implementation
+### Security Headers Implementation
 
 HTTP security headers instruct browsers how to behave when handling your site's content, providing an additional layer of protection against various attacks like XSS, clickjacking, and code injection.
 
@@ -417,11 +417,11 @@ After implementation, verify your security headers using online tools like:
 - Adjust Content-Security-Policy based on your site's specific requirements
 - Consider your audience when implementing strict security measures
 
-## 6. Monitoring and Maintenance
+## Monitoring and Maintenance
 
 Implementing security measures is only the first step in WordPress security. Ongoing monitoring and maintenance are essential to detect, prevent, and respond to security threats as they evolve.
 
-### 6.1 Regular Security Audits
+### Regular Security Audits
 
 Regular security audits help identify vulnerabilities and security gaps before they can be exploited by attackers. These audits should be comprehensive and scheduled at regular intervals.
 
@@ -447,7 +447,7 @@ Regular security audits help identify vulnerabilities and security gaps before t
 - Quarterly: Comprehensive security audit including server configurations
 - Annually: Full penetration testing by a security professional
 
-### 6.2 Logging and Monitoring
+### Logging and Monitoring
 
 Effective logging and monitoring provide visibility into your WordPress site's security status and help detect potential security incidents early.
 
@@ -491,7 +491,7 @@ Effective logging and monitoring provide visibility into your WordPress site's s
 - Retain logs for at least 90 days for forensic purposes
 - Review logs regularly, not just when responding to incidents
 
-### 6.3 Backup Strategy
+### Backup Strategy
 
 A robust backup strategy is your last line of defense against security breaches, allowing you to restore your site to a clean state after a compromise.
 
@@ -525,11 +525,11 @@ A robust backup strategy is your last line of defense against security breaches,
 | Files        | Daily     | 90 days   |
 | Full Site    | Weekly    | 1 year    |
 
-## 7. Recovery from Security Breaches
+## Recovery from Security Breaches
 
 Despite implementing robust security measures, breaches can still occur. Having a well-defined incident response plan is critical for minimizing damage and quickly restoring normal operations.
 
-### 7.1 Identifying a Breach
+### Identifying a Breach
 
 Prompt detection of security breaches is essential to limit damage. Understanding the common indicators of compromise helps identify breaches quickly.
 
@@ -560,7 +560,7 @@ Prompt detection of security breaches is essential to limit damage. Understandin
   - *Example*: Evaluate whether sensitive data was exposed.
     - *Implementation*: Review database tables containing sensitive information for unauthorized access or modifications, particularly focusing on user data tables.
 
-### 7.2 Containment and Recovery
+### Containment and Recovery
 
 Once a breach is identified, swift action is needed to contain the damage and recover normal operations. This phase focuses on stopping the attack and restoring secure functionality.
 
@@ -617,7 +617,7 @@ Once a breach is identified, swift action is needed to contain the damage and re
       wp theme update --all
       ```
 
-### 7.3 Post-Breach Security Improvements
+### Post-Breach Security Improvements
 
 After recovering from a breach, it's critical to learn from the incident and strengthen security to prevent similar breaches in the future.
 
@@ -661,7 +661,7 @@ After recovering from a breach, it's critical to learn from the incident and str
 6. Document lessons learned and update security procedures
 7. Schedule follow-up security assessments
 
-## 8. Conclusion
+## Conclusion
 
 WordPress security is not a one-time setup but an ongoing process that requires vigilance and regular maintenance. By understanding the security features and limitations of a clean WordPress installation and implementing the best practices outlined in this document, you can significantly reduce the risk of security breaches and protect your website, data, and users.
 
