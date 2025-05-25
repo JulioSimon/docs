@@ -24,7 +24,9 @@
             "pages": [
               "tnp-documentation/introduction",
               "tnp-documentation/platform-structure",
-              "tnp-documentation/generic-functionalities"
+              "tnp-documentation/generic-functionalities",
+              "tnp-documentation/content-management",
+              "tnp-documentation/template-management"
             ]
           }
         ]
