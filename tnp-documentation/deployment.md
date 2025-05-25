@@ -1,33 +1,112 @@
-# Deployment Guide for Tonga National Portal
+# Deployment
 
-This document provides comprehensive instructions for deploying the Tonga National Portal platform. Follow these guidelines to ensure a successful deployment and optimal performance.
+## Server Requirements
 
-## Table of Contents
+### Hardware Requirements
 
-- [Deployment Requirements](#deployment-requirements)
-- [Step-by-Step Deployment Process](#step-by-step-deployment-process)
-- [Configuration for Scalability](#configuration-for-scalability)
-- [Post-Deployment Verification](#post-deployment-verification)
-- [Rollback Procedures](#rollback-procedures)
+| Component | Requirement | Recommendation |
+|-----------|-------------|----------------|
+| CPU | Minimum 4 cores | 8+ cores for better performance |
+| RAM | Minimum 16GB | 32GB for larger installations |
+| Storage | Minimum 100GB SSD | 250GB+ SSD with RAID configuration |
+| Network | High-speed internet connection with 1Gbps bandwidth | Redundant connections for high availability |
 
-## Deployment Requirements
+The hardware specifications above are designed to provide optimal performance for WordPress installations serving government websites. SSD storage is strongly recommended over traditional HDD due to the significant performance benefits, especially for database operations and content delivery.
 
-To ensure optimal performance of the Tonga National Portal, the following minimum hardware and software requirements must be met:
+### Capacity Planning
 
-| Component | Requirement |
-|-----------|-------------|
-| CPU | Minimum 4 cores |
-| RAM | Minimum 16GB |
-| Storage | Minimum 100GB SSD |
-| Network | High-speed internet connection with 1Gbps bandwidth |
-| OS | Linux - Ubuntu 24.04 LTS |
+Capacity planning for the Tonga National Portal must account for the nation's population of approximately 110,000 citizens, with specific requirements to support 200 concurrent users. The portal is designed as a read-only informational website for citizens with minimal interactive elements.
 
-### Additional Software Requirements
+| Metric | Estimated Capacity | Tonga Context |
+|--------|-------------------|---------------|
+| Concurrent active users | 200-300 | Meets requirement for 200 simultaneous users |
+| Peak hourly visitors | 1,000+ | Sufficient for high-traffic periods |
+| Database size | Up to 10GB | Adequate for content and media files |
+| File storage | Up to 80GB | Sufficient for document storage and media library |
 
-- Web Server: Apache 2.4+ or Nginx 1.18+
-- PHP: Version 8.1 or higher
-- Database: MySQL 8.0+ or MariaDB 10.5+
-- SSL Certificate: Valid SSL certificate for secure HTTPS connections
+**User Interaction Profile:**
+- Read-only access for general public (no user registration)
+- Limited interactive elements:
+  - Contact form submissions
+  - Newsletter subscription forms
+  - MxChat AI chatbox for content inquiries
+
+With the recommended hardware configuration (4+ cores, 16GB RAM, 100GB SSD), the WordPress installation can comfortably support:
+
+- 200-300 concurrent users browsing content and using the limited interactive features
+- Several thousand concurrent passive sessions (browsing without interaction)
+- Daily peaks of up to 5,000 unique visitors
+- Efficient handling of contact form submissions and AI chatbox queries
+
+**Performance Considerations for Tonga:**
+
+- **Geographic Distribution**: With 36 inhabited islands, network latency may vary across locations
+- **Internet Penetration**: Consider varying levels of connectivity across islands
+- **Usage Patterns**: Expect higher traffic during business hours and after government announcements
+- **Seasonal Factors**: Plan for increased usage during national events or information campaigns
+
+This capacity significantly exceeds the expected requirements for Tonga's government services, providing headroom for future growth and peak usage scenarios. Since users don't need to register or log in, the system can handle more concurrent visitors with the same hardware resources compared to a site with complex user authentication and personalization features.
+
+### Software Requirements
+
+The WordPress installation requires specific software components to ensure optimal performance, security, and functionality.
+
+| Software | Version | Notes |
+|----------|---------|-------|
+| WordPress | 6.5+ | Latest stable version recommended |
+| PHP | 8.1+ | PHP 8.2 or 8.3 recommended for best performance |
+| MySQL | 8.0+ | Primary database option |
+| MariaDB | 10.6+ | Alternative to MySQL |
+| Nginx | Latest stable | Preferred web server for performance |
+| Apache | 2.4+ | Alternative web server |
+| SSL Certificate | - | Required for HTTPS implementation |
+| Redis | 6.0+ | Optional, for object caching |
+| Memcached | 1.6+ | Alternative caching solution |
+| Git | Latest stable | For version control |
+| WP-CLI | Latest stable | Command-line interface for WordPress |
+
+#### Required PHP Extensions
+
+WordPress requires several PHP extensions to function properly. The following extensions must be installed and enabled:
+
+- **Core Requirements:**
+  - `mysqli` or `pdo_mysql`: For database connectivity
+  - `curl`: For making remote requests
+  - `gd` or `imagick`: For image processing
+  - `json`: For data interchange
+  - `mbstring`: For multi-byte string handling
+  - `xml`: For XML processing
+  - `zip`: For package handling
+
+- **Performance Enhancements:**
+  - `opcache`: For PHP bytecode caching
+  - `apcu`: For object caching
+  - `redis` or `memcached`: For persistent object caching (if using these systems)
+
+- **Security Enhancements:**
+  - `openssl`: For cryptographic operations
+  - `filter`: For input validation
+  - `hash`: For data hashing
+  - `sodium`: For modern cryptography (WordPress 5.2+)
+
+- **Internationalization:**
+  - `intl`: For proper internationalization support
+  - `iconv`: For character set conversion
+
+To verify installed PHP extensions, you can use the following command:
+
+```bash
+php -m | grep -E 'mysqli|pdo_mysql|curl|gd|imagick|json|mbstring|xml|zip|opcache|apcu|redis|memcached|openssl|filter|hash|sodium|intl|iconv'
+```
+
+### Operating System
+
+The platform must be deployed on:
+
+- **Linux**:
+  - Ubuntu 24.04 LTS
+
+Ubuntu 24.04 LTS is the target deployment operating system for this application due to its long-term support, stability, security features, and optimal compatibility with the required software stack.
 
 ## Step-by-Step Deployment Process
 
@@ -193,18 +272,118 @@ sudo systemctl restart nginx
 
 ### 5. SSL Certificate Installation
 
-Using Let's Encrypt for free SSL certificates:
+#### Understanding Domain Restrictions
+
+The `.gov.to` second-level domain (SLD) under the `.to` top-level domain (TLD) is a restricted namespace reserved for official government entities of Tonga. As such, it is subject to specific technical and administrative limitations:
+
+- The domain `gov.to` is reserved and managed by the `.to` registry operator in accordance with country-specific policies.
+- Let's Encrypt and other Certificate Authorities (CAs) may be unable to issue SSL certificates for the apex domain `gov.to` if domain validation cannot be completed at the root level (e.g., due to lack of DNS or HTTP challenge response at `gov.to`).
+- SSL certificates **can** be issued for subdomains such as `www.gov.to`, provided the requester has control of the subdomain and completes standard domain validation procedures.
+
+---
+
+### Public Suffix List: Tonga
+
+The [Public Suffix List (PSL)](https://publicsuffix.org/) is used by web browsers and Certificate Authorities to determine domain ownership boundaries. Domains listed in the PSL are considered "public suffixes" — domain spaces under which users **cannot** privately register subdomains or request SSL certificates for the base domain.
+
+The following entries are part of the Tonga `.to` namespace and are treated as public suffixes:
+
+```text
+// to : https://www.iana.org/domains/root/db/to.html
+// Submitted by registry <egullich@colo.to>
+to
+com.to
+edu.to
+gov.to
+mil.to
+net.to
+org.to
+```
+
+As a result, SSL certificates **cannot** be issued for these apex domains (e.g., `gov.to`, `edu.to`), but they **can** be issued for valid subdomains like `www.gov.to` or `services.edu.to`, provided standard validation requirements are met.
+
+---
+
+For more information:
+- [IANA Root Zone Database for `.to`](https://www.iana.org/domains/root/db/to.html)
+- [Public Suffix List Documentation](https://publicsuffix.org/learn/)
+- [Public Suffix List](https://publicsuffix.org/list/public_suffix_list.dat)
+
+
+#### Using Let's Encrypt for Subdomains
+
+Let's Encrypt provides free SSL certificates that can be used to secure the `www.gov.to` subdomain:
 
 ```bash
-# Install Certbot
+# Install Certbot and the Nginx plugin
 sudo apt install -y certbot python3-certbot-nginx
 
-# Obtain and install certificate
-sudo certbot --nginx -d tongaportal.gov.to -d www.tongaportal.gov.to
+# Obtain and install certificate for the www subdomain only
+sudo certbot --nginx -d www.gov.to
 
-# Verify auto-renewal
+# Verify auto-renewal is working properly
 sudo certbot renew --dry-run
 ```
+
+#### Important Notes
+
+- Do not attempt to obtain a certificate for the root domain `gov.to` as the request will fail
+- The certificate will be valid for the `www.gov.to` subdomain only
+- Let's Encrypt certificates are valid for 90 days and will auto-renew if configured correctly
+- Ensure your Nginx configuration properly handles redirects from HTTP to HTTPS
+- The Certbot Nginx plugin will automatically update your Nginx configuration
+
+#### Verification
+
+After installation, verify the certificate is working correctly:
+
+```bash
+# Check certificate status
+sudo certbot certificates
+
+# Test the HTTPS connection
+curl -I https://www.gov.to
+```
+
+Your site should now be accessible via HTTPS at `https://www.gov.to` with a valid SSL certificate.
+
+#### Auto-Renewal Configuration
+
+Let's Encrypt certificates are valid for 90 days. Certbot automatically configures a renewal service, but it's important to verify and ensure proper setup:
+
+1. **Verify the auto-renewal timer is active**:
+
+```bash
+# Check the systemd timer status
+sudo systemctl status certbot.timer
+
+# View upcoming timers including certbot
+sudo systemctl list-timers
+```
+
+2. **Manually configure auto-renewal** (if the automatic setup didn't work):
+
+```bash
+# Create a cron job for twice-daily renewal attempts
+echo "0 0,12 * * * root python3 -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
+```
+
+3. **Test the renewal process**:
+
+```bash
+# Perform a dry run to test the renewal process
+sudo certbot renew --dry-run
+```
+
+4. **Best practices for reliable renewals**:
+
+- Ensure ports 80 and 443 are accessible from the internet for validation
+- Set up renewal attempts to run twice daily (renewal only happens when needed)
+- Add a random delay before renewal to distribute load on Let's Encrypt servers
+- Configure monitoring to alert you if renewal fails
+- Keep Certbot updated to the latest version
+
+The renewal process is automatic and will attempt to renew certificates when they are 30 days from expiration. No manual intervention is required unless the renewal process fails.
 
 ### 6. Plugin Installation and Configuration
 
