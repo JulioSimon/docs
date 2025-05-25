@@ -54,13 +54,10 @@ The Tonga National Portal offers a comprehensive set of features designed to ser
   - Crime & security
 - **Alert/Notification System**: Prominent emergency alerts for critical situations (e.g., Dengue Fever Outbreak, Tropical Disturbance, Home Reef Volcano warnings)
 - **Weather Information Display**: Current weather conditions including temperature, weather icon, and time/date
-- **Online Forms and Applications**: Digital forms for common government services, reducing the need for in-person visits
 - **Document Repository**: Access to public documents, reports, and official publications
 - **News and Announcements**: Latest updates from government ministries and departments
 - **Job Advertisements**: Listings of government and public sector employment opportunities
-- **Feedback Mechanism**: Google Forms-based system for collecting user feedback on the portal
 - **Multilingual Support**: Content available in Tongan and English languages
-- **Responsive Design**: Optimized for access via computers, tablets, and mobile devices
 - **Search Functionality**: Advanced search capabilities across all portal content
 - **Contact Information**: Comprehensive directory of government offices and officials
 - **TongaAI Chatbot**: AI-powered virtual assistant that helps users navigate the portal, find information, and answer common questions about government services in both Tongan and English languages
@@ -132,7 +129,3 @@ The Tonga National Portal follows a modular architecture designed for scalabilit
    - Backup and disaster recovery systems
 
 This architecture ensures the portal can evolve over time to meet changing needs while maintaining performance, security, and reliability.
-
----
-
-The Tonga National Portal represents a significant advancement in Tonga's e-government capabilities, bringing government services closer to citizens and streamlining administrative processes. As the platform continues to evolve, additional features and services will be integrated to further enhance the digital experience for all users.
