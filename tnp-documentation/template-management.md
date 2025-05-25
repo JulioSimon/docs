@@ -51,7 +51,6 @@ The Bricks Builder editor interface is divided into several key areas that work 
    - Page elements are nestable
    - Posibility to copy and pages elements between pages
 
-   [Screenshot Recommended: Right sidebar showing style options for a selected element]
    ![Structure navigation](./../images/tnp/templateManagement4.png)
 
 ### Working with Elements
