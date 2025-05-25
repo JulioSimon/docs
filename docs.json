@@ -21,7 +21,9 @@
           },
           {
             "group": "Documentation",
-            "pages": []
+            "pages": [
+              "tnp-documentation/introduction"
+            ]
           }
         ]
       },
