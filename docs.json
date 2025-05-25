@@ -29,7 +29,8 @@
               "tnp-documentation/template-management",
               "tnp-documentation/plugins-functionalities",
               "tnp-documentation/security",
-              "tnp-documentation/deployment"
+              "tnp-documentation/deployment",
+              "tnp-documentation/maintenance"
             ]
           }
         ]
