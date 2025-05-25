@@ -105,7 +105,7 @@ Ubuntu 24.04 LTS is the target deployment operating system for this application 
 
 ## Step-by-Step Deployment Process
 
-### 1. Server Preparation
+### Server Preparation
 
 This section covers the initial setup of your Ubuntu 24.04 LTS server for WordPress 6.5+ deployment.
 
@@ -271,7 +271,7 @@ Implement these security measures to protect your server:
    sudo mount -a
    ```
 
-### 2. Database Setup
+### Database Setup
 
 This section covers the setup and configuration of MySQL for WordPress.
 
@@ -367,7 +367,7 @@ Restart MySQL to apply changes:
 sudo systemctl restart mysql
 ```
 
-### 3. WordPress Installation
+### WordPress Installation
 
 This section covers downloading, configuring, and securing WordPress 6.5+.
 
@@ -511,7 +511,7 @@ sudo mv wp-cli.phar /usr/local/bin/wp
 wp --info
 ```
 
-### 4. Web Server Configuration
+### Web Server Configuration
 
 This section covers configuring Nginx to serve WordPress securely and efficiently.
 
@@ -728,7 +728,7 @@ curl -I http://localhost
 
 You should see a "200 OK" response, indicating that Nginx is properly serving the WordPress files.
 
-### 5. SSL Certificate Installation
+### SSL Certificate Installation
 
 #### Understanding Domain Restrictions
 
@@ -843,7 +843,7 @@ sudo certbot renew --dry-run
 
 The renewal process is automatic and will attempt to renew certificates when they are 30 days from expiration. No manual intervention is required unless the renewal process fails.
 
-### 6. Deploying Pre-configured WordPress Package
+### Deploying Pre-configured WordPress Package
 
 For the Tonga National Portal, a pre-configured WordPress package will be provided to the client. This package includes:
 
@@ -852,7 +852,7 @@ For the Tonga National Portal, a pre-configured WordPress package will be provid
 
 Follow these steps to deploy the pre-configured package:
 
-#### 6.1 Deploy File System
+#### Deploy File System
 
 ```bash
 # Create web directory if it doesn't exist
@@ -871,7 +871,7 @@ sudo chmod 600 /var/www/tongaportal/wp-config.php
 sudo chmod 775 /var/www/tongaportal/wp-content/uploads
 ```
 
-#### 6.2 Import Database
+#### Import Database
 
 ```bash
 # Create database if it doesn't exist already
@@ -883,7 +883,7 @@ sudo mysql -u root -p -e "FLUSH PRIVILEGES;"
 sudo mysql -u root -p tongaportal < /path/to/tongaportal_database.sql
 ```
 
-#### 6.3 Update Site URL
+#### Update Site URL
 
 If the domain name needs to be updated to match the new server:
 
@@ -896,7 +896,7 @@ sudo -u www-data wp search-replace 'original-domain.com' 'www.gov.to' --all-tabl
 sudo -u www-data wp cache flush
 ```
 
-#### 6.4 Verify Configuration
+#### Verify Configuration
 
 ```bash
 # Check WordPress configuration
@@ -907,7 +907,7 @@ sudo -u www-data wp config list
 sudo -u www-data wp db check
 ```
 
-#### 6.5 Update wp-config.php
+#### Update wp-config.php
 
 If the database credentials or other settings need to be updated:
 
@@ -930,7 +930,7 @@ define( 'WP_HOME', 'https://www.gov.to' );
 define( 'WP_SITEURL', 'https://www.gov.to' );
 ```
 
-#### 6.6 Regenerate Salts
+#### Regenerate Salts
 
 For security reasons, it's recommended to regenerate the security keys:
 
@@ -941,19 +941,19 @@ curl -s https://api.wordpress.org/secret-key/1.1/salt/
 
 Replace the existing security keys in wp-config.php with the newly generated ones.
 
-### 9. Domain and DNS Configuration
+### Domain and DNS Configuration
 
 This section provides comprehensive guidance on configuring domain names and DNS settings for the Tonga National Portal WordPress installation. Proper DNS configuration is essential for making your website accessible to users and ensuring all services function correctly.
 
-#### 9.1 Understanding DNS Records
+#### Understanding DNS Records
 
 Domain Name System (DNS) records are instructions that link your domain name to various services, most importantly to your web server's IP address. Think of DNS as a phone book that translates human-readable domain names (like www.gov.to) into machine-readable IP addresses.
 
-#### 9.2 Required DNS Records for WordPress
+#### Required DNS Records for WordPress
 
 For a standard WordPress installation like the Tonga National Portal, you'll need to configure these essential DNS records:
 
-##### 9.2.1 Primary Domain Records
+##### Primary Domain Records
 
 ```
 # A Records (IPv4)
@@ -967,7 +967,7 @@ gov.to.         IN    AAAA    [YOUR_IPv6_ADDRESS]
 
 > **Note for Tonga Government Domain:** As mentioned in the SSL Certificate section, the `.gov.to` domain is a restricted namespace. When configuring DNS, ensure you're working with the authorized domain registrar for Tonga government domains.
 
-##### 9.2.2 Email-Related Records
+##### Email-Related Records
 
 If you plan to use email services with your domain:
 
@@ -986,7 +986,7 @@ selector._domainkey.gov.to.    IN    TXT    "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3D
 _dmarc.gov.to.    IN    TXT    "v=DMARC1; p=quarantine; rua=mailto:dmarc@gov.to"
 ```
 
-##### 9.2.3 Additional Service Records
+##### Additional Service Records
 
 For enhanced functionality and security:
 
@@ -1002,7 +1002,7 @@ api.gov.to.       IN    A    [YOUR_SERVER_IP]
 services.gov.to.  IN    A    [YOUR_SERVER_IP]
 ```
 
-#### 9.3 Step-by-Step DNS Configuration
+#### Step-by-Step DNS Configuration
 
 Follow these steps to configure your DNS records with your domain registrar:
 
@@ -1048,7 +1048,7 @@ Follow these steps to configure your DNS records with your domain registrar:
 6. **Save your changes**
    - Different registrars have different interfaces, but look for a "Save," "Apply," or "Update" button
 
-#### 9.4 DNS Propagation and Verification
+#### DNS Propagation and Verification
 
 After configuring your DNS records, changes need time to propagate throughout the global DNS system:
 
@@ -1084,7 +1084,7 @@ After configuring your DNS records, changes need time to propagate throughout th
 5. **Online DNS verification tools**
    - Use online tools like [MXToolbox](https://mxtoolbox.com/SuperTool.aspx) or [DNSChecker](https://dnschecker.org/) to verify propagation across different regions
 
-#### 9.5 Troubleshooting Common DNS Issues
+#### Troubleshooting Common DNS Issues
 
 | Issue | Possible Cause | Solution |
 |-------|---------------|----------|
@@ -1108,7 +1108,7 @@ dig @8.8.8.8 www.gov.to  # Google DNS
 dig @1.1.1.1 www.gov.to  # Cloudflare DNS
 ```
 
-#### 9.6 DNS Best Practices for WordPress Sites
+#### DNS Best Practices for WordPress Sites
 
 1. **Use www and non-www versions**
    - Configure both www.gov.to and gov.to to point to your server
@@ -1137,7 +1137,7 @@ dig @1.1.1.1 www.gov.to  # Cloudflare DNS
    - Consider using multiple DNS providers for critical services
    - Services like AWS Route 53 or Cloudflare provide robust DNS infrastructure
 
-#### 9.7 Special Considerations for Tonga Government Domains
+#### Special Considerations for Tonga Government Domains
 
 The `.gov.to` domain space has specific requirements and restrictions:
 
@@ -1178,11 +1178,11 @@ WordPress sites benefit from a multi-layered caching approach, with each layer a
 | CDN Cache | Distributes static content across global servers | Improves global access speeds by 40-80% |
 | Database Cache | Optimizes database query performance | Reduces query execution time by 20-50% |
 
-### 1. Object Caching Implementation
+### Object Caching Implementation
 
 Object caching stores the results of complex database queries and API calls in memory, significantly reducing database load and PHP execution time.
 
-#### 1.1 Redis Object Cache Setup
+#### Redis Object Cache Setup
 
 Redis provides persistent object caching with high performance and reliability. For the Tonga National Portal, we recommend Redis over Memcached due to its persistence features and broader data structure support.
 
@@ -1227,7 +1227,7 @@ sudo systemctl enable redis-server
 sudo systemctl status redis-server
 ```
 
-#### 1.2 WordPress Redis Integration
+#### WordPress Redis Integration
 
 Install and configure the Redis Object Cache plugin:
 
@@ -1250,7 +1250,7 @@ sudo -u www-data wp config set WP_CACHE_KEY_SALT 'tongaportal_' --raw
 sudo -u www-data wp redis enable
 ```
 
-#### 1.3 Verifying Redis Object Cache
+#### Verifying Redis Object Cache
 
 Confirm Redis is working correctly:
 
@@ -1269,11 +1269,11 @@ redis-cli
 
 Look for metrics like `keyspace_hits` and `keyspace_misses` to calculate the hit rate. A hit rate above 80% indicates effective caching.
 
-### 2. Page Caching Implementation
+### Page Caching Implementation
 
 Page caching stores the complete HTML output of pages, eliminating PHP execution and database queries for repeat visitors.
 
-#### 2.1 Server-Level Page Caching with Nginx FastCGI Cache
+#### Server-Level Page Caching with Nginx FastCGI Cache
 
 For optimal performance, implement server-level caching with Nginx FastCGI Cache:
 
@@ -1363,7 +1363,7 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-#### 2.2 WordPress Page Caching with WP Super Cache
+#### WordPress Page Caching with WP Super Cache
 
 As a complementary approach, implement WP Super Cache for application-level caching:
 
@@ -1399,7 +1399,7 @@ define('WP_CACHE', true);
 define('WPCACHEHOME', '/var/www/tongaportal/wp-content/plugins/wp-super-cache/');
 ```
 
-#### 2.3 Cache Preloading Strategy
+#### Cache Preloading Strategy
 
 Implement cache preloading to ensure pages are cached before users visit them:
 
@@ -1414,11 +1414,11 @@ Configure preload settings in WP Super Cache:
 - Refresh preloaded content every 6 hours
 - Preload 10 posts at a time (adjust based on server capacity)
 
-### 3. Browser Caching Implementation
+### Browser Caching Implementation
 
 Browser caching instructs visitors' browsers to store static assets locally, reducing bandwidth usage and load times for repeat visits.
 
-#### 3.1 Configure Nginx for Browser Caching
+#### Configure Nginx for Browser Caching
 
 Add or update browser caching directives in your Nginx configuration:
 
@@ -1451,7 +1451,7 @@ location ~* \.(woff|woff2|ttf|eot|otf)$ {
 }
 ```
 
-#### 3.2 WordPress Cache-Control Headers
+#### WordPress Cache-Control Headers
 
 Add cache control headers for dynamic content by installing and configuring the Cache-Control plugin:
 
@@ -1466,11 +1466,11 @@ Configure the plugin with these recommended settings:
 - Enable "public" directive for all cacheable content
 - Add "stale-while-revalidate" directive for improved performance
 
-### 4. CDN Integration
+### CDN Integration
 
 A Content Delivery Network (CDN) distributes static assets across global servers, reducing latency for users across Tonga's islands.
 
-#### 4.1 Cloudflare CDN Setup
+#### Cloudflare CDN Setup
 
 Cloudflare provides a robust CDN with a generous free tier suitable for the Tonga National Portal:
 
@@ -1486,7 +1486,7 @@ Cloudflare provides a robust CDN with a generous free tier suitable for the Tong
    - Rocket Loader: Enabled (for JavaScript optimization)
    - Argo Smart Routing: Consider enabling for improved global performance
 
-#### 4.2 WordPress CDN Integration
+#### WordPress CDN Integration
 
 Install and configure the official Cloudflare plugin:
 
@@ -1501,7 +1501,7 @@ Configure the plugin with your Cloudflare API credentials and enable these featu
 - Cache purge functionality
 - Automatic HTTPS rewrites
 
-#### 4.3 CDN Cache Purging Strategy
+#### CDN Cache Purging Strategy
 
 Implement automated cache purging when content changes:
 
@@ -1515,11 +1515,11 @@ sudo -u www-data wp config set CLOUDFLARE_API_KEY 'your_api_key' --raw
 sudo -u www-data wp config set CLOUDFLARE_EMAIL 'your_email@example.com' --raw
 ```
 
-### 5. Database Caching and Optimization
+### Database Caching and Optimization
 
 Optimize database performance to complement caching strategies.
 
-#### 5.1 MySQL Query Cache Configuration
+#### MySQL Query Cache Configuration
 
 Configure MySQL query cache for frequently executed queries:
 
@@ -1543,7 +1543,7 @@ Restart MySQL:
 sudo systemctl restart mysql
 ```
 
-#### 5.2 Database Optimization Maintenance
+#### Database Optimization Maintenance
 
 Schedule regular database optimization tasks:
 
@@ -1564,11 +1564,11 @@ sudo chmod +x /usr/local/bin/wp-db-optimize.sh
 echo "0 2 * * 0 www-data /usr/local/bin/wp-db-optimize.sh" | sudo tee -a /etc/crontab
 ```
 
-### 6. Monitoring and Maintaining Cache Performance
+### Monitoring and Maintaining Cache Performance
 
 Implement monitoring to ensure caching systems remain effective.
 
-#### 6.1 Cache Monitoring Tools
+#### Cache Monitoring Tools
 
 Install and configure monitoring tools:
 
@@ -1582,7 +1582,7 @@ cd /var/www/tongaportal
 sudo -u www-data wp plugin install query-monitor --activate
 ```
 
-#### 6.2 Cache Performance Testing
+#### Cache Performance Testing
 
 Regularly test cache effectiveness:
 
@@ -1598,7 +1598,7 @@ redis-cli info stats | grep hit_rate
 curl -I https://www.gov.to/ | grep X-FastCGI-Cache
 ```
 
-#### 6.3 Cache Maintenance Schedule
+#### Cache Maintenance Schedule
 
 Implement a regular cache maintenance schedule:
 
@@ -1644,9 +1644,9 @@ sudo chmod +x /usr/local/bin/wp-cache-maintenance.sh
 echo "0 1 1 * * www-data /usr/local/bin/wp-cache-maintenance.sh" | sudo tee -a /etc/crontab
 ```
 
-### 7. Caching Best Practices for Tonga National Portal
+### Caching Best Practices for Tonga National Portal
 
-#### 7.1 Caching Strategy for Low-Bandwidth Areas
+#### Caching Strategy for Low-Bandwidth Areas
 
 Tonga's archipelago includes remote islands with varying internet connectivity. Optimize for low-bandwidth areas:
 
@@ -1660,7 +1660,7 @@ cd /var/www/tongaportal
 sudo -u www-data wp plugin install webp-express --activate
 ```
 
-#### 7.2 Cache Exclusions for Dynamic Content
+#### Cache Exclusions for Dynamic Content
 
 Identify and exclude dynamic content from caching:
 
@@ -1673,7 +1673,7 @@ Add these exclusions to WP Super Cache:
 - Pages with the template "announcement-template.php"
 - Pages with the category "critical-updates"
 
-#### 7.3 Cache Security Considerations
+#### Cache Security Considerations
 
 Implement security measures for cached content:
 
@@ -1698,7 +1698,7 @@ Order deny,allow
 Deny from all
 ```
 
-### 8. Troubleshooting Common Caching Issues
+### Troubleshooting Common Caching Issues
 
 | Issue | Symptoms | Solution |
 |-------|----------|----------|
@@ -1708,7 +1708,7 @@ Deny from all
 | Mobile/desktop inconsistency | Different content on different devices | Configure device-specific cache rules |
 | Plugin conflicts | Unexpected behavior after caching | Test plugins in isolation with caching |
 
-#### 8.1 Debugging Redis Object Cache
+#### Debugging Redis Object Cache
 
 If Redis object caching issues occur:
 
@@ -1727,7 +1727,7 @@ cd /var/www/tongaportal
 sudo -u www-data wp redis info
 ```
 
-#### 8.2 Resolving Page Cache Issues
+#### Resolving Page Cache Issues
 
 For page caching problems:
 
@@ -1744,7 +1744,7 @@ sudo find /var/www/tongaportal/wp-content/cache -type f -exec chmod 644 {} \;
 sudo nginx -t
 ```
 
-### 9. Performance Benchmarking
+### Performance Benchmarking
 
 Regularly benchmark caching performance to ensure optimal configuration:
 
@@ -1776,9 +1776,9 @@ By implementing this comprehensive caching strategy, the Tonga National Portal w
 
 This section provides a comprehensive framework for verifying the successful deployment of the Tonga National Portal WordPress 6.5+ installation. Post-deployment verification is a critical phase that ensures the website functions correctly, performs optimally, and maintains security standards before being made available to the public.
 
-### 1. System Health Verification
+### System Health Verification
 
-#### 1.1 Server Resource Monitoring
+#### Server Resource Monitoring
 
 Verify that server resources are operating within expected parameters after deployment:
 
@@ -1805,7 +1805,7 @@ Expected results:
 - Disk space should have at least 20% free space
 - Load average should be below the number of CPU cores
 
-#### 1.2 Service Status Verification
+#### Service Status Verification
 
 Confirm all required services are running properly:
 
@@ -1831,7 +1831,7 @@ sudo systemctl status unattended-upgrades
 
 All services should show "active (running)" status with no errors.
 
-#### 1.3 Log Analysis
+#### Log Analysis
 
 Examine logs for any errors or warnings that might indicate problems:
 
@@ -1851,9 +1851,9 @@ sudo tail -n 100 /var/www/tongaportal/wp-content/debug.log
 
 Address any critical errors or recurring warnings before proceeding.
 
-### 2. WordPress Core Verification
+### WordPress Core Verification
 
-#### 2.1 WordPress Version and Updates
+#### WordPress Version and Updates
 
 Verify WordPress core version and update status:
 
@@ -1874,7 +1874,7 @@ sudo -u www-data wp theme list --update=available
 
 Ensure WordPress is running the latest version (6.5+) with all plugins and themes updated.
 
-#### 2.2 WordPress Configuration Check
+#### WordPress Configuration Check
 
 Verify critical WordPress configuration settings:
 
@@ -1894,7 +1894,7 @@ Confirm these critical settings:
 - `DISALLOW_FILE_EDIT` should be set to `true`
 - `WP_AUTO_UPDATE_CORE` should be set to `minor` or `true`
 
-#### 2.3 Database Integrity Check
+#### Database Integrity Check
 
 Verify database integrity and optimization:
 
@@ -1912,9 +1912,9 @@ sudo -u www-data wp db prefix
 
 All database tables should report "OK" status with no errors.
 
-### 3. Comprehensive Functionality Testing
+### Comprehensive Functionality Testing
 
-#### 3.1 Core WordPress Functionality
+#### Core WordPress Functionality
 
 Systematically test all core WordPress functions:
 
@@ -1928,7 +1928,7 @@ Systematically test all core WordPress functions:
 
 Document any issues encountered during testing for resolution.
 
-#### 3.2 Custom Functionality Testing
+#### Custom Functionality Testing
 
 Test all custom features specific to the Tonga National Portal:
 
@@ -1951,9 +1951,9 @@ Test all custom features specific to the Tonga National Portal:
    - Confirm appropriate responses are provided
 
 
-### 4. Security Verification
+### Security Verification
 
-#### 4.1 WordPress Security Scan
+#### WordPress Security Scan
 
 Conduct a comprehensive security scan using WPScan:
 
@@ -1971,7 +1971,7 @@ wpscan --url https://www.gov.to/ --api-token YOUR_API_TOKEN --enumerate vp,vt
 
 Address any vulnerabilities identified before proceeding to production.
 
-#### 4.2 SSL/TLS Configuration Verification
+#### SSL/TLS Configuration Verification
 
 Verify SSL/TLS configuration meets modern security standards:
 
@@ -1995,7 +1995,7 @@ Target SSL configuration:
 - Valid certificate (not expired or self-signed)
 - Minimum A grade on SSL Labs
 
-#### 4.3 File and Directory Permissions Audit
+#### File and Directory Permissions Audit
 
 Verify correct file permissions are set:
 
@@ -2030,7 +2030,7 @@ sudo chmod 775 /var/www/tongaportal/wp-content/uploads
 sudo chown -R www-data:www-data /var/www/tongaportal/wp-content/uploads
 ```
 
-#### 4.4 Security Headers Implementation
+#### Security Headers Implementation
 
 Verify and implement proper security headers:
 
@@ -2057,7 +2057,7 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; prelo
 
 > **NOTE**: A bad implementation of the Content-Security-Policy can lead into broken website display. Make sure you reference all the scripts loaded by the different plugins of the installation and other scripts that are needed to render the website succesffully.
 
-#### 4.5 Firewall and Security Plugin Verification
+#### Firewall and Security Plugin Verification
 
 Verify firewall and security plugin configurations:
 
@@ -2081,7 +2081,7 @@ Ensure these security measures are properly configured:
 - Login attempt limiting is enabled
 - Two-factor authentication for admin accounts
 
-#### 4.6 Database Security Audit
+#### Database Security Audit
 
 Verify database security configuration:
 
@@ -2102,9 +2102,9 @@ Ensure:
 - Database credentials are strong and unique
 - Database prefix is not the default "wp_"
 
-### 5. Backup and Recovery Verification
+### Backup and Recovery Verification
 
-#### 5.1 Backup System Verification
+#### Backup System Verification
 
 Test the backup system to ensure it's functioning correctly:
 
@@ -2127,7 +2127,7 @@ Verify:
 - Backup retention policy is implemented
 - Off-site backup copies are configured
 
-#### 5.2 Recovery Testing
+#### Recovery Testing
 
 Perform a test recovery to verify backup integrity:
 
@@ -2156,7 +2156,7 @@ Verify:
 - WordPress functions properly in the test environment
 - No errors appear in logs
 
-#### 5.3 Rollback Procedure Documentation
+#### Rollback Procedure Documentation
 
 Document the complete rollback procedure for future reference:
 
