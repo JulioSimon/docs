@@ -26,7 +26,8 @@
               "tnp-documentation/platform-structure",
               "tnp-documentation/generic-functionalities",
               "tnp-documentation/content-management",
-              "tnp-documentation/template-management"
+              "tnp-documentation/template-management",
+              "tnp-documentation/plugins-functionalities"
             ]
           }
         ]

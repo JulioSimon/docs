@@ -1,20 +1,6 @@
-# Tonga National Portal - Plugin Functionalities
+# Plugin Functionalities
 
 This document provides comprehensive information about all the plugins installed on the Tonga National Portal, including their features, configuration, and usage guidelines.
-
-## Table of Contents
-
-1. [Announcer Pro](#announcer-pro)
-3. [Document Library Lite](#document-library-lite)
-4. [Location Weather Pro](#location-weather-pro)
-5. [MxChat](#mxchat)
-6. [Popup Maker](#popup-maker)
-7. [Site Kit by Google](#site-kit-by-google)
-8. [UserFeedback Premium](#userfeedback-premium)
-9. [WP Mail SMTP](#wp-mail-smtp)
-10. [WPML Multilingual CMS](#wpml-multilingual-cms)
-
----
 
 ## Announcer Pro
 
@@ -759,5 +745,3 @@ To maximize the effectiveness of popups while maintaining a positive user experi
 ## Conclusion
 
 The plugins installed on the Tonga National Portal work together to create a comprehensive, user-friendly, and efficient government portal. Regular maintenance, updates, and configuration reviews are essential to ensure optimal performance and security.
-
-For technical support or additional configuration assistance, please contact the portal administration team or refer to the individual plugin documentation.
