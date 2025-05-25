@@ -22,7 +22,9 @@
           {
             "group": "Documentation",
             "pages": [
-              "tnp-documentation/introduction"
+              "tnp-documentation/introduction",
+              "tnp-documentation/platform-structure",
+              "tnp-documentation/generic-functionalities"
             ]
           }
         ]
