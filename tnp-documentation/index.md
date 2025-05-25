@@ -60,13 +60,20 @@ Welcome to the comprehensive documentation for the Tonga National Portal. This d
    - Configuration options
    - Performance optimization
    - Integration with existing systems
+   - Caching strategies
+   - Domain and DNS configuration
+   - SSL certificate installation
+   - Post-deployment verification
 
 9. [Maintenance](maintenance.md)
-   - Content update procedures
-   - System updates and patches
-   - Backup and recovery
-   - Monitoring and analytics
+   - Routine maintenance tasks
+   - Performance monitoring and optimization
+   - Backup and recovery procedures
+   - Security maintenance
+   - Database optimization
+   - Content auditing and cleanup
    - Troubleshooting common issues
+   - Maintenance schedule and checklist
 
 ## Purpose of This Documentation
 
