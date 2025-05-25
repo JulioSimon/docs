@@ -76,10 +76,3 @@ Throughout this documentation, you'll find:
 - **Tables**: Structured information for easy reference
 - **Diagrams**: Visual representations of system architecture and data flow
 
-## Getting Support
-
-If you encounter any issues or have questions not covered in this documentation, please contact the system administrator or IT support team.
-
----
-
-This documentation is a critical component of the Government Administration Portal project and is maintained as part of the platform's ongoing development and support.
